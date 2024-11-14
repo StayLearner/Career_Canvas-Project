@@ -140,7 +140,6 @@ Note: Detailed API testing done via Postman.
 
 - **Custom Domain** 🌍: Deployment with a `.com` or `.in` domain.
 - **Advanced Filtering** 📊: Additional filters for a more refined job search.
-- **Notifications** 🔔: Alerts for students on application status changes.
 - **Admin Dashboard** 📊: For enhanced management capabilities.
 
 ---
