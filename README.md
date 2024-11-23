@@ -73,7 +73,7 @@ With robust search and filtering options, clear application tracking, and a scal
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/a-AvgLearner/Career_Canvas-Project.git
+   git clone https://github.com/StayLearner/Career_Canvas-Project.git
    cd Career_Canvas-Project
    ```
 
