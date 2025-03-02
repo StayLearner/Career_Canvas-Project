@@ -11,7 +11,7 @@ const fitlerData = [
     },
     {
         fitlerType: "Job Role",
-        array: ["Frontend Developer", "Backend Developer",  "Software Developer","Data Science Engineer", "Content Writer","Marketing Executive","HR Manager","FullStack Developer", "Devops Engineer","UI-UX Designer"]
+        array: ["Frontend Developer", "AI/ML Engineer",  "Software Engineer","Data Science Engineer", "Content Writer","Marketing Executive","HR Manager","Full Stack Developer", "Devops Engineer","UI/UX Designer"]
     },
     {
         fitlerType: "Job Type",
