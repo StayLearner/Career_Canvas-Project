@@ -94,7 +94,7 @@ With robust search and filtering options, clear application tracking, and a scal
 
 4. **Run the application**:
    ```bash
-   npm start
+   npm run start
    ```
 
 ---
