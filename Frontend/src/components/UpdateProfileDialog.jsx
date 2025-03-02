@@ -44,7 +44,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     const submitHandler = async (e) => {
         e.preventDefault();
 
-        console.log(input);
+        // console.log(input);
         const formData = new FormData();
         formData.append("fullname", input.fullname);
         formData.append("email", input.email);
@@ -67,7 +67,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                 toast.success(res.data.message);
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             toast.error(error.response.data.message);
         }
 
@@ -75,7 +75,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
             setLoading(false);
         }
         setOpen(false);
-        console.log(input);
+        // console.log(input);
     }
 
 

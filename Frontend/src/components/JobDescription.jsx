@@ -31,7 +31,7 @@ const JobDescription = () => {
 
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             toast.error(error.response.data.message);
         }
     }
@@ -45,7 +45,7 @@ const JobDescription = () => {
                     setIsApplied(res.data.job.applications.some(application=>application.applicant === user?._id)) // Ensure the state is in sync with fetched data
                 }
             } catch (error) {
-                console.log(error);
+                // console.log(error);
             }
         }
 
