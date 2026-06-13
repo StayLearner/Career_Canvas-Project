@@ -1,4 +1,3 @@
-
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -11,8 +10,8 @@ export const register = async (req, res) => {
          
         if (!fullname || !email || !phoneNumber || !password || !role) {
             return res.status(400).json({
-                message: "Something is missing",
-                success: false
+                success: false,
+                message: "Something is missing."
             });
         };
         const file = req.file;
@@ -26,8 +25,8 @@ export const register = async (req, res) => {
         const user = await User.findOne({ email });
         if (user) {
             return res.status(400).json({
-                message: 'User already exist with this email.',
                 success: false,
+                message: "User already exists with this email."
             })
         }
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -44,14 +43,14 @@ export const register = async (req, res) => {
         });
 
         return res.status(201).json({
-            message: "Account created successfully.",
-            success: true
+            success: true,
+            message: "Account created successfully."
         });
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            message: "Internal server error",
-            success: false
+            success: false,
+            message: "Internal server error."
         });
 }
 }
@@ -61,29 +60,29 @@ export const login = async (req, res) => {
         
         if (!email || !password || !role) {
             return res.status(400).json({
-                message: "Something is missing",
-                success: false
+                success: false,
+                message: "Something is missing."
             });
         };
         let user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({
-                message: "User does not Exist",
                 success: false,
+                message: "User does not exist."
             })
         }
         const isPasswordMatch = await bcrypt.compare(password, user.password);
         if (!isPasswordMatch) {
             return res.status(400).json({
-                message: "Incorrect Password.",
                 success: false,
+                message: "Incorrect password."
             })
         };
         // check role is correct or not
         if (role !== user.role) {
             return res.status(400).json({
-                message: "Account doesn't exist with current role.",
-                success: false
+                success: false,
+                message: "Account doesn't exist with current role."
             })
         };
 
@@ -110,29 +109,29 @@ export const login = async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000,
           })
           .json({
-            message: `Welcome back ${user.fullname}`,
-            user,
             success: true,
+            message: `Welcome back ${user.fullname}`,
+            user
           });
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            message: "Internal server error",
-            success: false
+            success: false,
+            message: "Internal server error."
         });
     }
 }
 export const logout = async (req, res) => {
     try {
         return res.status(200).cookie("token", "", { maxAge: 0 }).json({
-            message: "Logged out successfully.",
-            success: true
+            success: true,
+            message: "Logged out successfully."
         })
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            message: "Internal server error",
-            success: false
+            success: false,
+            message: "Internal server error."
         });
     }
 }
@@ -141,9 +140,12 @@ export const updateProfile = async (req, res) => {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
         
         const file = req.file;
+        let cloudResponse;
         // cloudinary ayega idhar
-        const fileUri = getDataUri(file);
-        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+        if(file){
+            const fileUri = getDataUri(file);
+            cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+        }
 
 
 
@@ -156,8 +158,8 @@ export const updateProfile = async (req, res) => {
 
         if (!user) {
             return res.status(400).json({
-                message: "User not found.",
-                success: false
+                success: false,
+                message: "User not found."
             })
         }
         // updating data
@@ -186,15 +188,15 @@ export const updateProfile = async (req, res) => {
         }
 
         return res.status(200).json({
+            success: true,
             message:"Profile updated successfully.",
-            user,
-            success:true
+            user
         })
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            message: "Internal server error",
-            success: false
+            success: false,
+            message: "Internal server error."
         });
     }
 }
