@@ -57,8 +57,7 @@ const CompanySetup = () => {
                 navigate("/admin/companies");
             }
         } catch (error) {
-            // console.log(error);
-            toast.error(error.response.data.message);
+            toast.error(error.response?.data?.message || "Company update failed");
         } finally {
             setLoading(false);
         }
@@ -66,27 +65,27 @@ const CompanySetup = () => {
 
     useEffect(() => {
         setInput({
-            name: singleCompany.name || "",
-            description: singleCompany.description || "",
-            website: singleCompany.website || "",
-            location: singleCompany.location || "",
-            file: singleCompany.file || null
+            name: singleCompany?.name || "",
+            description: singleCompany?.description || "",
+            website: singleCompany?.website || "",
+            location: singleCompany?.location || "",
+            file: null
         })
     },[singleCompany]);
 
     return (
         <div>
             <Navbar />
-            <div className='max-w-xl mx-auto my-10'>
+            <div className='max-w-xl mx-auto my-8 sm:my-10 px-4 sm:px-6 lg:px-0'>
                 <form onSubmit={submitHandler}>
-                    <div className='flex items-center gap-5 p-8'>
-                        <Button onClick={() => navigate("/admin/companies")} variant="outline" className="flex items-center gap-2 text-gray-500 font-semibold">
+                    <div className='flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 p-4 sm:p-8'>
+                        <Button onClick={() => navigate("/admin/companies")} type="button" variant="outline" className="flex items-center gap-2 text-gray-500 font-semibold w-fit">
                             <ArrowLeft />
                             <span>Back</span>
                         </Button>
                         <h1 className='font-bold text-xl'>Company Setup</h1>
                     </div>
-                    <div className='grid grid-cols-2 gap-4'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
                         <div>
                             <Label>Company Name</Label>
                             <Input
@@ -123,7 +122,7 @@ const CompanySetup = () => {
                                 onChange={changeEventHandler}
                             />
                         </div>
-                        <div>
+                        <div className='sm:col-span-2'>
                             <Label>Logo</Label>
                             <Input
                                 type="file"
@@ -133,7 +132,7 @@ const CompanySetup = () => {
                         </div>
                     </div>
                     {
-                        loading ? <Button className="w-full my-4 "> <Loader2 className='mr-2 h-4 w-4 animate-spin bg-gradient-to-r from-[#da4b5e] to-[#00b4d8] text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl' /> Please wait </Button> : <Button type="submit" className="w-full my-4 bg-gradient-to-r from-[#ffb703] to-[#00b4d8] text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl ">Update</Button>
+                        loading ? <Button disabled className="w-full my-4 "> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait </Button> : <Button type="submit" className="w-full my-4 bg-gradient-to-r from-[#ffb703] to-[#00b4d8] text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl ">Update</Button>
                     }
                 </form>
             </div>

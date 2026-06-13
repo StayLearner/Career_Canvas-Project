@@ -14,10 +14,7 @@ import { setLoading } from '@/redux/authSlice'
 import { Loader2 } from 'lucide-react'
 
 
-
 const Signup = () => {
-
-
 const [input, setInput] = useState({
     fullname:"",
     email: "",
@@ -61,8 +58,7 @@ const submitHandler = async (e) => {
             toast.success(res.data.message);
         }
     } catch (error) {
-        // console.log(error);
-        toast.error(error.response.data.message);
+        toast.error(error.response?.data?.message || "Signup failed");
     } 
     finally{
         dispatch(setLoading(false));
@@ -73,13 +69,13 @@ useEffect(()=>{
     if(user){
         navigate("/");
     }
-},[])
+},[user, navigate])
 
   return (
     <div>
         <Navbar/>
-        <div className='flex items-center justify-center max-w-7xl mx-auto'>
-            <form onSubmit={submitHandler} className='w-1/2 border border-gray-200 rounded-md p-4 my-10'>
+        <div className='flex items-center justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+            <form onSubmit={submitHandler} className='w-full sm:w-[85%] md:w-[65%] lg:w-1/2 border border-gray-200 rounded-md p-4 sm:p-6 my-8 sm:my-10'>
              <h1 className='font-bold text-xl mb-5'>Sign Up</h1>
              <div className='my-2'>
                 <Label>Full Name</Label>
@@ -122,8 +118,8 @@ useEffect(()=>{
                             placeholder="Abc@123"
                         />
                     </div>
-                    <div className='flex items-center justify-between'>
-                        <RadioGroup className="flex items-center gap-4 my-5">
+                    <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
+                        <RadioGroup className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 my-3 sm:my-5">
                             <div className="flex items-center space-x-2">
                                 <Input
                                     type="radio"
@@ -131,7 +127,7 @@ useEffect(()=>{
                                     value="student"
                                     checked={input.role === 'student'}
                                     onChange={changeEventHandler}
-                                    className="cursor-pointer"
+                                    className="cursor-pointer h-4 w-4"
                                 />
                                 <Label htmlFor="r1">Student</Label>
                             </div>
@@ -142,12 +138,12 @@ useEffect(()=>{
                                     value="recruiter"
                                     checked={input.role === 'recruiter'}
                                     onChange={changeEventHandler}
-                                    className="cursor-pointer"
+                                    className="cursor-pointer h-4 w-4"
                                 />
                                 <Label htmlFor="r2">Recruiter</Label>
                             </div>
                         </RadioGroup>
-                        <div className='flex items-center gap-2'>
+                        <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
                             <Label>Profile</Label>
                             <Input
                                 accept="image/*"
@@ -158,7 +154,7 @@ useEffect(()=>{
                         </div>
                     </div>
                     {
-                        loading ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin bg-gradient-to-r from-[#da4b5e] to-[#00b4d8] text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl' /> Please wait </Button> : <Button type="submit" className="w-full my-4 bg-gradient-to-r from-[#ffb703] to-[#00b4d8] text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl">Signup</Button>
+                        loading ? <Button disabled className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait </Button> : <Button type="submit" className="w-full my-4 bg-gradient-to-r from-[#ffb703] to-[#00b4d8] text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl">Signup</Button>
                     }
 
                      {/* <Button type="submit" className="w-full my-4">Signup</Button> */}

@@ -18,16 +18,17 @@ const Applicants = () => {
                 const res = await axios.get(`${APPLICATION_API_END_POINT}/${params.id}/applicants`, { withCredentials: true });
                 dispatch(setAllApplicants(res.data.job));
             } catch (error) {
-                // console.log(error);
+                // production silent here
             }
         }
         fetchAllApplicants();
-    }, []);
+    }, [params.id, dispatch]);
+
     return (
         <div>
             <Navbar />
-            <div className='max-w-7xl mx-auto'>
-                <h1 className='font-bold text-xl my-5'>Applicants {applicants?.applications?.length}</h1>
+            <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+                <h1 className='font-bold text-lg sm:text-xl my-5'>Applicants {applicants?.applications?.length || 0}</h1>
                 <ApplicantsTable />
             </div>
         </div>

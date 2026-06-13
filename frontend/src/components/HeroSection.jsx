@@ -1,5 +1,3 @@
-
-          
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Search } from 'lucide-react';
@@ -13,7 +11,7 @@ const HeroSection = () => {
   const navigate = useNavigate();
 
   const searchJobHandler = () => {
-    dispatch(setSearchedQuery(query));
+    dispatch(setSearchedQuery(query.trim()));
     navigate("/browse");
   };
 
@@ -48,34 +46,35 @@ const HeroSection = () => {
   }, [phrases.length]);
 
   return (
-    <div className='text-center'>
-      <div className='flex flex-col gap-5 my-10'>
+    <div className='text-center px-4 sm:px-6 lg:px-8'>
+      <div className='flex flex-col gap-5 my-8 sm:my-10'>
         <div className='overflow-hidden relative'>
           <div className='flex animate-slide' style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
             {phrases.map((phrase, index) => (
-              <span key={index} className={`min-w-[33.33%] px-4 py-4 rounded-full ${phrase.color} text-white font-medium transition duration-300 hover:bg-green-600 hover:text-white mx-2`}>
+              <span key={index} className={`min-w-full sm:min-w-[50%] md:min-w-[33.33%] px-4 py-3 sm:py-4 rounded-full ${phrase.color} text-white text-sm sm:text-base font-medium transition duration-300 hover:bg-green-600 hover:text-white mx-2`}>
                 "{phrase.text}"
               </span>
             ))}
           </div>
         </div>
 
-        <h1 className='text-5xl font-bold'>Seek, Apply &  <br /> Build Your <span className='text-[#ff9e00]'> Future Today</span></h1>
+        <h1 className='text-3xl sm:text-4xl md:text-5xl font-bold leading-tight'>Seek, Apply &  <br /> Build Your <span className='text-[#ff9e00]'> Future Today</span></h1>
 
         {/* Fancy p tag */}
         <p className='fancy-paragraph'>
           "Navigate your career path with confidence—discover, apply, and thrive in your dream job. The future is yours!"
         </p>
 
-        <div className='flex w-[40%] shadow-lg border border-gray-200 pl-3 rounded-full items-center gap-4 mx-auto'>
+        <div className='flex w-full sm:w-[80%] md:w-[60%] lg:w-[40%] shadow-lg border border-gray-200 pl-3 rounded-full items-center gap-2 sm:gap-4 mx-auto'>
           <input
             type="text"
             placeholder='Find your dream jobs'
+            value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className='outline-none border-none w-full bg'
+            className='outline-none border-none w-full text-sm sm:text-base'
           />
-          <Button onClick={searchJobHandler} className="rounded-r-full bg-[#3492f8]">
-            <Search className='h-5 w-5 bg' />
+          <Button onClick={searchJobHandler} className="rounded-r-full bg-[#3492f8] px-4 sm:px-5">
+            <Search className='h-5 w-5' />
           </Button>
         </div>
       </div>
@@ -87,10 +86,11 @@ const HeroSection = () => {
           }
 
           .fancy-paragraph {
-            font-size: 18px; /* Font size */
+            font-size: clamp(14px, 2vw, 18px); /* Font size */
             color: #333; /* Text color */
-            margin: 20px 0; /* Margin for spacing */
-            padding: 15px 20px; /* Padding for better visual */
+            margin: 20px auto; /* Margin for spacing */
+            padding: 12px 16px; /* Padding for better visual */
+            max-width: 900px; /* Better desktop readability */
             background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
             border: 2px solid #ff9e00; /* Border color */
             border-radius: 10px; /* Rounded corners */

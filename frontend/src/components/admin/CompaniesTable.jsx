@@ -10,6 +10,7 @@ const CompaniesTable = () => {
     const { companies, searchCompanyByText } = useSelector(store => store.company);
     const [filterCompany, setFilterCompany] = useState(companies);
     const navigate = useNavigate();
+
     useEffect(()=>{
         const filteredCompany = companies.length >= 0 && companies.filter((company)=>{
             if(!searchCompanyByText){
@@ -20,8 +21,9 @@ const CompaniesTable = () => {
         });
         setFilterCompany(filteredCompany);
     },[companies,searchCompanyByText])
+
     return (
-        <div>
+        <div className='overflow-x-auto'>
             <Table>
                 <TableCaption>A list of your recent registered companies</TableCaption>
                 <TableHeader>
@@ -34,29 +36,37 @@ const CompaniesTable = () => {
                 </TableHeader>
                 <TableBody>
                     {
-                        filterCompany?.map((company) => (
-                            <tr>
-                                <TableCell>
-                                    <Avatar  className=" shadow-md ring-8 ring-[#00b4d8]">
-                                        <AvatarImage src={company.logo}/>
-                                    </Avatar>
+                        filterCompany?.length <= 0 ? (
+                            <TableRow>
+                                <TableCell colSpan={4} className="text-center text-gray-500 py-6">
+                                    No companies found
                                 </TableCell>
-                                <TableCell>{company.name}</TableCell>
-                                <TableCell>{company.createdAt.split("T")[0]}</TableCell>
-                                <TableCell className="text-right cursor-pointer">
-                                    <Popover>
-                                        <PopoverTrigger><MoreHorizontal /></PopoverTrigger>
-                                        <PopoverContent className="w-32">
-                                            <div onClick={()=> navigate(`/admin/companies/${company._id}`)} className='flex items-center gap-2 w-fit cursor-pointer'>
-                                                <Edit2 className='w-4' />
-                                                <span>Edit</span>
-                                            </div>
-                                        </PopoverContent>
-                                    </Popover>
-                                </TableCell>
-                            </tr>
+                            </TableRow>
+                        ) : (
+                            filterCompany?.map((company) => (
+                                <TableRow key={company?._id}>
+                                    <TableCell>
+                                        <Avatar  className="shadow-md ring-4 sm:ring-8 ring-[#00b4d8]">
+                                            <AvatarImage src={company.logo}/>
+                                        </Avatar>
+                                    </TableCell>
+                                    <TableCell className="font-medium whitespace-nowrap">{company.name}</TableCell>
+                                    <TableCell className="whitespace-nowrap">{company.createdAt?.split("T")[0]}</TableCell>
+                                    <TableCell className="text-right cursor-pointer">
+                                        <Popover>
+                                            <PopoverTrigger><MoreHorizontal /></PopoverTrigger>
+                                            <PopoverContent className="w-32">
+                                                <div onClick={()=> navigate(`/admin/companies/${company._id}`)} className='flex items-center gap-2 w-fit cursor-pointer'>
+                                                    <Edit2 className='w-4' />
+                                                    <span>Edit</span>
+                                                </div>
+                                            </PopoverContent>
+                                        </Popover>
+                                    </TableCell>
+                                </TableRow>
 
-                        ))
+                            ))
+                        )
                     }
                 </TableBody>
             </Table>
