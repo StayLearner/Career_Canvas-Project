@@ -49,7 +49,11 @@ export const register = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-    }
+        return res.status(500).json({
+            message: "Internal server error",
+            success: false
+        });
+}
 }
 export const login = async (req, res) => {
     try {
@@ -97,13 +101,17 @@ export const login = async (req, res) => {
             profile: user.profile
         }
 
-        return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSite: 'strict' }).json({
+        return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict' }).json({
             message: `Welcome back ${user.fullname}`,
             user,
             success: true
         })
     } catch (error) {
-        // console.log(error);
+        console.log(error);
+        return res.status(500).json({
+            message: "Internal server error",
+            success: false
+        });
     }
 }
 export const logout = async (req, res) => {
@@ -113,7 +121,11 @@ export const logout = async (req, res) => {
             success: true
         })
     } catch (error) {
-        // console.log(error);
+        console.log(error);
+        return res.status(500).json({
+            message: "Internal server error",
+            success: false
+        });
     }
 }
 export const updateProfile = async (req, res) => {
@@ -171,6 +183,10 @@ export const updateProfile = async (req, res) => {
             success:true
         })
     } catch (error) {
-        // console.log(error);
+        console.log(error);
+        return res.status(500).json({
+            message: "Internal server error",
+            success: false
+        });
     }
 }
