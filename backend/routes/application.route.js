@@ -7,7 +7,7 @@ const router = express.Router();
 /**
  * @swagger
  * /api/v1/application/apply/{id}:
- *   get:
+ *   post:
  *     summary: Apply for a job
  *     description: Allows an authenticated student to apply for a specific job.
  *     tags:
@@ -30,7 +30,7 @@ const router = express.Router();
  *       404:
  *         description: Job not found
  */
-router.route("/apply/:id").get(isAuthenticated, applyJob);
+router.route("/apply/:id").post(isAuthenticated, applyJob);
 /**
  * @swagger
  * /api/v1/application/get:
