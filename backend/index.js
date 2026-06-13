@@ -10,6 +10,10 @@ import applicationRoute from "./routes/application.route.js";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./utils/swagger.js";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+import mongoSanitize from "express-mongo-sanitize";
+import morgan from "morgan";
 
 dotenv.config({});
 
@@ -24,7 +28,19 @@ const PORT = process.env.PORT || 8000;
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
+app.use(helmet);
+app.use(mongoSanitize);
+app.use(rateLimit({
+  windowMs:15*60*1000,
+  max: 100,
+  message:{
+      success: false,
+      message: "Too many requests, please try again later.",
+  }
+})
+);
 
+app.use(morgan("dev"));
 
 const corsOptions = {
   origin: [
