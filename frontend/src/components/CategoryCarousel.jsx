@@ -35,40 +35,28 @@ const CategoryCarousel = () => {
 
 
   return (
-    <div>
-            {/* <Carousel className="w-full max-w-xl mx-auto my-20">
-                <CarouselContent>
-                    {
-                        category.map((cat, index) => (
-                            <CarouselItem className="md:basis-1/2 lg-basis-1/3">
-                                <Button onClick={()=>searchJobHandler(cat)} variant="outline" className="rounded-full">{cat}</Button>
-                            </CarouselItem>
-                        ))
-                    }
-                </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
-            </Carousel> */}
-
+    <div className='px-4 sm:px-6 lg:px-8'>
 <div>
-    <Carousel className="w-full max-w-xl mx-auto my-20">
+    <Carousel className="w-full max-w-5xl mx-auto my-10 sm:my-16 md:my-20">
         <CarouselContent>
             {
                 category.map((cat, index) => (
-                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                        <Button 
-                            onClick={() => searchJobHandler(cat)} 
-                            variant="outline" 
-                            className="bg-sky-500 text-white border-sky-500 hover:bg-sky-600 hover:border-sky-600 rounded-full transition duration-300 ease-in-out shadow-lg px-6 py-2"
-                        >
-                            {cat}
-                        </Button>
+                    <CarouselItem key={index} className="basis-full sm:basis-1/2 lg:basis-1/3">
+                        <div className='flex justify-center px-2'>
+                            <Button 
+                                onClick={() => searchJobHandler(cat)} 
+                                variant="outline" 
+                                className="w-full sm:w-auto bg-sky-500 text-white border-sky-500 hover:bg-sky-600 hover:border-sky-600 rounded-full transition duration-300 ease-in-out shadow-lg px-6 py-2 text-sm sm:text-base whitespace-nowrap"
+                            >
+                                {cat}
+                            </Button>
+                        </div>
                     </CarouselItem>
                 ))
             }
         </CarouselContent>
-        <CarouselPrevious className="text-sky-500 hover:text-sky-600 transition duration-300" />
-        <CarouselNext className="text-sky-500 hover:text-sky-600 transition duration-300" />
+        <CarouselPrevious className="hidden sm:flex text-sky-500 hover:text-sky-600 transition duration-300" />
+        <CarouselNext className="hidden sm:flex text-sky-500 hover:text-sky-600 transition duration-300" />
     </Carousel>
 </div>
 

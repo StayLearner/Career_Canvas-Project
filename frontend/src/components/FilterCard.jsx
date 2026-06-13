@@ -3,11 +3,12 @@ import { RadioGroup, RadioGroupItem } from './ui/radio-group'
 import { Label } from './ui/label'
 import { useDispatch } from 'react-redux'
 import { setSearchedQuery } from '@/redux/jobSlice'
+import { Button } from './ui/button'
 
 const fitlerData = [
     {
         fitlerType: "Location",
-        array: ["Delhi ", "Bengaluru", "Hyderabad", "Pune", "Mumbai", "Kolkata", "Indore", "Chennai", "Nagpur", "Noida"]
+        array: ["Delhi", "Bengaluru", "Hyderabad", "Pune", "Mumbai", "Kolkata", "Indore", "Chennai", "Nagpur", "Noida"]
     },
     {
         fitlerType: "Job Role",
@@ -22,33 +23,56 @@ const fitlerData = [
 const FilterCard = () => {
     const [selectedValue, setSelectedValue] = useState('');
     const dispatch = useDispatch();
+
     const changeHandler = (value) => {
         setSelectedValue(value);
     }
+
+    const clearFilterHandler = () => {
+        setSelectedValue("");
+        dispatch(setSearchedQuery(""));
+    }
+
     useEffect(()=>{
         dispatch(setSearchedQuery(selectedValue));
-    },[selectedValue]);
+    },[selectedValue, dispatch]);
+
     return (
-        <div className='w-full bg-white p-3 rounded-md'>
-            <h1 className='font-bold text-lg'>Filter Jobs</h1>
+        <div className='w-full bg-white p-3 rounded-md shadow-sm border border-gray-100'>
+            <div className='flex items-center justify-between gap-3'>
+                <h1 className='font-bold text-lg'>Filter Jobs</h1>
+                {
+                    selectedValue && (
+                        <Button
+                            onClick={clearFilterHandler}
+                            variant="outline"
+                            className="h-8 px-3 text-xs"
+                        >
+                            Clear
+                        </Button>
+                    )
+                }
+            </div>
             <hr className='mt-3' />
-            <RadioGroup value={selectedValue} onValueChange={changeHandler}>
+            <RadioGroup value={selectedValue} onValueChange={changeHandler} className="space-y-4 mt-4">
             
                 {
                     fitlerData.map((data, index) => (
-                        <div>
-                            <h1 className='font-bold text-lg'>{data.fitlerType}</h1>
+                        <div key={index}>
+                            <h1 className='font-bold text-base sm:text-lg'>{data.fitlerType}</h1>
+                            <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-x-3'>
                             {
                                 data.array.map((item, idx) => {
                                     const itemId = `id${index}-${idx}`
                                     return (
-                                        <div className='flex items-center space-x-2 my-2'>
+                                        <div key={itemId} className='flex items-center space-x-2 my-2'>
                                             <RadioGroupItem value={item} id={itemId} />
-                                            <Label htmlFor={itemId}>{item}</Label>
+                                            <Label htmlFor={itemId} className="text-sm cursor-pointer">{item}</Label>
                                         </div>
                                     )
                                 })
                             }
+                            </div>
                         </div>
                     ))
                 }
@@ -58,4 +82,3 @@ const FilterCard = () => {
 }
 
 export default FilterCard
-

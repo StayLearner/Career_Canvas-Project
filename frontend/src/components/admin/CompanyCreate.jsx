@@ -13,11 +13,17 @@ import { motion } from 'framer-motion'
 
 const CompanyCreate = () => {
     const navigate = useNavigate();
-    const [companyName, setCompanyName] = useState();
+    const [companyName, setCompanyName] = useState("");
     const dispatch = useDispatch();
+
     const registerNewCompany = async () => {
+        if (!companyName.trim()) {
+            toast.error("Company name is required");
+            return;
+        }
+
         try {
-            const res = await axios.post(`${COMPANY_API_END_POINT}/register`, {companyName}, {
+            const res = await axios.post(`${COMPANY_API_END_POINT}/register`, {companyName: companyName.trim()}, {
                 headers:{
                     'Content-Type':'application/json'
                 },
@@ -30,7 +36,7 @@ const CompanyCreate = () => {
                 navigate(`/admin/companies/${companyId}`);
             }
         } catch (error) {
-            // console.log(error);
+            toast.error(error.response?.data?.message || "Company creation failed");
         }
     }
    
@@ -39,21 +45,21 @@ const CompanyCreate = () => {
         <div>
             <Navbar />
             <motion.div 
-                className='max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg' 
+                className='max-w-4xl mx-4 sm:mx-auto my-8 sm:my-10 p-4 sm:p-6 bg-white shadow-lg rounded-lg' 
                 initial={{ opacity: 0 }} 
                 animate={{ opacity: 1 }} 
                 transition={{ duration: 0.6 }}
             >
                 <motion.div 
-                    className='my-10 text-center' 
+                    className='my-6 sm:my-10 text-center' 
                     initial={{ y: -50, opacity: 0 }} 
                     animate={{ y: 0, opacity: 1 }} 
                     transition={{ duration: 0.8, ease: 'easeOut' }}
                 >
-                    <h1 className='font-extrabold text-3xl text-[#ffb703] mb-4'>
+                    <h1 className='font-extrabold text-2xl sm:text-3xl text-[#ffb703] mb-4'>
                         Your Company Name
                     </h1>
-                    <p className='text-gray-500 text-lg'>
+                    <p className='text-gray-500 text-base sm:text-lg'>
                         Choose your brand name to represent your business—don't worry, you can always update it later!
                     </p>
                 </motion.div>
@@ -66,6 +72,7 @@ const CompanyCreate = () => {
                     <Label className="text-[#ffb703] font-semibold">Company Name</Label>
                     <Input
                         type="text"
+                        value={companyName}
                         className="my-2 p-2 border-2 border-[#00b4d8] rounded-lg focus:ring focus:ring-indigo-300"
                         placeholder="TCS, Cognizant, Swiggy, Google, CloudKaptan, Microsoft etc."
                         onChange={(e) => setCompanyName(e.target.value)}
@@ -73,20 +80,20 @@ const CompanyCreate = () => {
                 </motion.div>
 
                 <motion.div 
-                    className='flex items-center gap-4 my-10 justify-center'
+                    className='flex flex-col sm:flex-row items-center gap-4 my-8 sm:my-10 justify-center'
                     initial={{ opacity: 0 }} 
                     animate={{ opacity: 1 }} 
                     transition={{ duration: 0.8, delay: 0.5 }}
                 >
                     <Button 
                         variant="outline" 
-                        className="px-6 py-2 border-2 border-gray-300 text-white bg-[#00b4d8] hover:bg-[#ffb703] hover:scale-105 transition-transform duration-300 ease-out"
+                        className="w-full sm:w-auto px-6 py-2 border-2 border-gray-300 text-white bg-[#00b4d8] hover:bg-[#ffb703] hover:scale-105 transition-transform duration-300 ease-out"
                         onClick={() => navigate("/admin/companies")}
                     >
                         Cancel
                     </Button>
                     <Button 
-                        className="px-6 py-2 border-2  bg-[#00b4d8] text-white hover:bg-[#ffb703] hover:scale-105 transition-transform duration-300 ease-out" 
+                        className="w-full sm:w-auto px-6 py-2 border-2  bg-[#00b4d8] text-white hover:bg-[#ffb703] hover:scale-105 transition-transform duration-300 ease-out" 
                         onClick={registerNewCompany}
                     >
                         Continue

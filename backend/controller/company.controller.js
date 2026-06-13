@@ -5,144 +5,152 @@ import cloudinary from "../utils/cloudinary.js";
 export const registerCompany = async (req, res) => {
     try {
         const { companyName } = req.body;
+
         if (!companyName) {
             return res.status(400).json({
+                success: false,
                 message: "Company name is required.",
-                success: false
             });
         }
+
         let company = await Company.findOne({ name: companyName });
+
         if (company) {
             return res.status(400).json({
-                message: "You can't register same company.",
-                success: false
-            })
-        };
+                success: false,
+                message: "Company already exists.",
+            });
+        }
+
         company = await Company.create({
             name: companyName,
-            userId: req.id
+            userId: req.id,
         });
 
         return res.status(201).json({
+            success: true,
             message: "Company registered successfully.",
             company,
-            success: true
-        })
+        });
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            message: "Internal server error",
-            success: false
+            success: false,
+            message: "Internal server error.",
         });
     }
-}
+};
+
 export const getCompany = async (req, res) => {
     try {
-        const userId = req.id; // logged in user id
+        const userId = req.id;
         const companies = await Company.find({ userId });
-        if (!companies) {
+
+        if (companies.length === 0) {
             return res.status(404).json({
+                success: false,
                 message: "Companies not found.",
-                success: false
-            })
+            });
         }
+
         return res.status(200).json({
+            success: true,
             companies,
-            success:true
-        })
+        });
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            message: "Internal server error",
-            success: false
+            success: false,
+            message: "Internal server error.",
         });
     }
-}
-// get company by id
+};
+
 export const getCompanyById = async (req, res) => {
     try {
         const companyId = req.params.id;
         const company = await Company.findById(companyId);
+
         if (!company) {
             return res.status(404).json({
+                success: false,
                 message: "Company not found.",
-                success: false
-            })
+            });
         }
+
         return res.status(200).json({
+            success: true,
             company,
-            success: true
-        })
+        });
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            message: "Internal server error",
-            success: false
+            success: false,
+            message: "Internal server error.",
         });
     }
-}
+};
+
 export const updateCompany = async (req, res) => {
     try {
         const { name, description, website, location } = req.body;
- 
-        const file = req.file;
-        // idhar cloudinary ayega
-        const fileUri = getDataUri(file);
-        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-        const logo = cloudResponse.secure_url;
-    
-        const updateData = { name, description, website, location, logo };
 
-        const company = await Company.findByIdAndUpdate(req.params.id, updateData, { new: true });
+        const updateData = { name, description, website, location };
+
+        if (req.file) {
+            const fileUri = getDataUri(req.file);
+            const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+            updateData.logo = cloudResponse.secure_url;
+        }
+
+        const company = await Company.findByIdAndUpdate(
+            req.params.id,
+            updateData,
+            { new: true }
+        );
 
         if (!company) {
             return res.status(404).json({
+                success: false,
                 message: "Company not found.",
-                success: false
-            })
+            });
         }
-        return res.status(200).json({
-            message:"Company information updated.",
-            success:true
-        })
 
+        return res.status(200).json({
+            success: true,
+            message: "Company information updated.",
+        });
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            message: "Internal server error",
-            success: false
+            success: false,
+            message: "Internal server error.",
         });
     }
-}
+};
 
+export const allCompanies = async (req, res) => {
+    try {
+        const companies = await Company.find({})
+            .select("name description website location logo")
+            .sort({ createdAt: -1 });
 
-
-
-
-
-
-export const allCompanies = async (req,res)=>{
-
-    try{
-        const companies= await Company.find({}).select('name description website location logo').sort({ createdAt: -1 });
-         
-        if(!companies){
+        if (companies.length === 0) {
             return res.status(404).json({
-                message:"Companies not found.",
-                success:false
-            })
+                success: false,
+                message: "Companies not found.",
+            });
         }
 
         return res.status(200).json({
+            success: true,
             companies,
-            success:true
-        })
-    } catch (error){
+        });
+    } catch (error) {
         console.error(error);
-
         return res.status(500).json({
-            message: "Server error occured ",
-            success:false
-        })
+            success: false,
+            message: "Internal server error.",
+        });
     }
-}
+};

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react'
 import Navbar from '../shared/Navbar'
 import { Label } from '../ui/label'
@@ -43,7 +42,6 @@ const Login = () => {
                 toast.success(res.data.message);
             }
         } catch (error) {
-            console.log(error);
             toast.error(error.response?.data?.message || "Login failed");
         } finally {
             dispatch(setLoading(false));
@@ -53,12 +51,13 @@ const Login = () => {
         if(user){
             navigate("/");
         }
-    },[])
+    },[user, navigate])
+
     return (
         <div>
             <Navbar />
-            <div className='flex items-center justify-center max-w-7xl mx-auto'>
-                <form onSubmit={submitHandler} className='w-1/2 border border-gray-200 rounded-md p-4 my-10'>
+            <div className='flex items-center justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+                <form onSubmit={submitHandler} className='w-full sm:w-[80%] md:w-[60%] lg:w-1/2 border border-gray-200 rounded-md p-4 sm:p-6 my-8 sm:my-10'>
                     <h1 className='font-bold text-xl mb-5'>Login</h1>
                     <div className='my-2'>
                         <Label>Email</Label>
@@ -78,11 +77,11 @@ const Login = () => {
                             value={input.password}
                             name="password"
                             onChange={changeEventHandler}
-                            placeholder="patel@gmail.com"
+                            placeholder="Abc@123"
                         />
                     </div>
                     <div className='flex items-center justify-between'>
-                        <RadioGroup className="flex items-center gap-4 my-5">
+                        <RadioGroup className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 my-5">
                             <div className="flex items-center space-x-2">
                                 <Input
                                     type="radio"
@@ -90,7 +89,7 @@ const Login = () => {
                                     value="student"
                                     checked={input.role === 'student'}
                                     onChange={changeEventHandler}
-                                    className="cursor-pointer"
+                                    className="cursor-pointer h-4 w-4"
                                 />
                                 <Label htmlFor="r1">Student</Label>
                             </div>
@@ -101,14 +100,14 @@ const Login = () => {
                                     value="recruiter"
                                     checked={input.role === 'recruiter'}
                                     onChange={changeEventHandler}
-                                    className="cursor-pointer"
+                                    className="cursor-pointer h-4 w-4"
                                 />
                                 <Label htmlFor="r2">Recruiter</Label>
                             </div>
                         </RadioGroup>
                     </div>
                     {
-                        loading ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin bg-gradient-to-r from-[#da4b5e] to-[#00b4d8] text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl' /> Please wait </Button> : <Button type="submit" className="w-full my-4 bg-gradient-to-r from-[#59e45b] to-[#00b4d8] text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl">Login</Button>
+                        loading ? <Button disabled className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait </Button> : <Button type="submit" className="w-full my-4 bg-gradient-to-r from-[#59e45b] to-[#00b4d8] text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl">Login</Button>
                     }
                     <span className='text-sm'>Don't have an account? <Link to="/signup" className='text-blue-600'>Signup</Link></span>
                 </form>
