@@ -8,18 +8,16 @@ import companyRoute from "./routes/company.route.js";
 import jobRoute from"./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
 import path from "path";
-
-
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./utils/swagger.js";
 
 dotenv.config({});
 
 const app = express();
 
-// connectDB();
-// const PORT = process.env.PORT || 8000;
-
-
 const  _dirname= path.resolve();
+
+const PORT = process.env.PORT || 8000;
 
 
 //middleware
@@ -29,13 +27,16 @@ app.use(cookieParser());
 
 
 const corsOptions = {
-    origin: "https://career-canvas.onrender.com/",
-    credentials:true
+  origin: [
+    "http://localhost:5173",
+    "https://career-canvas.onrender.com"
+  ],
+  credentials:true
 }
-
 app.use(cors(corsOptions));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));  // for swagger docs
 
-const PORT = process.env.PORT || 8000;
+
 
 
 
@@ -52,8 +53,12 @@ app.get( '*', (_,res) => {
     res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
 }) 
 
-
-app.listen(PORT, ()=>{
-    connectDB();
-    console.log(`Server running at port ${PORT}`);
-})
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running at port ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log("MongoDB connection failed:", error);
+  });
