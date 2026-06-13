@@ -29,7 +29,10 @@ app.use(cookieParser());
 const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "https://career-canvas.onrender.com"
+    "https://career-canvas.onrender.com",
+    "https://careercanvas.online",
+    "https://www.careercanvas.online"
+
   ],
   credentials:true
 }
