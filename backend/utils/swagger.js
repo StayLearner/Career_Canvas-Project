@@ -8,13 +8,22 @@ const swaggerOptions = {
       version: "1.0.0",
       description: "API documentation for Career Canvas Project",
     },
+    components: {
+  securitySchemes: {
+    cookieAuth: {
+      type: "apiKey",
+      in: "cookie",
+      name: "token",
+    },
+  },
+},
     servers: [
       {
         url: "http://localhost:8000",
         description: "Local server",
       },
       {
-        url: "https://careercanvas.online",
+        url: "https://www.careercanvas.online",
         description: "Production server",
       },
       {
