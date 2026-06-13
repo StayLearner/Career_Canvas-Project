@@ -90,7 +90,7 @@ router.route("/post").post(isAuthenticated,postJob);
  *       404:
  *         description: Jobs not found
  */
-router.route("/get").get(isAuthenticated,getAllJobs);
+router.route("/get").get(getAllJobs);
 /**
  * @swagger
  * /api/v1/job/getAdminJobs:
@@ -132,7 +132,7 @@ router.route("/getAdminJobs").get(isAuthenticated,getAdminJobs);
  *       404:
  *         description: Job not found
  */
-router.route("/get/:id").get(isAuthenticated,getJobById);
+router.route("/get/:id").get(getJobById);
 
 
 
