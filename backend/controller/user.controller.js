@@ -200,3 +200,21 @@ export const updateProfile = async (req, res) => {
         });
     }
 }
+
+export const getCommunityStats = async (req, res) => {
+    try {
+        const studentsCount = await User.countDocuments({ role: 'student' });
+        const recruitersCount = await User.countDocuments({ role: 'recruiter' });
+        return res.status(200).json({
+            success: true,
+            studentsCount,
+            recruitersCount
+        });
+    } catch (error) {
+        console.error("Failed to fetch community stats:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error."
+        });
+    }
+}

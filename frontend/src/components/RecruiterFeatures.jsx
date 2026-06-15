@@ -1,0 +1,177 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Users, FilePlus, Eye, Sparkles, UserCheck, Check, X, ShieldCheck } from 'lucide-react';
+
+const RecruiterFeatures = () => {
+  const features = [
+    {
+      icon: Users,
+      title: 'Company Hub Manager',
+      desc: 'Set up your employer profile, link logos, describe your work culture, and manage locations.',
+      color: 'from-violet-400 to-indigo-500',
+    },
+    {
+      icon: FilePlus,
+      title: 'One-Click Job Posting',
+      desc: 'Quickly define job criteria (salary, job type, vacancies) and publish immediately to active pools.',
+      color: 'from-amber-400 to-orange-500',
+    },
+    {
+      icon: Eye,
+      title: 'Applicant Console',
+      desc: 'Inspect applicant CVs, view core skills, analyze profile links, and short-list in real-time.',
+      color: 'from-cyan-400 to-blue-500',
+    },
+    {
+      icon: UserCheck,
+      title: 'Dynamic Pipeline Control',
+      desc: 'Move candidates between pipeline states (Accepted, Rejected, Pending) with direct status updates.',
+      color: 'from-emerald-400 to-teal-500',
+    },
+  ];
+
+  return (
+    <section className="py-20 lg:py-28 relative overflow-hidden bg-slate-950/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          {/* Left Column: Description of recruiter features */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="space-y-3">
+              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-violet-500/10 text-violet-400 border border-violet-500/20">
+                For Recruiters & Hiring Managers
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+                Source top-tier talent. Streamline your hiring pipeline.
+              </h2>
+              <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+                Empower your recruitment team with collaborative tools to post jobs, screen resumes, and move applicants forward without clutter. Keep your recruitment clean and quick.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+              {features.map((feat) => {
+                const IconComponent = feat.icon;
+                return (
+                  <div key={feat.title} className="glass-panel p-5 rounded-2xl flex flex-col gap-3 group hover:border-violet-500/20 transition-all duration-300">
+                    <div className={`h-9 w-9 rounded-xl bg-gradient-to-tr ${feat.color} flex items-center justify-center text-white`}>
+                      <IconComponent className="h-5 w-5" />
+                    </div>
+                    <h4 className="font-bold text-sm text-white group-hover:text-violet-400 transition-colors">
+                      {feat.title}
+                    </h4>
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      {feat.desc}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Right Column: Interactive Recruiter Dashboard Preview */}
+          <div className="lg:col-span-6 relative">
+            <div className="absolute -inset-4 bg-gradient-to-tr from-violet-500/10 to-amber-500/10 blur-2xl rounded-3xl -z-10" />
+            
+            {/* Main Mockup Card */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="glass-panel p-6 rounded-3xl border-white/10 shadow-2xl relative overflow-hidden"
+            >
+              {/* Header inside mockup */}
+              <div className="flex justify-between items-center pb-4 border-b border-white/5 mb-6">
+                <div>
+                  <h3 className="font-bold text-base text-white">Hiring Dashboard</h3>
+                  <p className="text-xs text-slate-400">InnovateX Recruiting Hub</p>
+                </div>
+                <span className="text-xs px-2.5 py-1 rounded-full bg-violet-500/10 text-violet-400 font-semibold flex items-center gap-1">
+                  <ShieldCheck className="h-3.5 w-3.5" /> Recruiter Account
+                </span>
+              </div>
+
+              {/* Applicant list panel */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                  <span>Recent Applicants (24 new)</span>
+                  <span className="text-violet-400 hover:underline cursor-pointer">View All</span>
+                </div>
+
+                {/* Candidate 1 */}
+                <div className="p-4 rounded-2xl bg-white/5 border border-white/5 flex flex-col gap-3 hover:bg-white/10 transition duration-300">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-500 flex items-center justify-center font-bold text-white text-sm">
+                        AS
+                      </div>
+                      <div className="text-left">
+                        <h5 className="font-bold text-sm text-white">Ananya Sharma</h5>
+                        <p className="text-[11px] text-slate-400">Applying for React Developer</p>
+                      </div>
+                    </div>
+                    <span className="text-[10px] text-slate-400">10m ago</span>
+                  </div>
+
+                  {/* Skills tags */}
+                  <div className="flex gap-2">
+                    <span className="text-[10px] bg-white/5 px-2 py-0.5 rounded text-slate-300">React</span>
+                    <span className="text-[10px] bg-white/5 px-2 py-0.5 rounded text-slate-300">Tailwind</span>
+                    <span className="text-[10px] bg-white/5 px-2 py-0.5 rounded text-slate-300">Redux</span>
+                  </div>
+
+                  {/* Actions inside preview */}
+                  <div className="flex items-center gap-2 mt-1 border-t border-white/5 pt-2">
+                    <button className="flex-1 flex items-center justify-center gap-1 text-[11px] bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 font-bold py-1.5 rounded-lg transition duration-200">
+                      <Check className="h-3 w-3" /> Accept
+                    </button>
+                    <button className="flex-1 flex items-center justify-center gap-1 text-[11px] bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold py-1.5 rounded-lg transition duration-200">
+                      <X className="h-3 w-3" /> Reject
+                    </button>
+                  </div>
+                </div>
+
+                {/* Candidate 2 (Compact/Accepted) */}
+                <div className="p-3 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between hover:bg-white/10 transition duration-300 opacity-80">
+                  <div className="flex items-center gap-3">
+                    <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-violet-400 to-indigo-500 flex items-center justify-center font-bold text-white text-xs">
+                      VK
+                    </div>
+                    <div className="text-left">
+                      <h5 className="font-bold text-xs text-white">Vijay Kumar</h5>
+                      <p className="text-[10px] text-slate-400">Applied for Backend Engineer</p>
+                    </div>
+                  </div>
+                  <span className="text-[9px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold uppercase tracking-wider">
+                    Accepted
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Accent Floating Post Job capsule */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="absolute -top-6 -right-6 glass-panel px-4 py-3 rounded-2xl flex items-center gap-3 border-violet-500/20 shadow-xl hidden sm:flex"
+            >
+              <div className="h-8 w-8 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400 animate-pulse">
+                <Sparkles className="h-4 w-4" />
+              </div>
+              <div className="text-left">
+                <p className="text-xs font-bold text-white">Job Live</p>
+                <p className="text-[10px] text-slate-400">NodeJS Dev Posted</p>
+              </div>
+            </motion.div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default RecruiterFeatures;
