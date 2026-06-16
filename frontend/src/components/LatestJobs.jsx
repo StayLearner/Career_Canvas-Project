@@ -38,7 +38,7 @@ const LatestJobs = () => {
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 mb-3">
             <Sparkles className="h-3 w-3" /> Direct Openings
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight">
             Hot & Featured <span className="bg-gradient-to-r from-amber-500 to-orange-500 dark:from-amber-400 dark:to-orange-500 bg-clip-text text-transparent">Job Positions</span>
           </h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">

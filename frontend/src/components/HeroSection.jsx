@@ -224,7 +224,7 @@ const HeroSection = () => {
                 />
                 <Button 
                   onClick={searchJobHandler} 
-                  className="bg-gradient-to-r from-cyan-500 to-amber-500 hover:from-cyan-400 hover:to-amber-400 text-white font-bold h-10 px-5 sm:px-6 rounded-xl transition duration-300 hover:scale-[1.03] active:scale-[0.98] shadow-[0_0_15px_rgba(6,182,212,0.3)] shrink-0 z-10"
+                  className="bg-gradient-to-r from-cyan-500 to-amber-500 hover:from-cyan-400 hover:to-amber-400 text-white font-semibold h-10 px-5 sm:px-6 rounded-xl transition duration-300 hover:scale-[1.03] active:scale-[0.98] shadow-[0_0_15px_rgba(6,182,212,0.3)] shrink-0 z-10"
                 >
                   Search
                 </Button>
@@ -269,7 +269,7 @@ const HeroSection = () => {
                   className="text-slate-600 dark:text-sky-200 hover:text-slate-900 dark:hover:text-sky-300 hover:bg-slate-100 dark:hover:bg-white/5 font-semibold px-5 py-5.5 rounded-xl transition shrink-0 text-sm sm:text-base flex items-center gap-1.5 group"
                 >
                   <span>Hire Talent</span>
-                  <span className="text-cyan-400 font-bold group-hover:translate-x-1 transition-transform">→</span>
+                  <span className="text-cyan-400 font-semibold group-hover:translate-x-1 transition-transform">→</span>
                 </Button>
               </motion.div>
             </motion.div>
@@ -282,19 +282,19 @@ const HeroSection = () => {
               className="grid grid-cols-3 gap-4 border-t border-slate-200 dark:border-white/5 pt-8 max-w-lg animate-transition"
             >
               <div className="text-left">
-                <h4 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+                <h4 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
                   {loadingStats ? "..." : (allJobs?.length || 0)}
                 </h4>
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase mt-0.5">Active Jobs</p>
               </div>
               <div className="text-left">
-                <h4 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+                <h4 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
                   {loadingStats ? "..." : (companyCount || 0)}
                 </h4>
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase mt-0.5">Companies</p>
               </div>
               <div className="text-left">
-                <h4 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+                <h4 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
                   {loadingStats ? "..." : totalPositions}
                 </h4>
                 <p className="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase mt-0.5">Open Positions</p>
@@ -329,11 +329,11 @@ const HeroSection = () => {
                     {/* Top Section */}
                     <div className="flex items-start justify-between gap-3 z-10 relative">
                       <div className="flex items-center gap-3.5 min-w-0">
-                        <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center text-white font-extrabold text-[12px] uppercase shrink-0 shadow-md">
+                        <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center text-white font-semibold text-[12px] uppercase shrink-0 shadow-md">
                           {floatingJobs[0]?.company?.name?.slice(0, 2) || "CO"}
                         </div>
                         <div className="text-left min-w-0">
-                          <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100 truncate max-w-[150px] group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors leading-tight">{floatingJobs[0]?.title}</h4>
+                          <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate max-w-[150px] group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors leading-tight">{floatingJobs[0]?.title}</h4>
                           <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">{floatingJobs[0]?.company?.name}</p>
                         </div>
                       </div>
@@ -353,7 +353,7 @@ const HeroSection = () => {
                         <span className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md">{floatingJobs[0]?.jobType}</span>
                         <span className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md">{floatingJobs[0]?.salary} LPA</span>
                       </div>
-                      <span className="text-cyan-600 dark:text-cyan-400 font-bold flex items-center gap-0.5 group-hover:text-cyan-500 dark:group-hover:text-cyan-300 transition-colors">
+                      <span className="text-cyan-600 dark:text-cyan-400 font-semibold flex items-center gap-0.5 group-hover:text-cyan-500 dark:group-hover:text-cyan-300 transition-colors">
                         <span>View Details</span>
                         <span className="transform group-hover:translate-x-0.5 transition-transform">→</span>
                       </span>
@@ -386,17 +386,17 @@ const HeroSection = () => {
                     <div className="h-5 w-5 rounded-md bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center">
                       <CheckCircle2 className="h-3.5 w-3.5" />
                     </div>
-                    <span className="text-[10px] font-bold text-slate-800 dark:text-white tracking-wide uppercase">Applications</span>
+                    <span className="text-[10px] font-semibold text-slate-800 dark:text-white tracking-wide uppercase">Applications</span>
                   </div>
                   
                   <div className="space-y-1.5 py-1 z-10 relative">
                     <div className="flex justify-between items-center text-[9px]">
                       <span className="text-slate-600 dark:text-slate-300 truncate max-w-[85px] font-semibold">Software Eng</span>
-                      <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-bold text-[8px] uppercase tracking-wider scale-90">Accepted</span>
+                      <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-semibold text-[8px] uppercase tracking-wider scale-90">Accepted</span>
                     </div>
                     <div className="flex justify-between items-center text-[9px]">
                       <span className="text-slate-600 dark:text-slate-300 truncate max-w-[85px] font-semibold">UI/UX Intern</span>
-                      <span className="px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-bold text-[8px] uppercase tracking-wider scale-90">Pending</span>
+                      <span className="px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-semibold text-[8px] uppercase tracking-wider scale-90">Pending</span>
                     </div>
                   </div>
                   <div className="text-[8px] text-slate-400 dark:text-slate-500 border-t border-slate-100 dark:border-white/5 pt-1.5 font-medium uppercase tracking-wider z-10 relative text-center">
@@ -427,7 +427,7 @@ const HeroSection = () => {
                     <div className="h-5 w-5 rounded-md bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0">
                       <Users className="h-3.5 w-3.5" />
                     </div>
-                    <span className="text-[10px] font-bold text-slate-800 dark:text-white tracking-wide uppercase">Community</span>
+                    <span className="text-[10px] font-semibold text-slate-800 dark:text-white tracking-wide uppercase">Community</span>
                   </div>
 
                   <div className="flex items-center justify-around gap-1.5 py-1 z-10 relative flex-1">
@@ -438,7 +438,7 @@ const HeroSection = () => {
                           <circle cx="20" cy="20" r="16" className="stroke-slate-100 dark:stroke-white/5" strokeWidth="2" fill="transparent" />
                           <circle cx="20" cy="20" r="16" className="stroke-cyan-500 dark:stroke-cyan-400 drop-shadow-[0_0_4px_rgba(34,211,238,0.4)]" strokeWidth="2" fill="transparent" strokeDasharray={2 * Math.PI * 16} strokeDashoffset={(2 * Math.PI * 16) * (1 - Math.min((animatedStudents || 1) / (animatedStudents + animatedRecruiters || 50), 0.85))} strokeLinecap="round" />
                         </svg>
-                        <span className="absolute text-[8px] font-black text-cyan-600 dark:text-cyan-300">{animatedStudents}</span>
+                        <span className="absolute text-[8px] font-semibold text-cyan-600 dark:text-cyan-300">{animatedStudents}</span>
                       </div>
                       <span className="text-[7px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Students</span>
                     </div>
@@ -450,7 +450,7 @@ const HeroSection = () => {
                           <circle cx="20" cy="20" r="16" className="stroke-slate-100 dark:stroke-white/5" strokeWidth="2" fill="transparent" />
                           <circle cx="20" cy="20" r="16" className="stroke-amber-500 dark:stroke-amber-400 drop-shadow-[0_0_4px_rgba(245,158,11,0.4)]" strokeWidth="2" fill="transparent" strokeDasharray={2 * Math.PI * 16} strokeDashoffset={(2 * Math.PI * 16) * (1 - Math.min((animatedRecruiters || 1) / (animatedStudents + animatedRecruiters || 50), 0.85))} strokeLinecap="round" />
                         </svg>
-                        <span className="absolute text-[8px] font-black text-amber-600 dark:text-amber-300">{animatedRecruiters}</span>
+                        <span className="absolute text-[8px] font-semibold text-amber-600 dark:text-amber-300">{animatedRecruiters}</span>
                       </div>
                       <span className="text-[7px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Hires</span>
                     </div>
@@ -481,7 +481,7 @@ const HeroSection = () => {
                   <Sparkles className="h-3.5 w-3.5 animate-pulse" />
                 </div>
                 <div className="text-left">
-                  <p className="text-[9px] font-bold text-slate-800 dark:text-white uppercase tracking-wider leading-none">Recruiter Active</p>
+                  <p className="text-[9px] font-semibold text-slate-800 dark:text-white uppercase tracking-wider leading-none">Recruiter Active</p>
                   <p className="text-[8px] text-slate-500 dark:text-slate-400 mt-0.5 truncate max-w-[80px]">{floatingJobs[0]?.company?.name || "ApexHQ"} hired</p>
                 </div>
               </motion.div>
@@ -497,7 +497,7 @@ const HeroSection = () => {
                   <Briefcase className="h-3.5 w-3.5" />
                 </div>
                 <div className="text-left">
-                  <p className="text-[9px] font-bold text-white uppercase tracking-wider leading-none">New Posting</p>
+                  <p className="text-[9px] font-semibold text-white uppercase tracking-wider leading-none">New Posting</p>
                   <p className="text-[8px] text-slate-400 mt-0.5 truncate max-w-[95px]">{floatingJobs[1]?.title || "NodeJS Dev"} live</p>
                 </div>
               </motion.div>

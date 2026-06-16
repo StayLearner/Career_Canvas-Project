@@ -36,7 +36,7 @@ const LatestJobCards = ({ job }) => {
               )}
             </div>
             <div className="text-left min-w-0">
-              <h3 className="font-bold text-sm text-slate-700 dark:text-slate-300 group-hover:text-slate-950 dark:group-hover:text-white transition-colors truncate">
+              <h3 className="font-semibold text-sm text-slate-700 dark:text-slate-300 group-hover:text-slate-950 dark:group-hover:text-white transition-colors truncate">
                 {job?.company?.name}
               </h3>
               <div className="flex items-center gap-1 text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">
@@ -54,7 +54,7 @@ const LatestJobCards = ({ job }) => {
 
         {/* Job Title and Description */}
         <div className="text-left">
-          <h4 className="font-bold text-base text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors flex items-center gap-1">
+          <h4 className="font-semibold text-base text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors flex items-center gap-1">
             <span className="truncate">{job?.title}</span>
             <ArrowUpRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-all duration-300 text-cyan-600 dark:text-cyan-400 shrink-0 transform translate-y-1 group-hover:translate-y-0" />
           </h4>

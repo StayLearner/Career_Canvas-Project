@@ -41,7 +41,7 @@ const RecruiterFeatures = () => {
               <span className="px-3 py-1 rounded-full text-xs font-semibold bg-violet-500/10 text-violet-650 dark:text-violet-400 border border-violet-500/20">
                 For Recruiters & Hiring Managers
               </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
                 Source top-tier talent. Streamline your hiring pipeline.
               </h2>
               <p className="text-slate-650 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
@@ -57,7 +57,7 @@ const RecruiterFeatures = () => {
                     <div className={`h-9 w-9 rounded-xl bg-gradient-to-tr ${feat.color} flex items-center justify-center text-white`}>
                       <IconComponent className="h-5 w-5" />
                     </div>
-                    <h4 className="font-bold text-sm text-slate-800 dark:text-white group-hover:text-violet-650 dark:group-hover:text-violet-400 transition-colors">
+                    <h4 className="font-semibold text-sm text-slate-800 dark:text-white group-hover:text-violet-655 dark:group-hover:text-violet-400 transition-colors">
                       {feat.title}
                     </h4>
                     <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
@@ -84,7 +84,7 @@ const RecruiterFeatures = () => {
               {/* Header inside mockup */}
               <div className="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-white/5 mb-6">
                 <div>
-                  <h3 className="font-bold text-base text-slate-800 dark:text-white">Hiring Dashboard</h3>
+                  <h3 className="font-semibold text-base text-slate-800 dark:text-white">Hiring Dashboard</h3>
                   <p className="text-xs text-slate-500 dark:text-slate-400">InnovateX Recruiting Hub</p>
                 </div>
                 <span className="text-xs px-2.5 py-1 rounded-full bg-violet-500/10 text-violet-600 dark:text-violet-400 font-semibold flex items-center gap-1">
@@ -96,18 +96,18 @@ const RecruiterFeatures = () => {
               <div className="space-y-4">
                 <div className="flex items-center justify-between text-xs font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider">
                   <span>Recent Applicants (24 new)</span>
-                  <span className="text-violet-600 dark:text-violet-400 hover:underline cursor-pointer">View All</span>
+                  <span className="text-violet-600 dark:text-violet-400 hover:underline cursor-pointer font-semibold">View All</span>
                 </div>
 
                 {/* Candidate 1 */}
                 <div className="p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-150 dark:border-white/5 flex flex-col gap-3 hover:bg-slate-100 dark:hover:bg-white/10 transition duration-300">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-500 flex items-center justify-center font-bold text-white text-sm">
+                      <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-500 flex items-center justify-center font-semibold text-white text-sm">
                         AS
                       </div>
                       <div className="text-left">
-                        <h5 className="font-bold text-sm text-slate-800 dark:text-white">Ananya Sharma</h5>
+                        <h5 className="font-semibold text-sm text-slate-800 dark:text-white">Ananya Sharma</h5>
                         <p className="text-[11px] text-slate-500 dark:text-slate-400">Applying for React Developer</p>
                       </div>
                     </div>
@@ -123,10 +123,10 @@ const RecruiterFeatures = () => {
 
                   {/* Actions inside preview */}
                   <div className="flex items-center gap-2 mt-1 border-t border-slate-100 dark:border-white/5 pt-2">
-                    <button className="flex-1 flex items-center justify-center gap-1 text-[11px] bg-emerald-500/10 dark:bg-emerald-500/20 hover:bg-emerald-500/20 dark:hover:bg-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold py-1.5 rounded-lg transition duration-200 border-0">
+                    <button className="flex-1 flex items-center justify-center gap-1 text-[11px] bg-emerald-500/10 dark:bg-emerald-500/20 hover:bg-emerald-500/20 dark:hover:bg-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-semibold py-1.5 rounded-lg transition duration-200 border-0">
                       <Check className="h-3 w-3" /> Accept
                     </button>
-                    <button className="flex-1 flex items-center justify-center gap-1 text-[11px] bg-red-500/5 dark:bg-red-500/10 hover:bg-red-500/10 dark:hover:bg-red-500/20 text-red-650 dark:text-red-400 font-bold py-1.5 rounded-lg transition duration-200 border-0">
+                    <button className="flex-1 flex items-center justify-center gap-1 text-[11px] bg-red-500/5 dark:bg-red-500/10 hover:bg-red-500/10 dark:hover:bg-red-500/20 text-red-655 dark:text-red-400 font-semibold py-1.5 rounded-lg transition duration-200 border-0">
                       <X className="h-3 w-3" /> Reject
                     </button>
                   </div>
@@ -135,15 +135,15 @@ const RecruiterFeatures = () => {
                 {/* Candidate 2 (Compact/Accepted) */}
                 <div className="p-3 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-150 dark:border-white/5 flex items-center justify-between hover:bg-slate-100 dark:hover:bg-white/10 transition duration-300 opacity-80">
                   <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-violet-400 to-indigo-500 flex items-center justify-center font-bold text-white text-xs">
+                    <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-violet-400 to-indigo-500 flex items-center justify-center font-semibold text-white text-xs">
                       VK
                     </div>
                     <div className="text-left">
-                      <h5 className="font-bold text-xs text-slate-800 dark:text-white">Vijay Kumar</h5>
+                      <h5 className="font-semibold text-xs text-slate-800 dark:text-white">Vijay Kumar</h5>
                       <p className="text-[10px] text-slate-500 dark:text-slate-400">Applied for Backend Engineer</p>
                     </div>
                   </div>
-                  <span className="text-[9px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider">
+                  <span className="text-[9px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wider">
                     Accepted
                   </span>
                 </div>
@@ -158,11 +158,11 @@ const RecruiterFeatures = () => {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="absolute -top-6 -right-6 glass-panel px-4 py-3 rounded-2xl flex items-center gap-3 border border-slate-200 dark:border-violet-500/20 shadow-xl hidden sm:flex"
             >
-              <div className="h-8 w-8 rounded-lg bg-violet-500/10 dark:bg-violet-500/20 flex items-center justify-center text-violet-650 dark:text-violet-400 animate-pulse">
+              <div className="h-8 w-8 rounded-lg bg-violet-500/10 dark:bg-violet-500/20 flex items-center justify-center text-violet-655 dark:text-violet-400 animate-pulse">
                 <Sparkles className="h-4 w-4" />
               </div>
               <div className="text-left">
-                <p className="text-xs font-bold text-slate-800 dark:text-white">Job Live</p>
+                <p className="text-xs font-semibold text-slate-800 dark:text-white">Job Live</p>
                 <p className="text-[10px] text-slate-500 dark:text-slate-400">NodeJS Dev Posted</p>
               </div>
             </motion.div>

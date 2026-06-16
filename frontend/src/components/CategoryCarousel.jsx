@@ -37,7 +37,7 @@ const CategoryCarousel = () => {
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-3">
             <Sparkles className="h-3 w-3" /> Explore Niches
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white">
             Find Roles by Category
           </h2>
           <p className="text-xs sm:text-sm text-slate-400 mt-2">

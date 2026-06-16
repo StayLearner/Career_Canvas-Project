@@ -57,7 +57,7 @@ const CompanyCreate = () => {
                         animate={{ y: 0, opacity: 1 }} 
                         transition={{ duration: 0.8, ease: 'easeOut' }}
                     >
-                        <h1 className='font-extrabold text-2xl sm:text-3xl text-amber-500 dark:text-amber-400 mb-4'>
+                        <h1 className='font-bold text-2xl sm:text-3xl text-amber-500 dark:text-amber-400 mb-4'>
                             Your Company Name
                         </h1>
                         <p className='text-slate-500 dark:text-slate-400 text-sm sm:text-base'>
@@ -71,7 +71,7 @@ const CompanyCreate = () => {
                         transition={{ duration: 0.6, delay: 0.3 }}
                         className="text-left"
                     >
-                        <Label className="text-amber-500 dark:text-amber-400 font-bold text-sm">Company Name</Label>
+                        <Label className="text-amber-500 dark:text-amber-400 font-semibold text-sm">Company Name</Label>
                         <Input
                             type="text"
                             value={companyName}
@@ -89,13 +89,13 @@ const CompanyCreate = () => {
                     >
                         <Button 
                             variant="outline" 
-                            className="w-full sm:w-auto px-6 py-2.5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 rounded-xl font-bold transition-all duration-300"
+                            className="w-full sm:w-auto px-6 py-2.5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 rounded-xl font-semibold transition-all duration-300"
                             onClick={() => navigate("/admin/companies")}
                         >
                             Cancel
                         </Button>
                         <Button 
-                            className="w-full sm:w-auto px-6 py-2.5 bg-gradient-to-r from-yellow-400 to-sky-400 hover:scale-[1.02] text-slate-950 font-bold rounded-xl shadow-lg transition-transform duration-300 border-0" 
+                            className="w-full sm:w-auto px-6 py-2.5 bg-gradient-to-r from-yellow-400 to-sky-400 hover:scale-[1.02] text-slate-950 font-semibold rounded-xl shadow-lg transition-transform duration-300 border-0" 
                             onClick={registerNewCompany}
                         >
                             Continue

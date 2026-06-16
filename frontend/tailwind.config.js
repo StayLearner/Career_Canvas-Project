@@ -5,6 +5,9 @@ export default {
     './public/**/*.html',],
   theme: {
   	extend: {
+  		fontFamily: {
+  			sans: ['"Titillium Web"', 'sans-serif'],
+  		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

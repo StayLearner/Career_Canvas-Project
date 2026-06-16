@@ -51,7 +51,7 @@ const StudentFeatures = () => {
               {/* Header inside mockup */}
               <div className="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-white/5 mb-6">
                 <div>
-                  <h3 className="font-bold text-base text-slate-800 dark:text-white">Student Workspace</h3>
+                  <h3 className="font-semibold text-base text-slate-800 dark:text-white">Student Workspace</h3>
                   <p className="text-xs text-slate-500 dark:text-slate-400">Welcome back, Rohan</p>
                 </div>
                 <span className="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
@@ -67,15 +67,15 @@ const StudentFeatures = () => {
                 {/* App Item 1 */}
                 <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#081120]/90 border border-slate-100 dark:border-white/5 flex items-center justify-between hover:bg-slate-100 dark:hover:bg-[#111827] hover:border-slate-200 dark:hover:border-white/10 hover:shadow-[0_0_15px_rgba(6,182,212,0.05)] dark:hover:shadow-[0_0_15px_rgba(6,182,212,0.1)] transition-all duration-300">
                   <div className="flex items-center gap-3">
-                    <div className="h-9 w-9 rounded-xl bg-amber-500/10 dark:bg-amber-500/20 flex items-center justify-center font-bold text-xs text-amber-600 dark:text-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.1)] dark:shadow-[0_0_8px_rgba(245,158,11,0.15)]">
+                    <div className="h-9 w-9 rounded-xl bg-amber-500/10 dark:bg-amber-500/20 flex items-center justify-center font-semibold text-xs text-amber-600 dark:text-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.1)] dark:shadow-[0_0_8px_rgba(245,158,11,0.15)]">
                       AP
                     </div>
                     <div>
-                      <h5 className="font-bold text-sm text-slate-800 dark:text-white">Product Designer</h5>
+                      <h5 className="font-semibold text-sm text-slate-800 dark:text-white">Product Designer</h5>
                       <p className="text-xs text-slate-500 dark:text-slate-400">ApexHQ</p>
                     </div>
                   </div>
-                  <span className="text-[11px] px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-650 dark:text-amber-400 font-semibold">
+                  <span className="text-[11px] px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-655 dark:text-amber-400 font-semibold">
                     Pending
                   </span>
                 </div>
@@ -83,11 +83,11 @@ const StudentFeatures = () => {
                 {/* App Item 2 */}
                 <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#081120]/90 border border-slate-100 dark:border-white/5 flex items-center justify-between hover:bg-slate-100 dark:hover:bg-[#111827] hover:border-slate-200 dark:hover:border-white/10 hover:shadow-[0_0_15px_rgba(6,182,212,0.05)] dark:hover:shadow-[0_0_15px_rgba(6,182,212,0.1)] transition-all duration-300">
                   <div className="flex items-center gap-3">
-                    <div className="h-9 w-9 rounded-xl bg-cyan-500/10 dark:bg-cyan-500/20 flex items-center justify-center font-bold text-xs text-cyan-600 dark:text-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.1)] dark:shadow-[0_0_8px_rgba(34,211,238,0.15)]">
+                    <div className="h-9 w-9 rounded-xl bg-cyan-500/10 dark:bg-cyan-500/20 flex items-center justify-center font-semibold text-xs text-cyan-600 dark:text-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.1)] dark:shadow-[0_0_8px_rgba(34,211,238,0.15)]">
                       IV
                     </div>
                     <div>
-                      <h5 className="font-bold text-sm text-slate-800 dark:text-white">Frontend Developer</h5>
+                      <h5 className="font-semibold text-sm text-slate-800 dark:text-white">Frontend Developer</h5>
                       <p className="text-xs text-slate-500 dark:text-slate-400">InnovateX</p>
                     </div>
                   </div>
@@ -99,15 +99,15 @@ const StudentFeatures = () => {
                 {/* App Item 3 */}
                 <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#081120]/90 border border-slate-100 dark:border-white/5 flex items-center justify-between hover:bg-slate-100 dark:hover:bg-[#111827] hover:border-slate-200 dark:hover:border-white/10 hover:shadow-[0_0_15px_rgba(6,182,212,0.05)] dark:hover:shadow-[0_0_15px_rgba(6,182,212,0.1)] transition-all duration-300 opacity-70">
                   <div className="flex items-center gap-3">
-                    <div className="h-9 w-9 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center font-bold text-xs text-blue-600 dark:text-blue-400 shadow-[0_0_8px_rgba(59,130,246,0.1)] dark:shadow-[0_0_8px_rgba(59,130,246,0.15)]">
+                    <div className="h-9 w-9 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center font-semibold text-xs text-blue-600 dark:text-blue-400 shadow-[0_0_8px_rgba(59,130,246,0.1)] dark:shadow-[0_0_8px_rgba(59,130,246,0.15)]">
                       CN
                     </div>
                     <div>
-                      <h5 className="font-bold text-sm text-slate-800 dark:text-white">Software Intern</h5>
+                      <h5 className="font-semibold text-sm text-slate-800 dark:text-white">Software Intern</h5>
                       <p className="text-xs text-slate-500 dark:text-slate-400">CloudNest</p>
                     </div>
                   </div>
-                  <span className="text-[11px] px-2.5 py-1 rounded-full bg-red-500/10 text-red-650 dark:text-red-400 font-semibold">
+                  <span className="text-[11px] px-2.5 py-1 rounded-full bg-red-500/10 text-red-655 dark:text-red-400 font-semibold">
                     Rejected
                   </span>
                 </div>
@@ -127,7 +127,7 @@ const StudentFeatures = () => {
               <span className="px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
                 For Aspiring Candidates
               </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
                 Discover your path, track your goals, build your canvas.
               </h2>
               <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
@@ -144,7 +144,7 @@ const StudentFeatures = () => {
                       <div className={`h-9 w-9 rounded-xl bg-gradient-to-tr ${feat.color} flex items-center justify-center text-white transform group-hover/card:scale-110 group-hover/card:rotate-6 transition-transform duration-300 shadow-md`}>
                         <IconComponent className="h-5 w-5" />
                       </div>
-                      <h4 className="font-bold text-sm text-slate-800 dark:text-white group-hover/card:text-cyan-500 dark:group-hover/card:text-cyan-400 transition-colors">
+                      <h4 className="font-semibold text-sm text-slate-800 dark:text-white group-hover/card:text-cyan-500 dark:group-hover/card:text-cyan-400 transition-colors">
                         {feat.title}
                       </h4>
                       <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">

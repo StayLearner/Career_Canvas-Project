@@ -6,15 +6,16 @@
   :root {
     --radius: 0.5rem;
   }
+  html,
+  body,
+  #root {
+    font-family: "Titillium Web", sans-serif;
+  }
   body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
     @apply bg-[#FAFBFC] text-slate-800 transition-colors duration-300;
   }
   .dark body {
     @apply bg-[#020817] text-slate-100;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Outfit', sans-serif;
   }
 }
 

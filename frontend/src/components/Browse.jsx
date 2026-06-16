@@ -132,14 +132,14 @@ const Browse = () => {
                     <div className="flex flex-wrap items-center justify-between gap-3 px-1.5 pb-2 border-b border-slate-200/50 dark:border-white/5">
                         <div className="flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                            <span className="text-xs sm:text-sm font-bold text-slate-500 dark:text-slate-400">
+                            <span className="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400">
                                 {isLoading ? "Searching..." : `${filterJobs.length} ${filterJobs.length === 1 ? 'Opportunity' : 'Opportunities'} Found`}
                             </span>
                         </div>
                         {searchInput && (
                             <button
                                 onClick={handleReset}
-                                className="text-xs font-extrabold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 transition flex items-center gap-1 bg-transparent"
+                                className="text-xs font-semibold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 transition flex items-center gap-1 bg-transparent"
                             >
                                 <RotateCcw size={12} />
                                 <span>Reset Search</span>
@@ -157,7 +157,7 @@ const Browse = () => {
                             exit={{ opacity: 0, y: -10 }}
                             className="flex flex-wrap items-center gap-2 mb-6 bg-white dark:bg-slate-900/40 border border-slate-200/80 dark:border-white/5 p-3 rounded-2xl max-w-4xl mx-auto shadow-[0_10px_30px_rgba(15,23,42,0.03)]"
                         >
-                            <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mr-1">Active:</span>
+                            <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mr-1">Active:</span>
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
@@ -174,7 +174,7 @@ const Browse = () => {
                             </motion.div>
                             <button
                                 onClick={handleReset}
-                                className="text-xs font-extrabold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 ml-auto transition flex items-center gap-1 bg-transparent hover:scale-102"
+                                        className="text-xs font-semibold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 ml-auto transition flex items-center gap-1 bg-transparent hover:scale-102"
                             >
                                 <RotateCcw size={12} />
                                 <span>Clear Search</span>
@@ -182,7 +182,7 @@ const Browse = () => {
                         </motion.div>
                     )}
                 </AnimatePresence>
-
+ 
                 {
                     isLoading ? (
                         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 pb-10'>
@@ -204,14 +204,14 @@ const Browse = () => {
                                     <FileSearch className="h-9 w-9 relative z-10" />
                                 </div>
                                 <div className="space-y-2">
-                                    <h3 className="font-extrabold text-xl text-slate-900 dark:text-white">No Matching Opportunities Found</h3>
+                                    <h3 className="font-semibold text-xl text-slate-900 dark:text-white">No Matching Opportunities Found</h3>
                                     <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
                                         Try adjusting your search query or clear the input to discover open roles.
                                     </p>
                                 </div>
                                 <Button 
                                     onClick={handleReset}
-                                    className="bg-gradient-to-r from-yellow-400 to-sky-400 text-slate-950 font-bold py-2.5 px-6 rounded-xl shadow-lg hover:scale-[1.02] transition-transform duration-300 border-0"
+                                    className="bg-gradient-to-r from-yellow-400 to-sky-400 text-slate-950 font-semibold py-2.5 px-6 rounded-xl shadow-lg hover:scale-[1.02] transition-transform duration-300 border-0"
                                 >
                                     Reset Search
                                 </Button>

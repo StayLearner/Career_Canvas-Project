@@ -66,7 +66,7 @@ const Job = ({ job }) => {
             <BadgeCheck className="h-3 w-3 shrink-0" />
             Verified Company
           </span>
-          <div className="flex items-center gap-1 text-[10px] text-slate-600 dark:text-slate-500 font-bold bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 px-2 py-0.5 rounded-md">
+          <div className="flex items-center gap-1 text-[10px] text-slate-600 dark:text-slate-500 font-semibold bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 px-2 py-0.5 rounded-md">
             <Clock className="h-3 w-3 shrink-0" />
             <span>Posted {timeText}</span>
           </div>
@@ -84,12 +84,12 @@ const Job = ({ job }) => {
               />
             </div>
           ) : (
-            <div className={`h-10 w-10 rounded-xl bg-gradient-to-tr ${gradientClass} flex items-center justify-center text-slate-900 dark:text-white shadow-sm shrink-0 font-extrabold text-xs select-none border border-slate-200/50 dark:border-transparent`}>
+            <div className={`h-10 w-10 rounded-xl bg-gradient-to-tr ${gradientClass} flex items-center justify-center text-slate-900 dark:text-white shadow-sm shrink-0 font-semibold text-xs select-none border border-slate-200/50 dark:border-transparent`}>
               {initials}
             </div>
           )}
           <div className='min-w-0 flex-1 space-y-0.5'>
-            <h2 className='font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-200 truncate'>{companyName}</h2>
+            <h2 className='font-semibold text-xs sm:text-sm text-slate-900 dark:text-slate-200 truncate'>{companyName}</h2>
             <div className="flex items-center gap-1 text-slate-500 dark:text-slate-500">
               <MapPin className="h-3 w-3 shrink-0" />
               <span className="text-[10px] truncate">{job?.location || "India"}</span>
@@ -99,7 +99,7 @@ const Job = ({ job }) => {
 
         {/* Job Title and Description Hierarchy */}
         <div className="space-y-1.5 pt-1">
-          <h1 className='font-extrabold text-sm sm:text-base text-slate-950 dark:text-white line-clamp-1 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors duration-300 cursor-pointer' onClick={() => navigate(`/description/${job?._id}`)}>
+          <h1 className='font-semibold text-sm sm:text-base text-slate-950 dark:text-white line-clamp-1 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors duration-300 cursor-pointer' onClick={() => navigate(`/description/${job?._id}`)}>
             {job?.title}
           </h1>
           <p className='text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed'>
@@ -108,7 +108,7 @@ const Job = ({ job }) => {
         </div>
 
         {/* Realism indicators */}
-        <div className="flex flex-wrap items-center gap-3 text-[10px] font-bold text-slate-500 dark:text-slate-400 pt-0.5">
+        <div className="flex flex-wrap items-center gap-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 pt-0.5">
           <div className="flex items-center gap-1">
             <Users className="h-3 w-3 text-cyan-500 dark:text-cyan-400 shrink-0" />
             <span>{job?.applications?.length || 0} applicants</span>
@@ -138,7 +138,7 @@ const Job = ({ job }) => {
         <div className='flex items-center justify-center pt-0.5'>
           <Button 
             onClick={() => navigate(`/description/${job?._id}`)} 
-            className="w-full bg-slate-100 dark:bg-white/5 hover:bg-gradient-to-r hover:from-yellow-400 hover:to-sky-400 hover:text-slate-950 dark:hover:text-[#020817] text-slate-900 dark:text-slate-200 font-extrabold py-2 rounded-xl border border-slate-200 dark:border-white/10 transition-all duration-300 shadow-sm hover:shadow-[0_10px_25px_rgba(56,189,248,0.18)] dark:hover:shadow-md text-center text-xs flex items-center justify-center gap-1 group cursor-pointer"
+            className="w-full bg-slate-100 dark:bg-white/5 hover:bg-gradient-to-r hover:from-yellow-400 hover:to-sky-400 hover:text-slate-950 dark:hover:text-[#020817] text-slate-900 dark:text-slate-200 font-semibold py-2 rounded-xl border border-slate-200 dark:border-white/10 transition-all duration-300 shadow-sm hover:shadow-[0_10px_25px_rgba(56,189,248,0.18)] dark:hover:shadow-md text-center text-xs flex items-center justify-center gap-1 group cursor-pointer"
           >
             <span>Explore Role</span>
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />

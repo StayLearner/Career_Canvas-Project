@@ -53,7 +53,7 @@ const Profile = () => {
                     </div>
 
                     <div className='my-6 border-t border-slate-100 dark:border-white/5 pt-6 text-left'>
-                        <h2 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white uppercase tracking-wider">Skills</h2>
+                        <h2 className="font-semibold text-sm sm:text-base text-slate-900 dark:text-white uppercase tracking-wider">Skills</h2>
                         <div className='flex flex-wrap items-center gap-2 mt-3'>
                             {
                                 user?.profile?.skills?.length !== 0 ? (
@@ -73,7 +73,7 @@ const Profile = () => {
                     </div>
 
                     <div className='my-6 border-t border-slate-100 dark:border-white/5 pt-6 text-left'>
-                        <Label className="text-sm sm:text-base font-bold text-slate-900 dark:text-white block mb-2">Resume</Label>
+                        <Label className="text-sm sm:text-base font-semibold text-slate-900 dark:text-white block mb-2">Resume</Label>
                         {
                             isResume ? (
                                 <a 
@@ -93,7 +93,7 @@ const Profile = () => {
 
                 {/* Applied Jobs Card */}
                 <div className='bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-200/80 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(15,23,42,0.04)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)] my-8 text-left'>
-                    <h1 className='font-bold text-lg sm:text-xl text-slate-900 dark:text-white mb-5'>Applied Jobs</h1>
+                    <h1 className='font-semibold text-lg sm:text-xl text-slate-900 dark:text-white mb-5'>Applied Jobs</h1>
                     <AppliedJobTable />
                 </div>
             </div>

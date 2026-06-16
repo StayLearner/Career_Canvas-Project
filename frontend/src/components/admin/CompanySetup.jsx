@@ -88,11 +88,11 @@ const CompanySetup = () => {
                             <ArrowLeft className="h-4 w-4" />
                             <span>Back</span>
                         </Button>
-                        <h1 className='font-extrabold text-xl sm:text-2xl text-slate-900 dark:text-white truncate'>Company Setup</h1>
+                        <h1 className='font-bold text-xl sm:text-2xl text-slate-900 dark:text-white truncate'>Company Setup</h1>
                     </div>
                     <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 text-left'>
                         <div className="space-y-1">
-                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-bold">Company Name</Label>
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Company Name</Label>
                             <Input
                                 type="text"
                                 name="name"
@@ -102,7 +102,7 @@ const CompanySetup = () => {
                             />
                         </div>
                         <div className="space-y-1">
-                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-bold">Description</Label>
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Description</Label>
                             <Input
                                 type="text"
                                 name="description"
@@ -112,7 +112,7 @@ const CompanySetup = () => {
                             />
                         </div>
                         <div className="space-y-1">
-                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-bold">Website</Label>
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Website</Label>
                             <Input
                                 type="text"
                                 name="website"
@@ -122,7 +122,7 @@ const CompanySetup = () => {
                             />
                         </div>
                         <div className="space-y-1">
-                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-bold">Location</Label>
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Location</Label>
                             <Input
                                 type="text"
                                 name="location"
@@ -132,7 +132,7 @@ const CompanySetup = () => {
                             />
                         </div>
                         <div className='sm:col-span-2 space-y-1'>
-                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-bold">Logo</Label>
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Logo</Label>
                             <Input
                                 type="file"
                                 accept="image/*"
@@ -143,12 +143,12 @@ const CompanySetup = () => {
                     </div>
                     {
                         loading ? (
-                            <Button disabled className="w-full my-6 bg-slate-100 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-white/10 text-slate-400 dark:text-slate-500 font-bold py-2.5">
+                            <Button disabled className="w-full my-6 bg-slate-100 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-white/10 text-slate-400 dark:text-slate-500 font-semibold py-2.5">
                                 <Loader2 className='mr-2 h-4 w-4 animate-spin' /> 
                                 Please wait 
                             </Button>
                         ) : (
-                            <Button type="submit" className="w-full my-6 bg-gradient-to-r from-yellow-400 to-sky-400 hover:scale-[1.02] text-slate-950 font-bold py-2.5 px-4 rounded-xl shadow-lg transition-transform duration-300 border-0">
+                            <Button type="submit" className="w-full my-6 bg-gradient-to-r from-yellow-400 to-sky-400 hover:scale-[1.02] text-slate-950 font-semibold py-2.5 px-4 rounded-xl shadow-lg transition-transform duration-300 border-0">
                                 Update
                             </Button>
                         )

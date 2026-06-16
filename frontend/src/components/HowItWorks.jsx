@@ -54,7 +54,7 @@ const HowItWorks = () => {
           <span className="px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
             Hiring Workflow
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-3">
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mt-3">
             Two Channels. Simple Pathways.
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base mt-4">
@@ -70,8 +70,8 @@ const HowItWorks = () => {
           {/* Student timeline */}
           <div className="space-y-8">
             <div className="flex items-center gap-3 mb-6">
-              <span className="h-7 w-7 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-600 dark:text-cyan-400 text-xs font-bold">A</span>
-              <h3 className="font-extrabold text-xl text-slate-900 dark:text-white">For Candidates</h3>
+              <span className="h-7 w-7 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-600 dark:text-cyan-400 text-xs font-semibold">A</span>
+              <h3 className="font-semibold text-xl text-slate-900 dark:text-white">For Candidates</h3>
             </div>
             
             <div className="space-y-6">
@@ -91,7 +91,7 @@ const HowItWorks = () => {
                     </div>
                     <div className="text-left space-y-1 w-full">
                       <div className="flex items-center justify-between gap-2">
-                        <h4 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-cyan-400 transition-colors truncate">
+                        <h4 className="font-semibold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-cyan-400 transition-colors truncate">
                           {step.title}
                         </h4>
                         <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 group-hover:text-sky-500/60 dark:group-hover:text-cyan-400/50 transition-colors shrink-0">
@@ -111,8 +111,8 @@ const HowItWorks = () => {
           {/* Recruiter timeline */}
           <div className="space-y-8">
             <div className="flex items-center gap-3 mb-6">
-              <span className="h-7 w-7 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-600 dark:text-amber-400 text-xs font-bold">B</span>
-              <h3 className="font-extrabold text-xl text-slate-900 dark:text-white">For Employers</h3>
+              <span className="h-7 w-7 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-600 dark:text-amber-400 text-xs font-semibold">B</span>
+              <h3 className="font-semibold text-xl text-slate-900 dark:text-white">For Employers</h3>
             </div>
 
             <div className="space-y-6">
@@ -132,7 +132,7 @@ const HowItWorks = () => {
                     </div>
                     <div className="text-left space-y-1 w-full">
                       <div className="flex items-center justify-between gap-2">
-                        <h4 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-400 transition-colors truncate">
+                        <h4 className="font-semibold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-amber-500 dark:group-hover:text-amber-400 transition-colors truncate">
                           {step.title}
                         </h4>
                         <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 group-hover:text-amber-500/60 dark:group-hover:text-amber-400/50 transition-colors shrink-0">

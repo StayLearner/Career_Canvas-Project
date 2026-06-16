@@ -33,7 +33,7 @@ const FinalCTA = () => {
               <Sparkles className="h-3.5 w-3.5" /> Start Today
             </div>
             
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white leading-tight max-w-2xl">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white leading-tight max-w-2xl">
               Elevate your recruiting & career development.
             </h2>
             
@@ -47,7 +47,7 @@ const FinalCTA = () => {
                 <motion.button
                   whileHover={{ scale: 1.03, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold px-8 py-3.5 rounded-2xl shadow-[0_4px_15px_rgba(6,182,212,0.15)] hover:shadow-[0_6px_25px_rgba(6,182,212,0.35)] transition duration-300 group"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold px-8 py-3.5 rounded-2xl shadow-[0_4px_15px_rgba(6,182,212,0.15)] hover:shadow-[0_6px_25px_rgba(6,182,212,0.35)] transition duration-300 group"
                 >
                   <UserPlus className="h-5 w-5 transform group-hover:scale-105 transition-transform" />
                   <span>{user ? "Explore Hot Jobs" : "Start Your Journey"}</span>
@@ -61,7 +61,7 @@ const FinalCTA = () => {
                   <motion.button
                     whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 text-slate-800 dark:text-white font-bold px-8 py-3.5 rounded-2xl border border-slate-250 dark:border-white/10 hover:border-slate-350 dark:hover:border-white/20 transition duration-300 group"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 text-slate-800 dark:text-white font-semibold px-8 py-3.5 rounded-2xl border border-slate-250 dark:border-white/10 hover:border-slate-350 dark:hover:border-white/20 transition duration-300 group"
                   >
                     <FilePlus className="h-5 w-5 transform group-hover:rotate-6 transition-transform" />
                     <span>Post Your First Job</span>

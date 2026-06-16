@@ -16,7 +16,7 @@ const Footer = () => {
           
           {/* Column 1: Branding, Contact & Social Links */}
           <div className="space-y-4">
-            <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight select-none">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight select-none">
               <span className="text-amber-500 dark:text-amber-400">Career</span>
               <span className="text-cyan-500 dark:text-cyan-400 font-medium">Canvas</span>
             </h2>
@@ -57,7 +57,7 @@ const Footer = () => {
 
           {/* Column 2: Real Project Navigation */}
           <div className="space-y-4">
-            <h3 className="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider">
+            <h3 className="text-sm font-semibold text-slate-800 dark:text-white uppercase tracking-wider">
               Navigation
             </h3>
             <ul className="space-y-2.5 text-xs sm:text-sm">
@@ -117,7 +117,7 @@ const Footer = () => {
 
           {/* Column 3: Project Technology Stack */}
           <div className="space-y-4">
-            <h3 className="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider">
+            <h3 className="text-sm font-semibold text-slate-800 dark:text-white uppercase tracking-wider">
               Architecture & Tech Stack
             </h3>
             <ul className="space-y-2.5 text-xs sm:text-sm">

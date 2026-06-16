@@ -277,14 +277,14 @@ const Jobs = () => {
                     <div className="flex flex-wrap items-center justify-between gap-3 px-1.5 pb-2 border-b border-slate-200/50 dark:border-white/5">
                         <div className="flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                            <span className="text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-400">
+                            <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400">
                                 {isLoading ? "Searching..." : `${filterJobs.length} ${filterJobs.length === 1 ? 'Opportunity' : 'Opportunities'} Found`}
                             </span>
                         </div>
                         {hasAnyFilter && (
                             <button
                                 onClick={handleClearAll}
-                                className="text-xs font-extrabold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 transition flex items-center gap-1 bg-transparent"
+                                className="text-xs font-semibold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 transition flex items-center gap-1 bg-transparent"
                             >
                                 <RotateCcw size={12} />
                                 <span>Reset All Filters</span>
@@ -316,7 +316,7 @@ const Jobs = () => {
                                     exit={{ opacity: 0, y: -10 }}
                                     className="flex flex-wrap items-center gap-2 mb-6 bg-white dark:bg-slate-900/40 border border-slate-200/80 dark:border-white/5 p-3 rounded-2xl shadow-[0_10px_30px_rgba(15,23,42,0.03)]"
                                 >
-                                    <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mr-1">Active:</span>
+                                    <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mr-1">Active:</span>
                                     {activePills.map((pill) => {
                                         const isSearch = pill.type === 'search';
                                         const pillColorClass = isSearch
@@ -343,7 +343,7 @@ const Jobs = () => {
                                     })}
                                     <button
                                         onClick={handleClearAll}
-                                        className="text-xs font-extrabold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 ml-auto transition flex items-center gap-1 bg-transparent hover:scale-102"
+                                        className="text-xs font-semibold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 ml-auto transition flex items-center gap-1 bg-transparent hover:scale-102"
                                     >
                                         <RotateCcw size={12} />
                                         <span>Clear All</span>
@@ -351,7 +351,7 @@ const Jobs = () => {
                                 </motion.div>
                             )}
                         </AnimatePresence>
-
+ 
                         {
                             isLoading ? (
                                 <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 pb-10'>
@@ -373,14 +373,14 @@ const Jobs = () => {
                                             <FileSearch className="h-9 w-9 relative z-10" />
                                         </div>
                                         <div className="space-y-2">
-                                            <h3 className="font-extrabold text-xl text-slate-900 dark:text-white">No Matching Opportunities Found</h3>
+                                            <h3 className="font-semibold text-xl text-slate-900 dark:text-white">No Matching Opportunities Found</h3>
                                             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
                                                 Try adjusting your search query or selecting other filters to discover open roles.
                                             </p>
                                         </div>
                                         <Button 
                                             onClick={handleClearAll}
-                                            className="bg-gradient-to-r from-yellow-400 to-sky-400 text-slate-950 font-bold py-2.5 px-6 rounded-xl shadow-lg hover:scale-[1.02] transition-transform duration-300 border-0"
+                                            className="bg-gradient-to-r from-yellow-400 to-sky-400 text-slate-950 font-semibold py-2.5 px-6 rounded-xl shadow-lg hover:scale-[1.02] transition-transform duration-300 border-0"
                                         >
                                             Reset Filters & Search
                                         </Button>
@@ -410,14 +410,14 @@ const Jobs = () => {
                     </div>
                 </div>
             </div>
-
+ 
             {/* Floating Mobile Filter Trigger Button */}
             <div className="lg:hidden fixed bottom-6 right-6 z-40">
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setIsDrawerOpen(true)}
-                    className="flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-yellow-400 via-amber-500 to-cyan-500 text-slate-950 font-extrabold shadow-xl shadow-cyan-500/20 dark:shadow-cyan-950/40 border-0"
+                    className="flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-yellow-400 via-amber-500 to-cyan-500 text-slate-950 font-semibold shadow-xl shadow-cyan-500/20 dark:shadow-cyan-950/40 border-0"
                 >
                     <SlidersHorizontal size={18} />
                     <span>Filters</span>
@@ -428,7 +428,7 @@ const Jobs = () => {
                     )}
                 </motion.button>
             </div>
-
+ 
             {/* Mobile Filter Drawer Slide-Over Panel */}
             <AnimatePresence>
                 {isDrawerOpen && (
@@ -450,7 +450,7 @@ const Jobs = () => {
                             className="fixed right-0 top-0 bottom-0 w-[85vw] sm:w-[380px] bg-slate-50 dark:bg-[#020817] z-50 p-5 shadow-2xl flex flex-col gap-4 overflow-y-auto lg:hidden border-l border-slate-200 dark:border-white/10"
                         >
                             <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-white/5">
-                                <h3 className="font-extrabold text-lg text-slate-900 dark:text-white">Filters</h3>
+                                <h3 className="font-semibold text-lg text-slate-900 dark:text-white">Filters</h3>
                                 <button
                                     onClick={() => setIsDrawerOpen(false)}
                                     className="p-1.5 rounded-full border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 transition bg-transparent"

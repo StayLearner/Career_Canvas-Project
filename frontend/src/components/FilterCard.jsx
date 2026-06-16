@@ -61,13 +61,13 @@ const FilterCard = ({ selectedFilters = {}, onToggleFilter, onClearAll, getOptio
         <div className='w-full bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] p-5 sm:p-6 rounded-3xl shadow-[0_20px_50px_rgba(15,23,42,0.08)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-slate-100 transition-all duration-300 select-none'>
             <div className='flex items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-white/5'>
                 <div className="flex flex-col text-left">
-                    <h1 className='font-extrabold text-lg text-slate-900 dark:text-white leading-tight'>Filters</h1>
-                    <span className="text-[10px] text-slate-500 dark:text-slate-500 font-bold uppercase mt-0.5 tracking-wider">Refine Opportunities</span>
+                    <h1 className='font-bold text-lg text-slate-900 dark:text-white leading-tight'>Filters</h1>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-500 font-semibold uppercase mt-0.5 tracking-wider">Refine Opportunities</span>
                 </div>
                 {hasActiveFilters && (
                     <button
                         onClick={onClearAll}
-                        className="inline-flex items-center gap-1 h-8 px-3 text-xs font-bold border border-slate-200 dark:border-white/10 hover:border-red-300 dark:hover:border-red-500/30 hover:bg-red-50 dark:hover:bg-red-500/10 text-slate-600 dark:text-slate-300 hover:text-red-650 dark:hover:text-red-400 rounded-full transition duration-300 bg-transparent"
+                        className="inline-flex items-center gap-1 h-8 px-3 text-xs font-semibold border border-slate-200 dark:border-white/10 hover:border-red-300 dark:hover:border-red-500/30 hover:bg-red-50 dark:hover:bg-red-500/10 text-slate-600 dark:text-slate-300 hover:text-red-650 dark:hover:text-red-400 rounded-full transition duration-300 bg-transparent"
                     >
                         <RotateCcw size={11} />
                         <span>Reset</span>
@@ -116,7 +116,7 @@ const FilterCard = ({ selectedFilters = {}, onToggleFilter, onClearAll, getOptio
                                 className="flex items-center justify-between cursor-pointer py-1 group" 
                                 onClick={() => toggleExpand(data.filterType)}
                             >
-                                <h2 className='font-extrabold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider text-left group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors flex items-center gap-1.5'>
+                                <h2 className='font-semibold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider text-left group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors flex items-center gap-1.5'>
                                     <span>{data.filterType}</span>
                                     <span className="text-[10px] text-slate-500/80 normal-case font-semibold">({validOptions.length})</span>
                                     {activeArray.length > 0 && (
@@ -155,7 +155,7 @@ const FilterCard = ({ selectedFilters = {}, onToggleFilter, onClearAll, getOptio
                                                         }`}
                                                     >
                                                         <span>{item}</span>
-                                                        <span className={`text-[9px] font-bold ${
+                                                        <span className={`text-[9px] font-semibold ${
                                                             active 
                                                                 ? "text-cyan-600 dark:text-cyan-400" 
                                                                 : hasJobs
@@ -166,13 +166,13 @@ const FilterCard = ({ selectedFilters = {}, onToggleFilter, onClearAll, getOptio
                                                         </span>
                                                     </button>
                                                 )
-                                            })}
+                                              })}
                                         </div>
                                         {/* Show More / Show Less Pagination Button */}
                                         {validOptions.length > 5 && (
                                             <button
                                                 onClick={() => toggleShowAllOptions(data.filterType)}
-                                                className="text-[11px] font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 mt-2 block bg-transparent text-left py-1 hover:underline transition-colors cursor-pointer"
+                                                className="text-[11px] font-semibold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 mt-2 block bg-transparent text-left py-1 hover:underline transition-colors cursor-pointer"
                                             >
                                                 {isShowAll ? "- Show less" : `+ Show more (${validOptions.length - 5} more)`}
                                             </button>

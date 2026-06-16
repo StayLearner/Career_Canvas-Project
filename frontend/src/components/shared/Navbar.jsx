@@ -127,7 +127,7 @@ const Navbar = () => {
                 }}
                 className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-400 via-amber-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-500/20"
               >
-                <Briefcase className="h-5 w-5 text-slate-950 font-black" />
+                <Briefcase className="h-5 w-5 text-slate-950 font-bold" />
               </motion.div>
 
               {/* Logo Text */}
@@ -135,7 +135,7 @@ const Navbar = () => {
                 variants={{
                   hover: { scale: 1.02 }
                 }}
-                className="text-xl sm:text-2xl font-extrabold tracking-tight select-none flex items-center"
+                className="text-xl sm:text-2xl font-bold tracking-tight select-none flex items-center"
               >
                 <span className="text-amber-400 drop-shadow-[0_2px_8px_rgba(250,204,21,0.2)]">Career</span>
                 <span className="text-cyan-400 font-semibold ml-0.5 drop-shadow-[0_2px_8px_rgba(56,189,248,0.2)]">Canvas</span>
@@ -165,7 +165,7 @@ const Navbar = () => {
                         <motion.span
                           whileHover={{ y: -1 }}
                           className={`relative z-10 block ${
-                            active ? "text-slate-950 dark:text-white font-bold" : "hover:text-slate-900 dark:hover:text-slate-100"
+                            active ? "text-slate-950 dark:text-white font-semibold" : "hover:text-slate-900 dark:hover:text-slate-100"
                           }`}
                         >
                           {item.label}
@@ -181,10 +181,10 @@ const Navbar = () => {
             <motion.div
               animate={{ scale: [1, 1.03, 1] }}
               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-              className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-400/30 dark:border-amber-400/20 bg-amber-400/5 dark:bg-amber-400/10 text-[11px] font-bold text-amber-600 dark:text-amber-300 tracking-wider uppercase shadow-sm cursor-default"
+              className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-400/30 dark:border-amber-400/20 bg-amber-400/5 dark:bg-amber-400/10 text-[11px] font-semibold text-amber-600 dark:text-amber-300 tracking-wider uppercase shadow-sm cursor-default"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-              <span>✨ New Opportunities Daily</span>
+              <span><span>✨ New Opportunities Daily</span></span>
             </motion.div>
 
             {/* Premium Theme Switcher Toggle */}
@@ -201,9 +201,9 @@ const Navbar = () => {
                 }}
               >
                 {theme === "light" ? (
-                  <Sun size={12} className="text-slate-950 font-black" />
+                  <Sun size={12} className="text-slate-950" />
                 ) : (
-                  <Moon size={12} className="text-slate-950 font-black" fill="#000" />
+                  <Moon size={12} className="text-slate-950" fill="#000" />
                 )}
               </motion.div>
               <div className="w-full h-full flex justify-between items-center px-1.5 opacity-30 group-hover:opacity-60 transition-opacity duration-300">
@@ -233,7 +233,7 @@ const Navbar = () => {
                       whileTap={{ scale: 0.98 }}
                       className="relative overflow-hidden rounded-full shadow-md hover:shadow-lg transition-shadow duration-300"
                     >
-                      <div className="bg-gradient-to-r from-yellow-400 via-sky-400 to-blue-500 px-5 py-2 text-slate-950 font-bold text-sm h-9 rounded-full flex items-center justify-center cursor-pointer select-none">
+                      <div className="bg-gradient-to-r from-yellow-400 via-sky-400 to-blue-500 px-5 py-2 text-slate-950 font-semibold text-sm h-9 rounded-full flex items-center justify-center cursor-pointer select-none">
                         <span>Signup</span>
                         <motion.div
                           initial={{ x: "-150%" }}
@@ -267,7 +267,7 @@ const Navbar = () => {
                         </Avatar>
 
                         <div className="text-left min-w-0">
-                          <h4 className="text-sm font-bold text-slate-900 dark:text-white truncate">
+                          <h4 className="text-sm font-semibold text-slate-900 dark:text-white truncate">
                             {user?.fullname}
                           </h4>
                           <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">
@@ -318,9 +318,9 @@ const Navbar = () => {
                 }}
               >
                 {theme === "light" ? (
-                  <Sun size={10} className="text-slate-950 font-black" />
+                  <Sun size={10} className="text-slate-950" />
                 ) : (
-                  <Moon size={10} className="text-slate-950 font-black" fill="#000" />
+                  <Moon size={10} className="text-slate-950" fill="#000" />
                 )}
               </motion.div>
             </div>
@@ -376,7 +376,7 @@ const Navbar = () => {
                   </Link>
 
                   <Link to="/signup" onClick={() => setMobileOpen(false)} className="w-full block">
-                    <div className="w-full bg-gradient-to-r from-yellow-400 via-sky-400 to-blue-500 text-slate-950 font-bold h-10 rounded-full flex items-center justify-center cursor-pointer select-none">
+                    <div className="w-full bg-gradient-to-r from-yellow-400 via-sky-400 to-blue-500 text-slate-950 font-semibold h-10 rounded-full flex items-center justify-center cursor-pointer select-none">
                       Signup
                     </div>
                   </Link>
@@ -391,7 +391,7 @@ const Navbar = () => {
                       />
                     </Avatar>
                     <div className="min-w-0 text-left">
-                      <h4 className="font-bold text-slate-900 dark:text-white text-sm truncate">{user?.fullname}</h4>
+                      <h4 className="font-semibold text-slate-900 dark:text-white text-sm truncate">{user?.fullname}</h4>
                       <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
                         {user?.profile?.bio || "No bio added yet"}
                       </p>
