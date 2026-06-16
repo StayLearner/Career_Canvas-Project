@@ -11,27 +11,27 @@ import JobCardSkeleton from './JobCardSkeleton';
 import useGetAllJobs from '@/hooks/useGetAllJobs';
 
 const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.08
+        }
     }
-  }
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 25, scale: 0.96 },
-  show: { 
-    opacity: 1, 
-    y: 0, 
-    scale: 1, 
-    transition: { 
-      type: "spring", 
-      stiffness: 100, 
-      damping: 15 
-    } 
-  }
+    hidden: { opacity: 0, y: 25, scale: 0.96 },
+    show: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            type: "spring",
+            stiffness: 100,
+            damping: 15
+        }
+    }
 };
 
 const Jobs = () => {
@@ -98,11 +98,11 @@ const Jobs = () => {
     const getOptionCount = (category, value) => {
         if (!allJobs) return 0;
         let pool = allJobs;
-        
+
         // Filter pool by general text searchInput if active
         if (searchInput) {
             const queryLower = searchInput.toLowerCase();
-            pool = pool.filter(job => 
+            pool = pool.filter(job =>
                 job.title.toLowerCase().includes(queryLower) ||
                 job.description.toLowerCase().includes(queryLower) ||
                 job.location.toLowerCase().includes(queryLower) ||
@@ -143,7 +143,7 @@ const Jobs = () => {
         setIsLoading(true);
         const timer = setTimeout(() => {
             let filtered = allJobs || [];
-            
+
             // 1. Local text search input
             if (searchInput) {
                 const queryLower = searchInput.toLowerCase();
@@ -159,8 +159,8 @@ const Jobs = () => {
 
             // 2. Location filter
             if (selectedFilters.location.length > 0) {
-                filtered = filtered.filter(job => 
-                    selectedFilters.location.some(loc => 
+                filtered = filtered.filter(job =>
+                    selectedFilters.location.some(loc =>
                         job.location.toLowerCase().includes(loc.toLowerCase())
                     )
                 );
@@ -168,8 +168,8 @@ const Jobs = () => {
 
             // 3. Job Type filter
             if (selectedFilters.jobType.length > 0) {
-                filtered = filtered.filter(job => 
-                    selectedFilters.jobType.some(type => 
+                filtered = filtered.filter(job =>
+                    selectedFilters.jobType.some(type =>
                         job.jobType.toLowerCase().includes(type.toLowerCase())
                     )
                 );
@@ -244,7 +244,7 @@ const Jobs = () => {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-r from-amber-500/5 to-cyan-500/5 dark:from-amber-500/10 dark:to-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
 
             <div className='max-w-7xl mx-auto pt-28 px-4 sm:px-6 lg:px-8 relative z-10'>
-                
+
                 {/* Top Search bar row */}
                 <div className="mb-6 space-y-4 max-w-4xl mx-auto">
                     <div className="relative group w-full">
@@ -294,10 +294,10 @@ const Jobs = () => {
                 </div>
 
                 <div className='flex flex-col lg:flex-row gap-8 items-start mt-4'>
-                    
+
                     {/* Desktop Filter Sidebar - Sticky on left */}
                     <div className='hidden lg:block lg:w-1/4 lg:sticky lg:top-28 lg:max-h-[calc(100vh-9rem)] lg:overflow-y-auto lg:pr-2 shrink-0 custom-scrollbar'>
-                        <FilterCard 
+                        <FilterCard
                             selectedFilters={selectedFilters}
                             onToggleFilter={handleToggleFilter}
                             onClearAll={handleClearAll}
@@ -310,7 +310,7 @@ const Jobs = () => {
                         {/* Active filter pills */}
                         <AnimatePresence>
                             {activePills.length > 0 && (
-                                <motion.div 
+                                <motion.div
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
@@ -322,7 +322,7 @@ const Jobs = () => {
                                         const pillColorClass = isSearch
                                             ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
                                             : "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/20";
-                                        
+
                                         return (
                                             <motion.div
                                                 key={pill.id}
@@ -351,7 +351,7 @@ const Jobs = () => {
                                 </motion.div>
                             )}
                         </AnimatePresence>
- 
+
                         {
                             isLoading ? (
                                 <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 pb-10'>
@@ -363,7 +363,7 @@ const Jobs = () => {
                                 </div>
                             ) : filterJobs.length <= 0 ? (
                                 <div className="bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-200 dark:border-white/10 rounded-2xl p-8 sm:p-12 shadow-[0_20px_50px_rgba(15,23,42,0.06)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-                                    <motion.div 
+                                    <motion.div
                                         initial={{ opacity: 0, scale: 0.95 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         className="flex flex-col items-center justify-center py-10 px-4 text-center max-w-md mx-auto space-y-6"
@@ -378,7 +378,7 @@ const Jobs = () => {
                                                 Try adjusting your search query or selecting other filters to discover open roles.
                                             </p>
                                         </div>
-                                        <Button 
+                                        <Button
                                             onClick={handleClearAll}
                                             className="bg-gradient-to-r from-yellow-400 to-sky-400 text-slate-950 font-semibold py-2.5 px-6 rounded-xl shadow-lg hover:scale-[1.02] transition-transform duration-300 border-0"
                                         >
@@ -387,7 +387,7 @@ const Jobs = () => {
                                     </motion.div>
                                 </div>
                             ) : (
-                                <motion.div 
+                                <motion.div
                                     variants={containerVariants}
                                     initial="hidden"
                                     animate="show"
@@ -410,7 +410,7 @@ const Jobs = () => {
                     </div>
                 </div>
             </div>
- 
+
             {/* Floating Mobile Filter Trigger Button */}
             <div className="lg:hidden fixed bottom-6 right-6 z-40">
                 <motion.button
@@ -428,7 +428,7 @@ const Jobs = () => {
                     )}
                 </motion.button>
             </div>
- 
+
             {/* Mobile Filter Drawer Slide-Over Panel */}
             <AnimatePresence>
                 {isDrawerOpen && (
@@ -459,7 +459,7 @@ const Jobs = () => {
                                 </button>
                             </div>
                             <div className="flex-1 overflow-y-auto mt-2 custom-scrollbar">
-                                <FilterCard 
+                                <FilterCard
                                     selectedFilters={selectedFilters}
                                     onToggleFilter={handleToggleFilter}
                                     onClearAll={handleClearAll}

@@ -10,27 +10,27 @@ import { Button } from './ui/button';
 import JobCardSkeleton from './JobCardSkeleton';
 
 const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.08
+        }
     }
-  }
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 25, scale: 0.96 },
-  show: { 
-    opacity: 1, 
-    y: 0, 
-    scale: 1, 
-    transition: { 
-      type: "spring", 
-      stiffness: 100, 
-      damping: 15 
-    } 
-  }
+    hidden: { opacity: 0, y: 25, scale: 0.96 },
+    show: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            type: "spring",
+            stiffness: 100,
+            damping: 15
+        }
+    }
 };
 
 const Browse = () => {
@@ -69,7 +69,7 @@ const Browse = () => {
         setIsLoading(true);
         const timer = setTimeout(() => {
             let filtered = allJobs || [];
-            
+
             if (searchInput) {
                 const queryLower = searchInput.toLowerCase();
                 filtered = filtered.filter((job) => {
@@ -102,7 +102,7 @@ const Browse = () => {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-r from-amber-500/5 to-cyan-500/5 dark:from-amber-500/10 dark:to-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
 
             <div className='max-w-7xl mx-auto pt-28 px-4 sm:px-6 lg:px-8 relative z-10'>
-                
+
                 {/* Top Search bar row */}
                 <div className="mb-6 space-y-4 max-w-4xl mx-auto">
                     <div className="relative group w-full">
@@ -151,7 +151,7 @@ const Browse = () => {
                 {/* Active search pill */}
                 <AnimatePresence>
                     {searchInput && (
-                        <motion.div 
+                        <motion.div
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
@@ -174,7 +174,7 @@ const Browse = () => {
                             </motion.div>
                             <button
                                 onClick={handleReset}
-                                        className="text-xs font-semibold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 ml-auto transition flex items-center gap-1 bg-transparent hover:scale-[1.02]"
+                                className="text-xs font-semibold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 ml-auto transition flex items-center gap-1 bg-transparent hover:scale-[1.02]"
                             >
                                 <RotateCcw size={12} />
                                 <span>Clear Search</span>
@@ -182,7 +182,7 @@ const Browse = () => {
                         </motion.div>
                     )}
                 </AnimatePresence>
- 
+
                 {
                     isLoading ? (
                         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 pb-10'>
@@ -194,7 +194,7 @@ const Browse = () => {
                         </div>
                     ) : filterJobs.length <= 0 ? (
                         <div className="bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-200 dark:border-white/10 rounded-2xl p-8 sm:p-12 shadow-[0_20px_50px_rgba(15,23,42,0.06)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 className="flex flex-col items-center justify-center py-10 px-4 text-center max-w-md mx-auto space-y-6"
@@ -209,7 +209,7 @@ const Browse = () => {
                                         Try adjusting your search query or clear the input to discover open roles.
                                     </p>
                                 </div>
-                                <Button 
+                                <Button
                                     onClick={handleReset}
                                     className="bg-gradient-to-r from-yellow-400 to-sky-400 text-slate-950 font-semibold py-2.5 px-6 rounded-xl shadow-lg hover:scale-[1.02] transition-transform duration-300 border-0"
                                 >
@@ -218,7 +218,7 @@ const Browse = () => {
                             </motion.div>
                         </div>
                     ) : (
-                        <motion.div 
+                        <motion.div
                             variants={containerVariants}
                             initial="hidden"
                             animate="show"
@@ -232,7 +232,7 @@ const Browse = () => {
                                             key={job._id}
                                             className="h-full"
                                         >
-                                            <Job job={job}/>
+                                            <Job job={job} />
                                         </motion.div>
                                     )
                                 })
