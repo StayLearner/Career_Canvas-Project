@@ -61,7 +61,7 @@ const FinalCTA = () => {
                   <motion.button
                     whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 text-slate-800 dark:text-white font-semibold px-8 py-3.5 rounded-2xl border border-slate-250 dark:border-white/10 hover:border-slate-350 dark:hover:border-white/20 transition duration-300 group"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 text-slate-800 dark:text-white font-semibold px-8 py-3.5 rounded-2xl border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition duration-300 group"
                   >
                     <FilePlus className="h-5 w-5 transform group-hover:rotate-6 transition-transform" />
                     <span>Post Your First Job</span>

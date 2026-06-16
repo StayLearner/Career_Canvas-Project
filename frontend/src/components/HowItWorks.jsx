@@ -98,7 +98,7 @@ const HowItWorks = () => {
                           Step {step.num}
                         </span>
                       </div>
-                      <p className="text-xs sm:text-sm text-slate-650 dark:text-slate-400 leading-relaxed">
+                      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                         {step.desc}
                       </p>
                     </div>
@@ -139,7 +139,7 @@ const HowItWorks = () => {
                           Step {step.num}
                         </span>
                       </div>
-                      <p className="text-xs sm:text-sm text-slate-650 dark:text-slate-400 leading-relaxed">
+                      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                         {step.desc}
                       </p>
                     </div>

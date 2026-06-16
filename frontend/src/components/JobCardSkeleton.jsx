@@ -40,9 +40,9 @@ const JobCardSkeleton = () => {
       <div className="mt-3 space-y-3">
         {/* Badges */}
         <div className="flex flex-wrap items-center gap-1.5 pt-3 border-t border-slate-100 dark:border-white/5">
-          <div className="h-5.5 w-16 bg-slate-150 dark:bg-white/5 rounded-md" />
-          <div className="h-5.5 w-16 bg-slate-150 dark:bg-white/5 rounded-md" />
-          <div className="h-5.5 w-16 bg-slate-150 dark:bg-white/5 rounded-md" />
+          <div className="h-5.5 w-16 bg-slate-100 dark:bg-white/5 rounded-md" />
+          <div className="h-5.5 w-16 bg-slate-100 dark:bg-white/5 rounded-md" />
+          <div className="h-5.5 w-16 bg-slate-100 dark:bg-white/5 rounded-md" />
         </div>
 
         {/* Button */}

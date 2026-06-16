@@ -114,7 +114,7 @@ const TrustedCompanies = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.08 }}
                 whileHover={{ y: -4, scale: 1.05 }}
-                className="px-5 py-3 rounded-2xl flex items-center gap-2.5 cursor-pointer transition-all duration-300 group relative shrink-0 w-[240px] h-14 bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-205 dark:border-white/10 shadow-[0_10px_35px_rgba(15,23,42,0.04)] dark:shadow-lg hover:shadow-[0_20px_50px_rgba(15,23,42,0.06)] dark:hover:shadow-2xl hover:border-slate-300 dark:hover:border-white/20"
+                className="px-5 py-3 rounded-2xl flex items-center gap-2.5 cursor-pointer transition-all duration-300 group relative shrink-0 w-[240px] h-14 bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-200 dark:border-white/10 shadow-[0_10px_35px_rgba(15,23,42,0.04)] dark:shadow-lg hover:shadow-[0_20px_50px_rgba(15,23,42,0.06)] dark:hover:shadow-2xl hover:border-slate-300 dark:hover:border-white/20"
               >
                 {/* Subtle top highlight */}
                 <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-slate-100 dark:via-white/10 to-transparent z-10 pointer-events-none rounded-t-2xl" />

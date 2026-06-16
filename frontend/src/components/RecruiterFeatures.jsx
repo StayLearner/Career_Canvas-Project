@@ -44,7 +44,7 @@ const RecruiterFeatures = () => {
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
                 Source top-tier talent. Streamline your hiring pipeline.
               </h2>
-              <p className="text-slate-650 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
+              <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
                 Empower your recruitment team with collaborative tools to post jobs, screen resumes, and move applicants forward without clutter. Keep your recruitment clean and quick.
               </p>
             </div>
@@ -100,7 +100,7 @@ const RecruiterFeatures = () => {
                 </div>
 
                 {/* Candidate 1 */}
-                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-150 dark:border-white/5 flex flex-col gap-3 hover:bg-slate-100 dark:hover:bg-white/10 transition duration-300">
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 flex flex-col gap-3 hover:bg-slate-100 dark:hover:bg-white/10 transition duration-300">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-500 flex items-center justify-center font-semibold text-white text-sm">
@@ -126,14 +126,14 @@ const RecruiterFeatures = () => {
                     <button className="flex-1 flex items-center justify-center gap-1 text-[11px] bg-emerald-500/10 dark:bg-emerald-500/20 hover:bg-emerald-500/20 dark:hover:bg-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-semibold py-1.5 rounded-lg transition duration-200 border-0">
                       <Check className="h-3 w-3" /> Accept
                     </button>
-                    <button className="flex-1 flex items-center justify-center gap-1 text-[11px] bg-red-500/5 dark:bg-red-500/10 hover:bg-red-500/10 dark:hover:bg-red-500/20 text-red-655 dark:text-red-400 font-semibold py-1.5 rounded-lg transition duration-200 border-0">
+                    <button className="flex-1 flex items-center justify-center gap-1 text-[11px] bg-red-500/5 dark:bg-red-500/10 hover:bg-red-500/10 dark:hover:bg-red-500/20 text-red-600 dark:text-red-400 font-semibold py-1.5 rounded-lg transition duration-200 border-0">
                       <X className="h-3 w-3" /> Reject
                     </button>
                   </div>
                 </div>
 
                 {/* Candidate 2 (Compact/Accepted) */}
-                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-150 dark:border-white/5 flex items-center justify-between hover:bg-slate-100 dark:hover:bg-white/10 transition duration-300 opacity-80">
+                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 flex items-center justify-between hover:bg-slate-100 dark:hover:bg-white/10 transition duration-300 opacity-80">
                   <div className="flex items-center gap-3">
                     <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-violet-400 to-indigo-500 flex items-center justify-center font-semibold text-white text-xs">
                       VK

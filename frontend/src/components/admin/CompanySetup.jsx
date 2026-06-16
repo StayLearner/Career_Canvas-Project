@@ -83,7 +83,7 @@ const CompanySetup = () => {
                             onClick={() => navigate("/admin/companies")} 
                             type="button" 
                             variant="outline" 
-                            className="flex items-center gap-2 text-slate-600 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full font-semibold w-fit h-9 px-4 shrink-0 transition"
+                            className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full font-semibold w-fit h-9 px-4 shrink-0 transition"
                         >
                             <ArrowLeft className="h-4 w-4" />
                             <span>Back</span>

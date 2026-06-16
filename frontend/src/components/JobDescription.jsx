@@ -387,7 +387,7 @@ const JobDescription = () => {
             </div>
 
             {/* 2. Bottom Sticky Apply Bar (Mobile Only) */}
-            <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/90 dark:bg-[#0c1220]/95 backdrop-blur-md shadow-[0_-10px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_-15px_40px_rgba(0,0,0,0.4)] border-t border-slate-200 dark:border-white/10 flex items-center justify-between gap-4 z-45 lg:hidden select-none">
+            <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/90 dark:bg-[#0c1220]/95 backdrop-blur-md shadow-[0_-10px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_-15px_40px_rgba(0,0,0,0.4)] border-t border-slate-200 dark:border-white/10 flex items-center justify-between gap-4 z-50 lg:hidden select-none">
                 <div className="text-left min-w-0">
                     <h4 className="font-semibold text-slate-900 dark:text-white text-sm truncate leading-tight">{singleJob?.title}</h4>
                     <p className="text-slate-500 dark:text-slate-400 text-xs font-medium mt-0.5">{singleJob?.salary} LPA • {singleJob?.location}</p>

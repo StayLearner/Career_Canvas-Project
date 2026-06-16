@@ -58,7 +58,7 @@ const LatestJobCards = ({ job }) => {
             <span className="truncate">{job?.title}</span>
             <ArrowUpRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-all duration-300 text-cyan-600 dark:text-cyan-400 shrink-0 transform translate-y-1 group-hover:translate-y-0" />
           </h4>
-          <p className="text-xs text-slate-650 dark:text-slate-400 line-clamp-3 mt-2 leading-relaxed">
+          <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 mt-2 leading-relaxed">
             {job?.description}
           </p>
         </div>

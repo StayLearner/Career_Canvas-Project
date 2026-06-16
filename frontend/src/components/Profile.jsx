@@ -35,18 +35,18 @@ const Profile = () => {
                         <Button 
                             onClick={() => setOpen(true)} 
                             variant="outline"
-                            className="border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-white/5 rounded-full p-2 h-10 w-10 flex items-center justify-center shrink-0" 
+                            className="border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 rounded-full p-2 h-10 w-10 flex items-center justify-center shrink-0" 
                         >
                             <Pen className="h-4 w-4" />
                         </Button>
                     </div>
 
                     <div className='my-6 space-y-3 text-left'>
-                        <div className='flex items-center gap-3 text-slate-650 dark:text-slate-300 break-all text-sm sm:text-base'>
+                        <div className='flex items-center gap-3 text-slate-600 dark:text-slate-300 break-all text-sm sm:text-base'>
                             <Mail className='h-4 w-4 text-cyan-500 shrink-0' />
                             <span>{user?.email}</span>
                         </div>
-                        <div className='flex items-center gap-3 text-slate-655 dark:text-slate-300 text-sm sm:text-base'>
+                        <div className='flex items-center gap-3 text-slate-600 dark:text-slate-300 text-sm sm:text-base'>
                             <Contact className='h-4 w-4 text-amber-500 shrink-0' />
                             <span>{user?.phoneNumber || "No contact info"}</span>
                         </div>

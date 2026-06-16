@@ -156,7 +156,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-200/50 dark:bg-white/5 text-cyan-600 dark:text-cyan-300 border border-slate-350/20 dark:border-white/10"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-200/50 dark:bg-white/5 text-cyan-600 dark:text-cyan-300 border border-slate-300/20 dark:border-white/10"
             >
               <Sparkles className="h-3.5 w-3.5 text-cyan-500 dark:text-cyan-400" />
               <ShinyText text="Next-Generation Career Canvas" className="text-cyan-600 dark:text-cyan-300 font-semibold" shineColor="#ffffff" color="#38bdf8" speed={2.5} />
@@ -202,7 +202,7 @@ const HeroSection = () => {
               {/* Outer Glow */}
               <div className="absolute -inset-px bg-gradient-to-r from-cyan-500 to-amber-500 rounded-2xl blur opacity-15 dark:opacity-30 group-hover:opacity-40 dark:group-hover:opacity-60 transition duration-500" />
               
-              <div className="relative flex items-center bg-white dark:bg-[#0d1220]/90 border border-slate-205 dark:border-white/10 rounded-2xl p-1.5 shadow-md dark:shadow-none">
+              <div className="relative flex items-center bg-white dark:bg-[#0d1220]/90 border border-slate-200 dark:border-white/10 rounded-2xl p-1.5 shadow-md dark:shadow-none">
                 <GlowingEffect
                   disabled={false}
                   proximity={64}

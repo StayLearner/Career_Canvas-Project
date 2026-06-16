@@ -146,7 +146,7 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-5">
             <nav>
-              <ul className="flex items-center gap-1.5 bg-slate-200/50 dark:bg-white/5 rounded-full p-1 border border-slate-350/20 dark:border-white/5">
+              <ul className="flex items-center gap-1.5 bg-slate-200/50 dark:bg-white/5 rounded-full p-1 border border-slate-300/20 dark:border-white/5">
                 {navLinks.map((item) => {
                   const active = isActive(item.path);
                   return (
@@ -248,7 +248,7 @@ const Navbar = () => {
               ) : (
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Avatar className="cursor-pointer shadow-md h-9 w-9 ring-2 ring-slate-200 dark:ring-cyan-500/30 hover:ring-slate-350 dark:hover:ring-cyan-500/60 transition duration-300">
+                    <Avatar className="cursor-pointer shadow-md h-9 w-9 ring-2 ring-slate-200 dark:ring-cyan-500/30 hover:ring-slate-300 dark:hover:ring-cyan-500/60 transition duration-300">
                       <AvatarImage
                         src={user?.profile?.profilePhoto}
                         alt={user?.fullname || "User"}
@@ -259,7 +259,7 @@ const Navbar = () => {
                   <PopoverContent className="w-80 p-4 bg-white dark:bg-[#0d1220]/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-2xl shadow-xl text-slate-800 dark:text-slate-100 mt-2 z-50">
                     <div className="flex flex-col gap-4">
                       <div className="flex items-center gap-3 pb-3 border-b border-slate-100 dark:border-white/5">
-                        <Avatar className="shadow-md h-10 w-10 ring-2 ring-slate-150 dark:ring-cyan-500/20">
+                        <Avatar className="shadow-md h-10 w-10 ring-2 ring-slate-200 dark:ring-cyan-500/20">
                           <AvatarImage
                             src={user?.profile?.profilePhoto}
                             alt={user?.fullname || "User"}
@@ -369,7 +369,7 @@ const Navbar = () => {
                   <Link to="/login" onClick={() => setMobileOpen(false)}>
                     <Button
                       variant="ghost"
-                      className="w-full border border-slate-250 dark:border-white/10 text-slate-600 dark:text-slate-300 font-semibold h-10 rounded-full hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-950 dark:hover:text-white"
+                      className="w-full border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 font-semibold h-10 rounded-full hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-950 dark:hover:text-white"
                     >
                       Login
                     </Button>

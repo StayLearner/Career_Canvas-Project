@@ -343,7 +343,7 @@ const Jobs = () => {
                                     })}
                                     <button
                                         onClick={handleClearAll}
-                                        className="text-xs font-semibold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 ml-auto transition flex items-center gap-1 bg-transparent hover:scale-102"
+                                        className="text-xs font-semibold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 ml-auto transition flex items-center gap-1 bg-transparent hover:scale-[1.02]"
                                     >
                                         <RotateCcw size={12} />
                                         <span>Clear All</span>
