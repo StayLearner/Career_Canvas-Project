@@ -8,6 +8,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FileSearch, X, RotateCcw, Search } from 'lucide-react';
 import { Button } from './ui/button';
 import JobCardSkeleton from './JobCardSkeleton';
+import Prism from './Prism';
+import Grainient from './Grainient';
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -39,6 +41,21 @@ const Browse = () => {
     const [filterJobs, setFilterJobs] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const dispatch = useDispatch();
+
+    // Detect theme from html element's dark class dynamically
+    const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains("dark"));
+
+    useEffect(() => {
+        setIsDark(document.documentElement.classList.contains("dark"));
+        const observer = new MutationObserver(() => {
+            setIsDark(document.documentElement.classList.contains("dark"));
+        });
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ["class"],
+        });
+        return () => observer.disconnect();
+    }, []);
 
     // Local search text input synced with Redux searchedQuery
     const [searchInput, setSearchInput] = useState(searchedQuery || "");
@@ -95,58 +112,119 @@ const Browse = () => {
     };
 
     return (
-        <div className="bg-gradient-to-br from-slate-50 via-sky-50/50 to-amber-50/40 dark:from-[#020817] dark:to-[#020817] min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-500 font-sans pb-16 relative overflow-x-hidden">
+        <div className="bg-[#FAFBFC] dark:bg-[#08070d] min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-500 font-sans pb-16 relative">
+            {/* ── BACKGROUND LAYER: Dynamically swaps to only keep ONE WebGL context alive at a time ── */}
+            {isDark ? (
+                /* ── DARK MODE ONLY: Prism WebGL spectral background ── */
+                <div className="fixed inset-0 pointer-events-none z-0">
+                    <div style={{ position: 'absolute', inset: 0, opacity: 0.92 }}>
+                        <Prism
+                            animationType="rotate"
+                            timeScale={0.4}
+                            height={3.5}
+                            baseWidth={5.5}
+                            scale={3.6}
+                            hueShift={0}
+                            colorFrequency={1}
+                            noise={0.02}
+                            glow={1.1}
+                            bloom={1.15}
+                            transparent={true}
+                        />
+                    </div>
+                    <div style={{ position: 'absolute', inset: 0, background: 'rgba(8, 7, 13, 0.62)', pointerEvents: 'none' }} />
+                    <div style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: '110%', height: '42%', background: 'radial-gradient(ellipse 70% 100% at 50% 100%, rgba(14,165,233,0.55) 0%, rgba(56,189,248,0.28) 40%, transparent 75%)', filter: 'blur(2px)', pointerEvents: 'none' }} />
+                    <div style={{ position: 'absolute', top: '25%', left: '50%', transform: 'translateX(-50%)', width: '60%', height: '55%', background: 'radial-gradient(ellipse 60% 60% at 50% 40%, rgba(245,158,11,0.13) 0%, rgba(250,204,21,0.07) 50%, transparent 80%)', pointerEvents: 'none' }} />
+                    <div style={{ position: 'absolute', top: '15%', left: '-5%', width: '40%', height: '60%', background: 'radial-gradient(ellipse 80% 80% at 10% 50%, rgba(6,182,212,0.12) 0%, transparent 65%)', pointerEvents: 'none' }} />
+                    <div style={{ position: 'absolute', top: '20%', right: '-5%', width: '35%', height: '50%', background: 'radial-gradient(ellipse 80% 80% at 90% 40%, rgba(20,184,166,0.09) 0%, transparent 65%)', pointerEvents: 'none' }} />
+                    <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 100% 100% at 50% 50%, transparent 40%, rgba(8,7,13,0.75) 100%)', pointerEvents: 'none' }} />
+                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '120px', background: 'linear-gradient(to bottom, rgba(8,7,13,0.80) 0%, transparent 100%)', pointerEvents: 'none' }} />
+                </div>
+            ) : (
+                /* ── LIGHT MODE: Grainient WebGL premium animated background ── */
+                <div className="fixed inset-0 pointer-events-none z-0">
+                    <Grainient
+                        color1="#FACC15"
+                        color2="#38BDF8"
+                        color3="#F8FAFC"
+                        timeSpeed={0.18}
+                        colorBalance={0.25}
+                        warpStrength={0.8}
+                        warpFrequency={3.5}
+                        warpSpeed={1.2}
+                        warpAmplitude={65}
+                        blendAngle={-20}
+                        blendSoftness={0.12}
+                        rotationAmount={280}
+                        noiseScale={1.6}
+                        grainAmount={0.035}
+                        grainScale={1.4}
+                        grainAnimated={false}
+                        contrast={1.12}
+                        gamma={1.0}
+                        saturation={0.95}
+                        centerX={0}
+                        centerY={-0.08}
+                        zoom={1.05}
+                        className="absolute inset-0 w-full h-full"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/35 to-white/70 pointer-events-none" />
+                </div>
+            )}
+
             <Navbar />
 
-            {/* Mesh background glows */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-r from-amber-500/5 to-cyan-500/5 dark:from-amber-500/10 dark:to-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
+            {/* ── FIXED SEARCH BAND ── fixed below Navbar, always visible at all scroll positions */}
+            <div className="fixed top-[80px] left-0 right-0 z-30 w-full">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="py-3 backdrop-blur-xl bg-white/80 dark:bg-[#08070d]/80 border-b border-slate-200/60 dark:border-white/5 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
+                        {/* Search input */}
+                        <div className="relative group w-full max-w-4xl mx-auto">
+                            <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-400 via-sky-400 to-cyan-400 rounded-full blur opacity-10 group-focus-within:opacity-35 group-hover:opacity-20 transition duration-500" />
+                            <div className="relative flex items-center bg-white dark:bg-[#0c1220]/90 border border-slate-200 dark:border-white/10 rounded-full px-5 py-2.5 shadow-[0_8px_30px_rgba(15,23,42,0.07)] dark:shadow-none group-focus-within:border-transparent transition-all duration-300">
+                                <Search className="h-5 w-5 text-slate-400 dark:text-slate-500 shrink-0 mr-3" />
+                                <input
+                                    type="text"
+                                    placeholder="Search jobs, companies, or locations..."
+                                    value={searchInput}
+                                    onChange={(e) => setSearchInput(e.target.value)}
+                                    className="bg-transparent border-none outline-none w-full text-sm sm:text-base text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 py-1"
+                                />
+                                {searchInput && (
+                                    <button
+                                        onClick={handleReset}
+                                        className="hover:bg-slate-100 dark:hover:bg-white/10 rounded-full p-1 transition mr-1 bg-transparent shrink-0"
+                                    >
+                                        <X className="h-4 w-4 text-slate-400 hover:text-slate-700 dark:text-slate-500 dark:hover:text-slate-300" />
+                                    </button>
+                                )}
+                            </div>
+                        </div>
 
-            <div className='max-w-7xl mx-auto pt-28 px-4 sm:px-6 lg:px-8 relative z-10'>
-
-                {/* Top Search bar row */}
-                <div className="mb-6 space-y-4 max-w-4xl mx-auto">
-                    <div className="relative group w-full">
-                        {/* Glow focus backdrop */}
-                        <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-400 via-sky-400 to-cyan-400 rounded-full blur opacity-10 group-focus-within:opacity-35 group-hover:opacity-20 transition duration-500" />
-                        <div className="relative flex items-center bg-white dark:bg-[#0c1220]/90 border border-slate-200 dark:border-white/10 rounded-full px-5 py-2.5 shadow-[0_15px_45px_rgba(15,23,42,0.06)] dark:shadow-none group-focus-within:border-transparent transition-all duration-300">
-                            <Search className="h-5 w-5 text-slate-400 dark:text-slate-500 shrink-0 mr-3" />
-                            <input
-                                type="text"
-                                placeholder="Search jobs, companies, or locations..."
-                                value={searchInput}
-                                onChange={(e) => setSearchInput(e.target.value)}
-                                className="bg-transparent border-none outline-none w-full text-sm sm:text-base text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 py-1"
-                            />
+                        {/* Results count & reset row */}
+                        <div className="flex flex-wrap items-center justify-between gap-3 px-1.5 pt-2.5 max-w-4xl mx-auto">
+                            <div className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                <span className="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400">
+                                    {isLoading ? "Searching..." : `${filterJobs.length} ${filterJobs.length === 1 ? 'Opportunity' : 'Opportunities'} Found`}
+                                </span>
+                            </div>
                             {searchInput && (
                                 <button
                                     onClick={handleReset}
-                                    className="hover:bg-slate-100 dark:hover:bg-white/10 rounded-full p-1 transition mr-1 bg-transparent shrink-0"
+                                    className="text-xs font-semibold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 transition flex items-center gap-1 bg-transparent"
                                 >
-                                    <X className="h-4 w-4 text-slate-400 hover:text-slate-700 dark:text-slate-500 dark:hover:text-slate-300" />
+                                    <RotateCcw size={12} />
+                                    <span>Reset Search</span>
                                 </button>
                             )}
                         </div>
                     </div>
-
-                    {/* Results count & Quick action button */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 px-1.5 pb-2 border-b border-slate-200/50 dark:border-white/5">
-                        <div className="flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                            <span className="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400">
-                                {isLoading ? "Searching..." : `${filterJobs.length} ${filterJobs.length === 1 ? 'Opportunity' : 'Opportunities'} Found`}
-                            </span>
-                        </div>
-                        {searchInput && (
-                            <button
-                                onClick={handleReset}
-                                className="text-xs font-semibold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 transition flex items-center gap-1 bg-transparent"
-                            >
-                                <RotateCcw size={12} />
-                                <span>Reset Search</span>
-                            </button>
-                        )}
-                    </div>
                 </div>
+            </div>
+
+            {/* Content pushed down to clear Navbar (80px) + Search band (~76px) */}
+            <div className='max-w-7xl mx-auto pt-[160px] px-4 sm:px-6 lg:px-8 relative z-10'>
 
                 {/* Active search pill */}
                 <AnimatePresence>

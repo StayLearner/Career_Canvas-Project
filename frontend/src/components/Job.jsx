@@ -47,7 +47,9 @@ const Job = ({ job }) => {
   const gradientClass = getGradientClass(companyName);
 
   return (
-    <div className='relative overflow-hidden p-5 rounded-2xl bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-200/90 dark:border-white/10 shadow-[0_18px_55px_rgba(15,23,42,0.12)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.3)] hover:shadow-[0_24px_80px_rgba(56,189,248,0.18)] dark:hover:shadow-[0_30px_80px_rgba(0,0,0,0.45)] hover:-translate-y-1.5 group text-left transition-all duration-300'>
+    <div className='relative overflow-hidden p-5 rounded-2xl bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-sky-200/70 dark:border-white/10 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.3)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_30px_80px_rgba(0,0,0,0.45)] hover:-translate-y-1.5 group text-left transition-all duration-300'>
+      {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-2xl z-0" />
       
       {/* Glow highlight effect */}
       <GlowingEffect
@@ -62,7 +64,7 @@ const Job = ({ job }) => {
       <div className="z-10 relative space-y-3.5">
         {/* Card Top Information Row */}
         <div className='flex items-center justify-between gap-2 border-b border-slate-100 dark:border-white/5 pb-2.5'>
-          <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/20 px-2 py-0.5 rounded-full border border-emerald-200">
+          <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 dark:bg-emerald-500/20 px-2 py-0.5 rounded-full border border-emerald-500/20">
             <BadgeCheck className="h-3 w-3 shrink-0" />
             Verified Company
           </span>
@@ -123,13 +125,13 @@ const Job = ({ job }) => {
       <div className="z-10 relative mt-3 space-y-3">
         {/* Core Tags */}
         <div className='flex flex-wrap items-center gap-1.5 pt-3 border-t border-slate-100 dark:border-white/5'>
-          <Badge className='bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 border border-emerald-200 text-[9px] font-semibold px-2 py-0.5 rounded-md hover:bg-emerald-100 dark:hover:bg-emerald-500/20 shadow-none transition' variant="ghost">
+          <Badge className='bg-emerald-500/10 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 border border-emerald-500/20 text-[9px] font-semibold px-2 py-0.5 rounded-md hover:bg-emerald-500/20 shadow-none transition' variant="ghost">
             {job?.position} Positions
           </Badge>
-          <Badge className='bg-sky-50 text-sky-700 dark:bg-cyan-500/10 dark:text-cyan-400 border border-sky-200 text-[9px] font-semibold px-2 py-0.5 rounded-md hover:bg-sky-100 dark:hover:bg-cyan-500/20 shadow-none transition' variant="ghost">
+          <Badge className='bg-sky-500/10 text-sky-700 dark:bg-cyan-500/10 dark:text-cyan-400 border border-sky-500/20 text-[9px] font-semibold px-2 py-0.5 rounded-md hover:bg-sky-500/20 shadow-none transition' variant="ghost">
             {job?.jobType}
           </Badge>
-          <Badge className='bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400 border border-amber-200 text-[9px] font-semibold px-2 py-0.5 rounded-md hover:bg-amber-100 dark:hover:bg-amber-500/20 shadow-none transition' variant="ghost">
+          <Badge className='bg-amber-500/10 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400 border border-amber-500/20 text-[9px] font-semibold px-2 py-0.5 rounded-md hover:bg-amber-500/20 shadow-none transition' variant="ghost">
             {job?.salary} LPA
           </Badge>
         </div>

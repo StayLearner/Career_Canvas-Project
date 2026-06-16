@@ -19,8 +19,10 @@ const FinalCTA = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-200 dark:border-white/10 p-8 sm:p-12 lg:p-16 rounded-[2.5rem] text-center relative overflow-hidden shadow-[0_20px_50px_rgba(15,23,42,0.05)] dark:shadow-2xl"
+          className="bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-sky-200/70 dark:border-white/10 p-8 sm:p-12 lg:p-16 rounded-[2.5rem] text-center relative overflow-hidden shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-2xl"
         >
+          {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-[2.5rem] z-0" />
           {/* Inner highlight glows */}
           <div className="absolute top-0 left-0 w-48 h-48 rounded-full bg-cyan-500/5 dark:bg-cyan-500/10 blur-3xl pointer-events-none z-0" />
           <div className="absolute bottom-0 right-0 w-48 h-48 rounded-full bg-amber-500/5 dark:bg-amber-500/10 blur-3xl pointer-events-none z-0" />
@@ -61,7 +63,7 @@ const FinalCTA = () => {
                   <motion.button
                     whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 text-slate-800 dark:text-white font-semibold px-8 py-3.5 rounded-2xl border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition duration-300 group"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-100 hover:bg-gradient-to-r hover:from-yellow-400 hover:to-sky-400 hover:text-slate-955 dark:bg-white/5 dark:hover:bg-white/10 text-slate-800 dark:text-white font-semibold px-8 py-3.5 rounded-2xl border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition duration-300 group cursor-pointer"
                   >
                     <FilePlus className="h-5 w-5 transform group-hover:rotate-6 transition-transform" />
                     <span>Post Your First Job</span>

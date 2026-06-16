@@ -114,20 +114,20 @@ const TrustedCompanies = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.08 }}
                 whileHover={{ y: -4, scale: 1.05 }}
-                className="px-5 py-3 rounded-2xl flex items-center gap-2.5 cursor-pointer transition-all duration-300 group relative shrink-0 w-[240px] h-14 bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-200 dark:border-white/10 shadow-[0_10px_35px_rgba(15,23,42,0.04)] dark:shadow-lg hover:shadow-[0_20px_50px_rgba(15,23,42,0.06)] dark:hover:shadow-2xl hover:border-slate-300 dark:hover:border-white/20"
+                className="px-5 py-3 rounded-2xl flex items-center gap-2.5 cursor-pointer transition-all duration-300 group relative shrink-0 w-[240px] h-14 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-sky-200/70 dark:border-white/10 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-lg hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-2xl hover:border-sky-300/80 dark:hover:border-white/20 overflow-hidden"
               >
-                {/* Subtle top highlight */}
-                <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-slate-100 dark:via-white/10 to-transparent z-10 pointer-events-none rounded-t-2xl" />
+                {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-2xl z-0" />
 
                 <div className={`p-1.5 rounded-lg bg-slate-100 dark:bg-white/5 transition-colors group-hover:bg-slate-200 dark:group-hover:bg-white/10 shrink-0 ${iconColor} shadow-sm dark:shadow-[0_0_8px_rgba(56,189,248,0.15)] dark:group-hover:shadow-[0_0_15px_rgba(56,189,248,0.35)] z-10`}>
                   <IconComponent className="h-4.5 w-4.5" />
                 </div>
                 <div className="text-left min-w-0 flex-1 z-10">
-                  <span className="font-bold text-sm text-slate-700 dark:text-slate-300 group-hover:text-slate-950 dark:group-hover:text-white transition-colors block truncate">
+                  <span className="font-bold text-sm text-slate-950 dark:text-slate-300 group-hover:text-slate-950 dark:group-hover:text-white transition-colors block truncate">
                     {companyName}
                   </span>
                   {companyLocation && (
-                    <span className="text-[9px] text-slate-400 dark:text-slate-500 block truncate -mt-0.5">
+                    <span className="text-[9px] text-slate-500 dark:text-slate-500 block truncate -mt-0.5">
                       {companyLocation}
                     </span>
                   )}

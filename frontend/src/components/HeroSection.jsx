@@ -202,7 +202,9 @@ const HeroSection = () => {
               {/* Outer Glow */}
               <div className="absolute -inset-px bg-gradient-to-r from-cyan-500 to-amber-500 rounded-2xl blur opacity-15 dark:opacity-30 group-hover:opacity-40 dark:group-hover:opacity-60 transition duration-500" />
               
-              <div className="relative flex items-center bg-white dark:bg-[#0d1220]/90 border border-slate-200 dark:border-white/10 rounded-2xl p-1.5 shadow-md dark:shadow-none">
+              <div className="relative flex items-center bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-[#0d1220]/90 border border-sky-200/70 dark:border-white/10 rounded-2xl p-1.5 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-none overflow-hidden">
+                {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-2xl z-0" />
                 <GlowingEffect
                   disabled={false}
                   proximity={64}
@@ -320,11 +322,10 @@ const HeroSection = () => {
                 >
                   <GlareCard
                     onClick={() => navigate(`/description/${floatingJobs[0]._id}`)}
-                    className="p-6 hover:bg-white dark:hover:bg-[#0B1220]/90 transition-all duration-300 cursor-pointer flex flex-col justify-between h-full relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-slate-200 dark:border-white/10 shadow-[0_20px_50px_rgba(15,23,42,0.06)] dark:shadow-[0_24px_80px_rgba(0,0,0,0.4)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.15)] dark:hover:shadow-[0_30px_90px_rgba(56,189,248,0.2)] md:rotate-[-0.5deg] hover:rotate-0"
+                    className="p-6 transition-all duration-300 cursor-pointer flex flex-col justify-between h-full relative overflow-hidden bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_24px_80px_rgba(0,0,0,0.4)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_30px_90px_rgba(56,189,248,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 md:rotate-[-0.5deg] hover:rotate-0"
                   >
-                    {/* Inner highlight glows */}
-                    <div className="absolute top-0 left-0 w-24 h-24 rounded-full bg-cyan-500/10 dark:bg-cyan-500/15 blur-xl pointer-events-none z-0" />
-                    <div className="absolute bottom-0 right-0 w-24 h-24 rounded-full bg-amber-500/10 dark:bg-amber-500/15 blur-xl pointer-events-none z-0" />
+                    {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-inherit z-0" />
 
                     {/* Top Section */}
                     <div className="flex items-start justify-between gap-3 z-10 relative">
@@ -379,8 +380,9 @@ const HeroSection = () => {
                 whileHover={{ scale: 1.03 }}
                 className="absolute -top-6 -right-4 sm:-right-8 md:-right-12 z-10 w-[170px] sm:w-[190px] shrink-0 group/track rounded-2xl"
               >
-                <div className="p-4 bg-white dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-slate-200 dark:border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(15,23,42,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-left flex flex-col justify-between h-[140px] relative overflow-hidden hover:shadow-[0_20px_60px_rgba(56,189,248,0.15)] dark:hover:shadow-[0_20px_60px_rgba(56,189,248,0.2)] transition-all duration-300">
-                  <div className="absolute top-0 left-0 w-16 h-16 rounded-full bg-cyan-500/10 blur-xl pointer-events-none" />
+                <div className="p-4 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 rounded-2xl shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-left flex flex-col justify-between h-[140px] relative overflow-hidden hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_20px_60px_rgba(56,189,248,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300">
+                  {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-2xl z-0" />
                   
                   <div className="flex items-center gap-1.5 z-10 relative">
                     <div className="h-5 w-5 rounded-md bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center">
@@ -420,8 +422,9 @@ const HeroSection = () => {
                 whileHover={{ scale: 1.03 }}
                 className="absolute -bottom-8 -right-4 sm:-right-8 md:-right-14 z-10 w-[160px] sm:w-[180px] shrink-0 group/comm rounded-2xl"
               >
-                <div className="p-3.5 bg-white dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-slate-200 dark:border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(15,23,42,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between h-[145px] relative overflow-hidden hover:shadow-[0_20px_60px_rgba(250,204,21,0.15)] dark:hover:shadow-[0_20px_60px_rgba(250,204,21,0.2)] transition-all duration-300">
-                  <div className="absolute bottom-0 right-0 w-16 h-16 rounded-full bg-amber-500/10 blur-xl pointer-events-none" />
+                <div className="p-3.5 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 rounded-2xl shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between h-[145px] relative overflow-hidden hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_20px_60px_rgba(250,204,21,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300">
+                  {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-2xl z-0" />
                   
                   <div className="flex items-center gap-1.5 z-10 relative text-left">
                     <div className="h-5 w-5 rounded-md bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0">
@@ -475,8 +478,10 @@ const HeroSection = () => {
                 animate={{ y: [-3, 3, -3] }}
                 transition={{ duration: 6.5, ease: "easeInOut", repeat: Infinity, delay: 0.2 }}
                 whileHover={{ scale: 1.05 }}
-                className="absolute -top-8 -left-4 sm:-left-8 md:-left-12 z-30 bg-white dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-slate-200 dark:border-white/10 px-3 py-2 rounded-xl flex items-center gap-2 shadow-[0_10px_30px_rgba(15,23,42,0.05)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_45px_rgba(6,182,212,0.15)] dark:hover:shadow-[0_15px_45px_rgba(6,182,212,0.2)] hover:border-cyan-500/20 transition-all duration-300 cursor-pointer"
+                className="absolute -top-8 -left-4 sm:-left-8 md:-left-12 z-30 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 px-3 py-2 rounded-xl flex items-center gap-2 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_15px_45px_rgba(6,182,212,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300 cursor-pointer overflow-hidden"
               >
+                {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-xl z-0" />
                 <div className="h-6 w-6 rounded-lg bg-cyan-500/10 dark:bg-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400 shrink-0">
                   <Sparkles className="h-3.5 w-3.5 animate-pulse" />
                 </div>
@@ -491,8 +496,10 @@ const HeroSection = () => {
                 animate={{ y: [3, -3, 3] }}
                 transition={{ duration: 6.8, ease: "easeInOut", repeat: Infinity, delay: 0.8 }}
                 whileHover={{ scale: 1.05 }}
-                className="absolute -bottom-4 -left-4 sm:-left-8 md:-left-10 z-30 bg-white dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-slate-200 dark:border-white/10 px-3 py-2 rounded-xl flex items-center gap-2 shadow-[0_10px_30px_rgba(15,23,42,0.05)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_45px_rgba(245,158,11,0.15)] dark:hover:shadow-[0_15px_45px_rgba(245,158,11,0.2)] hover:border-amber-500/20 transition-all duration-300 cursor-pointer"
+                className="absolute -bottom-4 -left-4 sm:-left-8 md:-left-10 z-30 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 px-3 py-2 rounded-xl flex items-center gap-2 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_15px_45px_rgba(245,158,11,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300 cursor-pointer overflow-hidden"
               >
+                {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-xl z-0" />
                 <div className="h-6 w-6 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400 shrink-0">
                   <Briefcase className="h-3.5 w-3.5" />
                 </div>
