@@ -47,7 +47,7 @@ const Jobs = () => {
     // Local search text input synced with Redux searchedQuery
     const [searchInput, setSearchInput] = useState(searchedQuery || "");
 
-    // Local filter state for sidebar selections (Job Role removed)
+    // Local filter state for sidebar selections
     const [selectedFilters, setSelectedFilters] = useState({
         location: [],
         jobType: [],
@@ -237,7 +237,7 @@ const Jobs = () => {
     const hasAnyFilter = activePills.length > 0;
 
     return (
-        <div className="bg-[#FAFBFC] dark:bg-[#020817] min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-500 font-sans pb-16 relative overflow-x-hidden">
+        <div className="bg-gradient-to-br from-slate-50 via-sky-50/50 to-amber-50/40 dark:from-[#020817] dark:to-[#020817] min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-500 font-sans pb-16 relative overflow-x-hidden">
             <Navbar />
 
             {/* Mesh background glows */}
@@ -250,11 +250,11 @@ const Jobs = () => {
                     <div className="relative group w-full">
                         {/* Glow focus backdrop */}
                         <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-400 via-sky-400 to-cyan-400 rounded-full blur opacity-10 group-focus-within:opacity-35 group-hover:opacity-20 transition duration-500" />
-                        <div className="relative flex items-center bg-white dark:bg-[#0c1220]/90 border border-slate-200 dark:border-white/10 rounded-full px-5 py-2.5 shadow-sm group-focus-within:border-transparent transition-all duration-300">
+                        <div className="relative flex items-center bg-white dark:bg-[#0c1220]/90 border border-slate-200 dark:border-white/10 rounded-full px-5 py-2.5 shadow-[0_15px_45px_rgba(15,23,42,0.06)] dark:shadow-none group-focus-within:border-transparent transition-all duration-300">
                             <Search className="h-5 w-5 text-slate-400 dark:text-slate-500 shrink-0 mr-3" />
                             <input
                                 type="text"
-                                placeholder="Search jobs, companies, skills, or locations..."
+                                placeholder="Search jobs, companies, or locations..."
                                 value={searchInput}
                                 onChange={(e) => setSearchInput(e.target.value)}
                                 className="bg-transparent border-none outline-none w-full text-sm sm:text-base text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 py-1"
@@ -267,24 +267,24 @@ const Jobs = () => {
                                     }}
                                     className="hover:bg-slate-100 dark:hover:bg-white/10 rounded-full p-1 transition mr-1 bg-transparent shrink-0"
                                 >
-                                    <X className="h-4 w-4 text-slate-450 hover:text-slate-700 dark:text-slate-550 dark:hover:text-slate-300" />
+                                    <X className="h-4 w-4 text-slate-400 hover:text-slate-700 dark:text-slate-500 dark:hover:text-slate-300" />
                                 </button>
                             )}
                         </div>
                     </div>
 
                     {/* Results count & Quick action button */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 px-1.5 pb-2 border-b border-slate-100/60 dark:border-white/5">
+                    <div className="flex flex-wrap items-center justify-between gap-3 px-1.5 pb-2 border-b border-slate-200/50 dark:border-white/5">
                         <div className="flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                            <span className="text-xs sm:text-sm font-bold text-slate-500 dark:text-slate-405">
+                            <span className="text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-400">
                                 {isLoading ? "Searching..." : `${filterJobs.length} ${filterJobs.length === 1 ? 'Opportunity' : 'Opportunities'} Found`}
                             </span>
                         </div>
                         {hasAnyFilter && (
                             <button
                                 onClick={handleClearAll}
-                                className="text-xs font-extrabold text-slate-505 hover:text-red-500 dark:text-slate-405 dark:hover:text-red-400 transition flex items-center gap-1 bg-transparent"
+                                className="text-xs font-extrabold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 transition flex items-center gap-1 bg-transparent"
                             >
                                 <RotateCcw size={12} />
                                 <span>Reset All Filters</span>
@@ -314,7 +314,7 @@ const Jobs = () => {
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
-                                    className="flex flex-wrap items-center gap-2 mb-6 bg-slate-50 dark:bg-slate-900/40 border border-slate-200/50 dark:border-white/5 p-3 rounded-2xl"
+                                    className="flex flex-wrap items-center gap-2 mb-6 bg-white dark:bg-slate-900/40 border border-slate-200/80 dark:border-white/5 p-3 rounded-2xl shadow-[0_10px_30px_rgba(15,23,42,0.03)]"
                                 >
                                     <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mr-1">Active:</span>
                                     {activePills.map((pill) => {
@@ -334,7 +334,7 @@ const Jobs = () => {
                                                 <span>{pill.label}</span>
                                                 <button
                                                     onClick={() => removePill(pill)}
-                                                    className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full p-0.5 transition"
+                                                    className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full p-0.5 transition bg-transparent"
                                                 >
                                                     <X size={12} className="stroke-[2.5]" />
                                                 </button>
@@ -343,7 +343,7 @@ const Jobs = () => {
                                     })}
                                     <button
                                         onClick={handleClearAll}
-                                        className="text-xs font-extrabold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-405 ml-auto transition flex items-center gap-1 bg-transparent hover:scale-102"
+                                        className="text-xs font-extrabold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 ml-auto transition flex items-center gap-1 bg-transparent hover:scale-102"
                                     >
                                         <RotateCcw size={12} />
                                         <span>Clear All</span>
@@ -362,19 +362,19 @@ const Jobs = () => {
                                     }
                                 </div>
                             ) : filterJobs.length <= 0 ? (
-                                <div className="bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-250/60 dark:border-white/10 rounded-2xl p-8 sm:p-12 shadow-[0_20px_50px_rgba(15,23,42,0.04)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+                                <div className="bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-200 dark:border-white/10 rounded-2xl p-8 sm:p-12 shadow-[0_20px_50px_rgba(15,23,42,0.06)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
                                     <motion.div 
                                         initial={{ opacity: 0, scale: 0.95 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         className="flex flex-col items-center justify-center py-10 px-4 text-center max-w-md mx-auto space-y-6"
                                     >
-                                        <div className="h-20 w-20 rounded-2xl bg-gradient-to-tr from-amber-500/10 to-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-550 dark:text-cyan-400 shadow-[0_0_30px_rgba(6,182,212,0.1)] relative">
+                                        <div className="h-20 w-20 rounded-2xl bg-gradient-to-tr from-amber-500/10 to-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-500 dark:text-cyan-400 shadow-[0_0_30px_rgba(6,182,212,0.1)] relative">
                                             <div className="absolute inset-0 rounded-2xl bg-cyan-500/5 animate-pulse" />
                                             <FileSearch className="h-9 w-9 relative z-10" />
                                         </div>
                                         <div className="space-y-2">
                                             <h3 className="font-extrabold text-xl text-slate-900 dark:text-white">No Matching Opportunities Found</h3>
-                                            <p className="text-slate-550 dark:text-slate-400 text-sm leading-relaxed">
+                                            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
                                                 Try adjusting your search query or selecting other filters to discover open roles.
                                             </p>
                                         </div>

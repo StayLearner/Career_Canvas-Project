@@ -58,16 +58,16 @@ const FilterCard = ({ selectedFilters = {}, onToggleFilter, onClearAll, getOptio
     };
 
     return (
-        <div className='w-full bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] p-5 sm:p-6 rounded-3xl shadow-[0_20px_50px_rgba(15,23,42,0.04)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)] border border-slate-200/80 dark:border-white/10 text-slate-900 dark:text-slate-100 transition-all duration-300 select-none'>
+        <div className='w-full bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] p-5 sm:p-6 rounded-3xl shadow-[0_20px_50px_rgba(15,23,42,0.08)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-slate-100 transition-all duration-300 select-none'>
             <div className='flex items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-white/5'>
                 <div className="flex flex-col text-left">
                     <h1 className='font-extrabold text-lg text-slate-900 dark:text-white leading-tight'>Filters</h1>
-                    <span className="text-[10px] text-slate-450 dark:text-slate-500 font-bold uppercase mt-0.5 tracking-wider">Refine Opportunities</span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-500 font-bold uppercase mt-0.5 tracking-wider">Refine Opportunities</span>
                 </div>
                 {hasActiveFilters && (
                     <button
                         onClick={onClearAll}
-                        className="inline-flex items-center gap-1 h-8 px-3 text-xs font-bold border border-slate-200 dark:border-white/10 hover:border-red-300 dark:hover:border-red-500/30 hover:bg-red-50 dark:hover:bg-red-500/10 text-slate-655 dark:text-slate-355 hover:text-red-650 dark:hover:text-red-400 rounded-full transition duration-300 bg-transparent"
+                        className="inline-flex items-center gap-1 h-8 px-3 text-xs font-bold border border-slate-200 dark:border-white/10 hover:border-red-300 dark:hover:border-red-500/30 hover:bg-red-50 dark:hover:bg-red-500/10 text-slate-600 dark:text-slate-300 hover:text-red-650 dark:hover:text-red-400 rounded-full transition duration-300 bg-transparent"
                     >
                         <RotateCcw size={11} />
                         <span>Reset</span>
@@ -118,7 +118,7 @@ const FilterCard = ({ selectedFilters = {}, onToggleFilter, onClearAll, getOptio
                             >
                                 <h2 className='font-extrabold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider text-left group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors flex items-center gap-1.5'>
                                     <span>{data.filterType}</span>
-                                    <span className="text-[10px] text-slate-450/80 normal-case font-semibold">({validOptions.length})</span>
+                                    <span className="text-[10px] text-slate-500/80 normal-case font-semibold">({validOptions.length})</span>
                                     {activeArray.length > 0 && (
                                         <span className="h-1.5 w-1.5 rounded-full bg-cyan-500 animate-pulse" />
                                     )}
@@ -150,16 +150,16 @@ const FilterCard = ({ selectedFilters = {}, onToggleFilter, onClearAll, getOptio
                                                             active
                                                                 ? "bg-gradient-to-r from-amber-500/10 to-cyan-500/10 border-cyan-400 dark:border-cyan-500 text-cyan-600 dark:text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)] scale-[1.02]"
                                                                 : hasJobs
-                                                                    ? "bg-slate-50 dark:bg-white/5 border-slate-200/80 dark:border-white/5 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-white/10 hover:bg-slate-100 dark:hover:bg-white/10"
-                                                                    : "bg-slate-50/50 dark:bg-white/2 border-slate-200/40 dark:border-white/2 text-slate-400/60 dark:text-slate-600 hover:border-slate-350 dark:hover:border-white/8 hover:bg-slate-100/50 dark:hover:bg-white/5"
+                                                                    ? "bg-slate-100 dark:bg-white/5 border-slate-200/80 dark:border-white/5 text-slate-700 dark:text-slate-400 hover:border-slate-300 dark:hover:border-white/10 hover:bg-slate-200/60 dark:hover:bg-white/10"
+                                                                    : "bg-slate-50/50 dark:bg-white/2 border-slate-200/40 dark:border-white/2 text-slate-400/60 dark:text-slate-600 hover:border-slate-300 dark:hover:border-white/8 hover:bg-slate-100/50 dark:hover:bg-white/5"
                                                         }`}
                                                     >
                                                         <span>{item}</span>
                                                         <span className={`text-[9px] font-bold ${
                                                             active 
-                                                                ? "text-cyan-550 dark:text-cyan-400" 
+                                                                ? "text-cyan-600 dark:text-cyan-400" 
                                                                 : hasJobs
-                                                                    ? "text-slate-400 dark:text-slate-550" 
+                                                                    ? "text-slate-400 dark:text-slate-500" 
                                                                     : "text-slate-300 dark:text-slate-700"
                                                         }`}>
                                                             ({count})
