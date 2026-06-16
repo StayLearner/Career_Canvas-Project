@@ -7,6 +7,11 @@ import { setSearchedQuery } from '@/redux/jobSlice';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { COMPANY_API_END_POINT, USER_API_END_POINT } from '@/utils/constant';
+import { GlareCard } from './ui/glare-card';
+import { GlowingEffect } from './ui/glowing-effect';
+import { GoogleGeminiEffect } from './ui/google-gemini-effect';
+import SplitText from './SplitText';
+import ShinyText from './ShinyText';
 
 const HeroSection = () => {
   const [query, setQuery] = useState("");
@@ -135,7 +140,10 @@ const HeroSection = () => {
   return (
     <div className="relative pt-10 md:pt-16 lg:pt-20 pb-16 md:pb-20 lg:pb-24 overflow-hidden">
       {/* Background Decorative Blur Orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full bg-gradient-to-tr from-cyan-500/10 to-indigo-500/10 blur-[130px] -z-10" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full bg-gradient-to-tr from-cyan-500/10 to-amber-500/10 blur-[130px] -z-10" />
+
+      {/* Google Gemini scroll-animated decorative effect */}
+      <GoogleGeminiEffect className="opacity-45 scale-[1.05]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -148,31 +156,38 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-cyan-300 border border-white/10"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-200/50 dark:bg-white/5 text-cyan-600 dark:text-cyan-300 border border-slate-350/20 dark:border-white/10"
             >
-              <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
-              <span>Next-Generation Career Canvas</span>
+              <Sparkles className="h-3.5 w-3.5 text-cyan-500 dark:text-cyan-400" />
+              <ShinyText text="Next-Generation Career Canvas" className="text-cyan-600 dark:text-cyan-300 font-semibold" shineColor="#ffffff" color="#38bdf8" speed={2.5} />
             </motion.div>
 
             {/* Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-none"
-            >
-              Seek, Apply & <br />
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">
+            <div className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white leading-none flex flex-col items-start gap-1">
+              <SplitText 
+                text="Seek, Apply &" 
+                className="text-slate-900 dark:text-white"
+                delay={40}
+                duration={0.8}
+                textAlign="left"
+                tag="span"
+              />
+              <motion.span 
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="bg-gradient-to-r from-cyan-500 via-sky-400 to-amber-500 dark:from-cyan-400 dark:via-sky-400 dark:to-amber-400 bg-clip-text text-transparent py-1 leading-[1.15] block"
+              >
                 Build Your Future
-              </span>
-            </motion.h1>
+              </motion.span>
+            </div>
 
             {/* Paragraph Description */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-slate-400 text-base sm:text-lg leading-relaxed max-w-2xl"
+              className="text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed max-w-2xl"
             >
               Navigate your career journey with confidence. Screen real-time opportunities, manage applications, and land your role at modern software platforms.
             </motion.p>
@@ -185,10 +200,18 @@ const HeroSection = () => {
               className="relative max-w-xl group"
             >
               {/* Outer Glow */}
-              <div className="absolute -inset-px bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500" />
+              <div className="absolute -inset-px bg-gradient-to-r from-cyan-500 to-amber-500 rounded-2xl blur opacity-15 dark:opacity-30 group-hover:opacity-40 dark:group-hover:opacity-60 transition duration-500" />
               
-              <div className="relative flex items-center bg-[#0d1220]/90 border border-white/10 rounded-2xl p-1.5">
-                <div className="flex items-center pl-3 pr-2 text-slate-400">
+              <div className="relative flex items-center bg-white dark:bg-[#0d1220]/90 border border-slate-205 dark:border-white/10 rounded-2xl p-1.5 shadow-md dark:shadow-none">
+                <GlowingEffect
+                  disabled={false}
+                  proximity={64}
+                  inactiveZone={0.01}
+                  borderWidth={1.5}
+                  spread={40}
+                  glow={false}
+                />
+                <div className="flex items-center pl-3 pr-2 text-slate-400 z-10">
                   <Search className="h-5 w-5" />
                 </div>
                 <input
@@ -197,11 +220,11 @@ const HeroSection = () => {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  className="bg-transparent border-none outline-none w-full text-sm sm:text-base text-white placeholder-slate-500 py-2.5"
+                  className="bg-transparent border-none outline-none w-full text-sm sm:text-base text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 py-2.5 z-10"
                 />
                 <Button 
                   onClick={searchJobHandler} 
-                  className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold h-10 px-5 sm:px-6 rounded-xl transition duration-300 shadow-[0_0_15px_rgba(6,182,212,0.3)] shrink-0"
+                  className="bg-gradient-to-r from-cyan-500 to-amber-500 hover:from-cyan-400 hover:to-amber-400 text-white font-bold h-10 px-5 sm:px-6 rounded-xl transition duration-300 hover:scale-[1.03] active:scale-[0.98] shadow-[0_0_15px_rgba(6,182,212,0.3)] shrink-0 z-10"
                 >
                   Search
                 </Button>
@@ -215,20 +238,40 @@ const HeroSection = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="flex flex-wrap items-center gap-4"
             >
-              <Button 
-                onClick={handleFindJobsClick}
-                className="bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-white/20 font-bold px-6 py-5.5 rounded-xl transition-all duration-300 shrink-0 text-sm sm:text-base"
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                className="relative rounded-xl"
               >
-                Find Jobs
-              </Button>
-              <Button 
-                onClick={() => navigate("/signup")}
-                variant="ghost"
-                className="text-slate-300 hover:text-white hover:bg-white/5 font-semibold px-5 py-5.5 rounded-xl transition shrink-0 text-sm sm:text-base flex items-center gap-1.5"
+                <Button 
+                  onClick={handleFindJobsClick}
+                  className="relative overflow-hidden bg-slate-900 hover:bg-slate-950 text-white dark:bg-gradient-to-r dark:from-yellow-400 dark:to-sky-400 dark:text-[#020817] dark:hover:from-yellow-300 dark:hover:to-sky-300 border border-slate-800 dark:border-transparent font-semibold px-6 py-5.5 rounded-xl transition-all duration-300 shrink-0 text-sm sm:text-base shadow-sm hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <GlowingEffect
+                    disabled={true}
+                    proximity={48}
+                    inactiveZone={0.01}
+                    borderWidth={1.2}
+                    spread={30}
+                    glow={false}
+                  />
+                  <span className="relative z-10">Find Jobs</span>
+                </Button>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <span>Hire Talent</span>
-                <span className="text-cyan-400 font-bold">→</span>
-              </Button>
+                <Button 
+                  onClick={() => navigate("/signup")}
+                  variant="ghost"
+                  className="text-slate-600 dark:text-sky-200 hover:text-slate-900 dark:hover:text-sky-300 hover:bg-slate-100 dark:hover:bg-white/5 font-semibold px-5 py-5.5 rounded-xl transition shrink-0 text-sm sm:text-base flex items-center gap-1.5 group"
+                >
+                  <span>Hire Talent</span>
+                  <span className="text-cyan-400 font-bold group-hover:translate-x-1 transition-transform">→</span>
+                </Button>
+              </motion.div>
             </motion.div>
 
             {/* Stats Counter Row */}
@@ -236,259 +279,226 @@ const HeroSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="grid grid-cols-3 gap-4 border-t border-white/5 pt-8 max-w-lg"
+              className="grid grid-cols-3 gap-4 border-t border-slate-200 dark:border-white/5 pt-8 max-w-lg animate-transition"
             >
               <div className="text-left">
-                <h4 className="text-2xl sm:text-3xl font-extrabold text-white">
+                <h4 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
                   {loadingStats ? "..." : (allJobs?.length || 0)}
                 </h4>
-                <p className="text-xs text-slate-500 font-medium uppercase mt-0.5">Active Jobs</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase mt-0.5">Active Jobs</p>
               </div>
               <div className="text-left">
-                <h4 className="text-2xl sm:text-3xl font-extrabold text-white">
+                <h4 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
                   {loadingStats ? "..." : (companyCount || 0)}
                 </h4>
-                <p className="text-xs text-slate-500 font-medium uppercase mt-0.5">Companies</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase mt-0.5">Companies</p>
               </div>
               <div className="text-left">
-                <h4 className="text-2xl sm:text-3xl font-extrabold text-white">
+                <h4 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
                   {loadingStats ? "..." : totalPositions}
                 </h4>
-                <p className="text-xs text-slate-500 font-medium uppercase mt-0.5">Open Positions</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase mt-0.5">Open Positions</p>
               </div>
             </motion.div>
 
           </div>
 
-          {/* Right Column: Floating 3D Cards */}
           <div className="lg:col-span-5 relative w-full max-w-xl mx-auto select-none mt-8 lg:mt-0 overflow-visible">
             {/* Visual backdrop radial light */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-cyan-500/10 blur-[90px] -z-10 animate-pulse-glow" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-gradient-to-tr from-cyan-500/10 to-amber-500/10 blur-[100px] -z-10" />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 overflow-visible" style={{ perspective: 1000 }}>
+            <div className="relative w-full h-[480px] flex items-center justify-center overflow-visible" style={{ perspective: 1000 }}>
               
-              {/* Card 1: Featured Job 1 */}
+              {/* THE CENTERPIECE: Dominant Featured Job Card (70% attention) */}
               {loadingStats ? (
-                <div className="rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl animate-pulse h-[190px] shrink-0" />
+                <div className="w-[300px] sm:w-[340px] h-[260px] sm:h-[290px] rounded-[2rem] border border-white/10 bg-[#0B1220] backdrop-blur-xl animate-pulse z-20" />
               ) : floatingJobs[0] ? (
                 <motion.div
-                  onClick={() => navigate(`/description/${floatingJobs[0]._id}`)}
-                  animate={{ y: [0, -6, 0] }}
-                  transition={{ duration: 5, ease: "easeInOut", repeat: Infinity }}
-                  whileHover={{ 
-                    scale: 1.05, 
-                    rotateY: 8, 
-                    rotateX: -8,
-                    borderColor: "rgba(6, 182, 212, 0.4)",
-                    boxShadow: "0 0 40px rgba(6, 182, 212, 0.25)"
-                  }}
-                  className="rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[0_0_40px_rgba(34,211,238,0.12)] p-5 hover:bg-white/[0.08] transition-all duration-300 cursor-pointer group flex flex-col justify-between h-[190px] relative overflow-hidden shrink-0"
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
+                  className="w-[300px] sm:w-[340px] h-[260px] sm:h-[290px] shrink-0 relative group/card rounded-[2rem] z-20"
                 >
-                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60" />
-                  <div className="flex items-start justify-between gap-2.5">
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white font-extrabold text-[11px] uppercase shrink-0 shadow-md">
-                        {floatingJobs[0]?.company?.name?.slice(0, 2) || "CO"}
+                  <GlareCard
+                    onClick={() => navigate(`/description/${floatingJobs[0]._id}`)}
+                    className="p-6 hover:bg-white dark:hover:bg-[#0B1220]/90 transition-all duration-300 cursor-pointer flex flex-col justify-between h-full relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-slate-200 dark:border-white/10 shadow-[0_20px_50px_rgba(15,23,42,0.06)] dark:shadow-[0_24px_80px_rgba(0,0,0,0.4)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.15)] dark:hover:shadow-[0_30px_90px_rgba(56,189,248,0.2)] md:rotate-[-0.5deg] hover:rotate-0"
+                  >
+                    {/* Inner highlight glows */}
+                    <div className="absolute top-0 left-0 w-24 h-24 rounded-full bg-cyan-500/10 dark:bg-cyan-500/15 blur-xl pointer-events-none z-0" />
+                    <div className="absolute bottom-0 right-0 w-24 h-24 rounded-full bg-amber-500/10 dark:bg-amber-500/15 blur-xl pointer-events-none z-0" />
+
+                    {/* Top Section */}
+                    <div className="flex items-start justify-between gap-3 z-10 relative">
+                      <div className="flex items-center gap-3.5 min-w-0">
+                        <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center text-white font-extrabold text-[12px] uppercase shrink-0 shadow-md">
+                          {floatingJobs[0]?.company?.name?.slice(0, 2) || "CO"}
+                        </div>
+                        <div className="text-left min-w-0">
+                          <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100 truncate max-w-[150px] group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors leading-tight">{floatingJobs[0]?.title}</h4>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">{floatingJobs[0]?.company?.name}</p>
+                        </div>
                       </div>
-                      <div className="text-left min-w-0">
-                        <h4 className="text-xs font-bold text-slate-100 truncate max-w-[110px] group-hover:text-cyan-400 transition-colors leading-tight">{floatingJobs[0]?.title}</h4>
-                        <p className="text-[10px] text-slate-400 truncate mt-0.5">{floatingJobs[0]?.company?.name}</p>
-                      </div>
+                      <span className="text-[10px] px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-semibold truncate shrink-0 max-w-[85px]">
+                        {floatingJobs[0]?.location || "Remote"}
+                      </span>
                     </div>
-                    <span className="text-[9px] px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium truncate shrink-0 max-w-[70px]">
-                      {floatingJobs[0]?.location || "Remote"}
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5 text-[9px] text-left">
-                    <span className="bg-white/5 border border-white/5 text-slate-300 px-1.5 py-0.5 rounded">{floatingJobs[0]?.jobType}</span>
-                    <span className="bg-white/5 border border-white/5 text-slate-300 px-1.5 py-0.5 rounded">{floatingJobs[0]?.salary} LPA</span>
-                  </div>
-                  <div className="border-t border-white/5 pt-2 flex justify-between items-center text-[10px]">
-                    <span className="text-slate-500 text-[9px]">{floatingJobs[0]?.createdAt ? new Date(floatingJobs[0].createdAt).toLocaleDateString() : "Recent"}</span>
-                    <span className="text-cyan-400 font-bold flex items-center gap-0.5 group-hover:text-cyan-300 transition-colors">
-                      <span>View Details</span>
-                      <span className="transform group-hover:translate-x-0.5 transition-transform">→</span>
-                    </span>
-                  </div>
+
+                    {/* Middle Section */}
+                    <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 text-left z-10 relative leading-relaxed">
+                      {floatingJobs[0]?.description || "Experience high-growth software engineering, custom platforms, and product shipping at this top startup."}
+                    </p>
+
+                    {/* Bottom Section */}
+                    <div className="border-t border-slate-100 dark:border-white/5 pt-3 flex justify-between items-center text-xs z-10 relative">
+                      <div className="flex items-center gap-2 text-[10px]">
+                        <span className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md">{floatingJobs[0]?.jobType}</span>
+                        <span className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md">{floatingJobs[0]?.salary} LPA</span>
+                      </div>
+                      <span className="text-cyan-600 dark:text-cyan-400 font-bold flex items-center gap-0.5 group-hover:text-cyan-500 dark:group-hover:text-cyan-300 transition-colors">
+                        <span>View Details</span>
+                        <span className="transform group-hover:translate-x-0.5 transition-transform">→</span>
+                      </span>
+                    </div>
+                  </GlareCard>
+                  <GlowingEffect
+                    disabled={false}
+                    proximity={80}
+                    inactiveZone={0.01}
+                    borderWidth={1.5}
+                    spread={50}
+                    glow={false}
+                  />
                 </motion.div>
               ) : (
-                <div className="rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[0_0_40px_rgba(34,211,238,0.12)] p-5 flex items-center justify-center text-slate-500 text-xs h-[190px] shrink-0">No Jobs Posted</div>
+                <div className="w-[300px] sm:w-[340px] h-[260px] sm:h-[290px] rounded-[2rem] border border-white/10 bg-[#0B1220] backdrop-blur-xl shadow-[0_24px_80px_rgba(0,0,0,0.4)] p-6 flex items-center justify-center text-slate-500 text-xs z-20">No Jobs Posted</div>
               )}
 
-              {/* Card 2: Application Tracking */}
+              {/* FLOATING SUPPORTING WIDGET 1: Top Right - Application Tracking (20% attention) */}
               <motion.div
-                animate={{ y: [0, -4, 0] }}
-                transition={{ duration: 6, ease: "easeInOut", repeat: Infinity, delay: 0.5 }}
-                whileHover={{ 
-                  scale: 1.05, 
-                  rotateY: -8, 
-                  rotateX: -8,
-                  borderColor: "rgba(139, 92, 246, 0.4)",
-                  boxShadow: "0 0 40px rgba(139, 92, 246, 0.25)"
-                }}
-                className="rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[0_0_40px_rgba(34,211,238,0.12)] p-5 flex flex-col justify-between h-[190px] relative overflow-hidden shrink-0"
+                animate={{ y: [-5, 5, -5] }}
+                transition={{ duration: 7, ease: "easeInOut", repeat: Infinity, delay: 0.5 }}
+                whileHover={{ scale: 1.03 }}
+                className="absolute -top-6 -right-4 sm:-right-8 md:-right-12 z-10 w-[170px] sm:w-[190px] shrink-0 group/track rounded-2xl"
               >
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-violet-400 to-transparent opacity-60" />
-                <div className="flex items-center gap-2">
-                  <div className="h-6 w-6 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center shadow-inner">
-                    <CheckCircle2 className="h-3.5 w-3.5" />
+                <div className="p-4 bg-white dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-slate-200 dark:border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(15,23,42,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-left flex flex-col justify-between h-[140px] relative overflow-hidden hover:shadow-[0_20px_60px_rgba(56,189,248,0.15)] dark:hover:shadow-[0_20px_60px_rgba(56,189,248,0.2)] transition-all duration-300">
+                  <div className="absolute top-0 left-0 w-16 h-16 rounded-full bg-cyan-500/10 blur-xl pointer-events-none" />
+                  
+                  <div className="flex items-center gap-1.5 z-10 relative">
+                    <div className="h-5 w-5 rounded-md bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center">
+                      <CheckCircle2 className="h-3.5 w-3.5" />
+                    </div>
+                    <span className="text-[10px] font-bold text-slate-800 dark:text-white tracking-wide uppercase">Applications</span>
                   </div>
-                  <span className="text-[11px] font-extrabold text-white tracking-wide uppercase">Application Tracking</span>
+                  
+                  <div className="space-y-1.5 py-1 z-10 relative">
+                    <div className="flex justify-between items-center text-[9px]">
+                      <span className="text-slate-600 dark:text-slate-300 truncate max-w-[85px] font-semibold">Software Eng</span>
+                      <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-bold text-[8px] uppercase tracking-wider scale-90">Accepted</span>
+                    </div>
+                    <div className="flex justify-between items-center text-[9px]">
+                      <span className="text-slate-600 dark:text-slate-300 truncate max-w-[85px] font-semibold">UI/UX Intern</span>
+                      <span className="px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-bold text-[8px] uppercase tracking-wider scale-90">Pending</span>
+                    </div>
+                  </div>
+                  <div className="text-[8px] text-slate-400 dark:text-slate-500 border-t border-slate-100 dark:border-white/5 pt-1.5 font-medium uppercase tracking-wider z-10 relative text-center">
+                    Live Status Sync
+                  </div>
                 </div>
-                
-                <div className="space-y-2 py-1 text-left">
-                  <div className="flex justify-between items-center text-[10px]">
-                    <span className="text-slate-300 truncate max-w-[95px] font-medium">Software Eng</span>
-                    <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold text-[8px] uppercase tracking-wider">Accepted</span>
+                <GlowingEffect
+                  disabled={false}
+                  proximity={48}
+                  inactiveZone={0.01}
+                  borderWidth={1.2}
+                  spread={30}
+                  glow={false}
+                />
+              </motion.div>
+
+              {/* FLOATING SUPPORTING WIDGET 2: Bottom Right - Community Growth (10% attention) */}
+              <motion.div
+                animate={{ y: [5, -5, 5] }}
+                transition={{ duration: 7.5, ease: "easeInOut", repeat: Infinity, delay: 1 }}
+                whileHover={{ scale: 1.03 }}
+                className="absolute -bottom-8 -right-4 sm:-right-8 md:-right-14 z-10 w-[160px] sm:w-[180px] shrink-0 group/comm rounded-2xl"
+              >
+                <div className="p-3.5 bg-white dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-slate-200 dark:border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(15,23,42,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between h-[145px] relative overflow-hidden hover:shadow-[0_20px_60px_rgba(250,204,21,0.15)] dark:hover:shadow-[0_20px_60px_rgba(250,204,21,0.2)] transition-all duration-300">
+                  <div className="absolute bottom-0 right-0 w-16 h-16 rounded-full bg-amber-500/10 blur-xl pointer-events-none" />
+                  
+                  <div className="flex items-center gap-1.5 z-10 relative text-left">
+                    <div className="h-5 w-5 rounded-md bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0">
+                      <Users className="h-3.5 w-3.5" />
+                    </div>
+                    <span className="text-[10px] font-bold text-slate-800 dark:text-white tracking-wide uppercase">Community</span>
                   </div>
-                  <div className="flex justify-between items-center text-[10px]">
-                    <span className="text-slate-300 truncate max-w-[95px] font-medium">UI/UX Intern</span>
-                    <span className="px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold text-[8px] uppercase tracking-wider">Pending</span>
+
+                  <div className="flex items-center justify-around gap-1.5 py-1 z-10 relative flex-1">
+                    {/* Left Circle: Students */}
+                    <div className="flex flex-col items-center">
+                      <div className="relative flex items-center justify-center">
+                        <svg className="w-10 h-10 transform -rotate-90">
+                          <circle cx="20" cy="20" r="16" className="stroke-slate-100 dark:stroke-white/5" strokeWidth="2" fill="transparent" />
+                          <circle cx="20" cy="20" r="16" className="stroke-cyan-500 dark:stroke-cyan-400 drop-shadow-[0_0_4px_rgba(34,211,238,0.4)]" strokeWidth="2" fill="transparent" strokeDasharray={2 * Math.PI * 16} strokeDashoffset={(2 * Math.PI * 16) * (1 - Math.min((animatedStudents || 1) / (animatedStudents + animatedRecruiters || 50), 0.85))} strokeLinecap="round" />
+                        </svg>
+                        <span className="absolute text-[8px] font-black text-cyan-600 dark:text-cyan-300">{animatedStudents}</span>
+                      </div>
+                      <span className="text-[7px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Students</span>
+                    </div>
+
+                    {/* Right Circle: Recruiters */}
+                    <div className="flex flex-col items-center">
+                      <div className="relative flex items-center justify-center">
+                        <svg className="w-10 h-10 transform -rotate-90">
+                          <circle cx="20" cy="20" r="16" className="stroke-slate-100 dark:stroke-white/5" strokeWidth="2" fill="transparent" />
+                          <circle cx="20" cy="20" r="16" className="stroke-amber-500 dark:stroke-amber-400 drop-shadow-[0_0_4px_rgba(245,158,11,0.4)]" strokeWidth="2" fill="transparent" strokeDasharray={2 * Math.PI * 16} strokeDashoffset={(2 * Math.PI * 16) * (1 - Math.min((animatedRecruiters || 1) / (animatedStudents + animatedRecruiters || 50), 0.85))} strokeLinecap="round" />
+                        </svg>
+                        <span className="absolute text-[8px] font-black text-amber-600 dark:text-amber-300">{animatedRecruiters}</span>
+                      </div>
+                      <span className="text-[7px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Hires</span>
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center text-[10px]">
-                    <span className="text-slate-300 truncate max-w-[95px] font-medium">Backend Arch</span>
-                    <span className="px-1.5 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 font-bold text-[8px] uppercase tracking-wider">Rejected</span>
+
+                  <div className="text-[8px] text-slate-400 dark:text-slate-500 border-t border-slate-100 dark:border-white/5 pt-1.5 font-medium uppercase tracking-wider z-10 relative text-center">
+                    Active Growth
                   </div>
+                </div>
+                <GlowingEffect
+                  disabled={false}
+                  proximity={48}
+                  inactiveZone={0.01}
+                  borderWidth={1.2}
+                  spread={30}
+                  glow={false}
+                />
+              </motion.div>
+
+              {/* FLOATING SUPPORTING BADGE 3: Top Left - Live Recruiter Activity */}
+              <motion.div
+                animate={{ y: [-3, 3, -3] }}
+                transition={{ duration: 6.5, ease: "easeInOut", repeat: Infinity, delay: 0.2 }}
+                whileHover={{ scale: 1.05 }}
+                className="absolute -top-8 -left-4 sm:-left-8 md:-left-12 z-30 bg-white dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-slate-200 dark:border-white/10 px-3 py-2 rounded-xl flex items-center gap-2 shadow-[0_10px_30px_rgba(15,23,42,0.05)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_45px_rgba(6,182,212,0.15)] dark:hover:shadow-[0_15px_45px_rgba(6,182,212,0.2)] hover:border-cyan-500/20 transition-all duration-300 cursor-pointer"
+              >
+                <div className="h-6 w-6 rounded-lg bg-cyan-500/10 dark:bg-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400 shrink-0">
+                  <Sparkles className="h-3.5 w-3.5 animate-pulse" />
+                </div>
+                <div className="text-left">
+                  <p className="text-[9px] font-bold text-slate-800 dark:text-white uppercase tracking-wider leading-none">Recruiter Active</p>
+                  <p className="text-[8px] text-slate-500 dark:text-slate-400 mt-0.5 truncate max-w-[80px]">{floatingJobs[0]?.company?.name || "ApexHQ"} hired</p>
                 </div>
               </motion.div>
 
-              {/* Card 3: Featured Job 2 */}
-              {loadingStats ? (
-                <div className="rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl animate-pulse h-[190px] shrink-0" />
-              ) : floatingJobs[1] ? (
-                <motion.div
-                  onClick={() => navigate(`/description/${floatingJobs[1]._id}`)}
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ duration: 5.5, ease: "easeInOut", repeat: Infinity, delay: 1 }}
-                  whileHover={{ 
-                    scale: 1.05, 
-                    rotateY: 8, 
-                    rotateX: 8,
-                    borderColor: "rgba(139, 92, 246, 0.4)",
-                    boxShadow: "0 0 40px rgba(139, 92, 246, 0.25)"
-                  }}
-                  className="rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[0_0_40px_rgba(34,211,238,0.12)] p-5 hover:bg-white/[0.08] transition-all duration-300 cursor-pointer group flex flex-col justify-between h-[190px] relative overflow-hidden shrink-0"
-                >
-                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-violet-400 to-transparent opacity-60" />
-                  <div className="flex items-start justify-between gap-2.5">
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-violet-500 to-purple-600 flex items-center justify-center text-white font-extrabold text-[11px] uppercase shrink-0 shadow-md">
-                        {floatingJobs[1]?.company?.name?.slice(0, 2) || "CO"}
-                      </div>
-                      <div className="text-left min-w-0">
-                        <h4 className="text-xs font-bold text-slate-100 truncate max-w-[110px] group-hover:text-violet-400 transition-colors leading-tight">{floatingJobs[1]?.title}</h4>
-                        <p className="text-[10px] text-slate-400 truncate mt-0.5">{floatingJobs[1]?.company?.name}</p>
-                      </div>
-                    </div>
-                    <span className="text-[9px] px-2 py-0.5 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium truncate shrink-0 max-w-[70px]">
-                      {floatingJobs[1]?.location || "Remote"}
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5 text-[9px] text-left">
-                    <span className="bg-white/5 border border-white/5 text-slate-300 px-1.5 py-0.5 rounded">{floatingJobs[1]?.jobType}</span>
-                    <span className="bg-white/5 border border-white/5 text-slate-300 px-1.5 py-0.5 rounded">{floatingJobs[1]?.salary} LPA</span>
-                  </div>
-                  <div className="border-t border-white/5 pt-2 flex justify-between items-center text-[10px]">
-                    <span className="text-slate-500 text-[9px]">{floatingJobs[1]?.createdAt ? new Date(floatingJobs[1].createdAt).toLocaleDateString() : "Recent"}</span>
-                    <span className="text-violet-400 font-bold flex items-center gap-0.5 group-hover:text-violet-300 transition-colors">
-                      <span>View Details</span>
-                      <span className="transform group-hover:translate-x-0.5 transition-transform">→</span>
-                    </span>
-                  </div>
-                </motion.div>
-              ) : (
-                <div className="rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[0_0_40px_rgba(34,211,238,0.12)] p-5 flex items-center justify-center text-slate-500 text-xs h-[190px] shrink-0">No Jobs Posted</div>
-              )}
-
-              {/* Card 4: Community Growth */}
+              {/* FLOATING SUPPORTING BADGE 4: Bottom Left - New Job Posted */}
               <motion.div
-                animate={{ y: [0, -3, 0] }}
-                transition={{ duration: 6.5, ease: "easeInOut", repeat: Infinity, delay: 1.5 }}
-                whileHover={{ 
-                  scale: 1.05, 
-                  rotateY: -8, 
-                  rotateX: 8,
-                  borderColor: "rgba(139, 92, 246, 0.4)",
-                  boxShadow: "0 0 40px rgba(139, 92, 246, 0.25)"
-                }}
-                className="rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl shadow-[0_0_40px_rgba(34,211,238,0.12)] p-4 flex flex-col justify-between h-[190px] relative overflow-hidden shrink-0 animate-float-slow-delayed"
+                animate={{ y: [3, -3, 3] }}
+                transition={{ duration: 6.8, ease: "easeInOut", repeat: Infinity, delay: 0.8 }}
+                whileHover={{ scale: 1.05 }}
+                className="absolute -bottom-4 -left-4 sm:-left-8 md:-left-10 z-30 bg-white dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-slate-200 dark:border-white/10 px-3 py-2 rounded-xl flex items-center gap-2 shadow-[0_10px_30px_rgba(15,23,42,0.05)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_45px_rgba(245,158,11,0.15)] dark:hover:shadow-[0_15px_45px_rgba(245,158,11,0.2)] hover:border-amber-500/20 transition-all duration-300 cursor-pointer"
               >
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60" />
-                <div className="flex items-center gap-2">
-                  <div className="h-6 w-6 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center shadow-inner shrink-0">
-                    <Users className="h-3.5 w-3.5" />
-                  </div>
-                  <span className="text-[11px] font-extrabold text-white tracking-wide uppercase">Community Growth</span>
+                <div className="h-6 w-6 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400 shrink-0">
+                  <Briefcase className="h-3.5 w-3.5" />
                 </div>
-
-                <div className="flex items-center justify-around gap-2 py-1.5">
-                  {/* Left Circle: Students */}
-                  <div className="flex flex-col items-center">
-                    <div className="relative flex items-center justify-center mb-1">
-                      <svg className="w-14 h-14 transform -rotate-90">
-                        <circle
-                          cx="28"
-                          cy="28"
-                          r="23"
-                          className="stroke-white/5"
-                          strokeWidth="3"
-                          fill="transparent"
-                        />
-                        <circle
-                          cx="28"
-                          cy="28"
-                          r="23"
-                          className="stroke-cyan-400 drop-shadow-[0_0_6px_rgba(34,211,238,0.5)]"
-                          strokeWidth="3"
-                          fill="transparent"
-                          strokeDasharray={2 * Math.PI * 23}
-                          strokeDashoffset={(2 * Math.PI * 23) * (1 - Math.min((animatedStudents || 1) / (animatedStudents + animatedRecruiters || 50), 0.85))}
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                      <span className="absolute text-xs font-black text-cyan-300">{animatedStudents}</span>
-                    </div>
-                    <div className="flex items-center gap-1 mt-0.5">
-                      <GraduationCap className="h-3 w-3 text-cyan-400" />
-                      <span className="text-[9px] font-semibold text-slate-300">Students</span>
-                    </div>
-                  </div>
-
-                  {/* Right Circle: Recruiters */}
-                  <div className="flex flex-col items-center">
-                    <div className="relative flex items-center justify-center mb-1">
-                      <svg className="w-14 h-14 transform -rotate-90">
-                        <circle
-                          cx="28"
-                          cy="28"
-                          r="23"
-                          className="stroke-white/5"
-                          strokeWidth="3"
-                          fill="transparent"
-                        />
-                        <circle
-                          cx="28"
-                          cy="28"
-                          r="23"
-                          className="stroke-violet-400 drop-shadow-[0_0_6px_rgba(139,92,246,0.5)]"
-                          strokeWidth="3"
-                          fill="transparent"
-                          strokeDasharray={2 * Math.PI * 23}
-                          strokeDashoffset={(2 * Math.PI * 23) * (1 - Math.min((animatedRecruiters || 1) / (animatedStudents + animatedRecruiters || 50), 0.85))}
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                      <span className="absolute text-xs font-black text-violet-300">{animatedRecruiters}</span>
-                    </div>
-                    <div className="flex items-center gap-1 mt-0.5">
-                      <Briefcase className="h-3 w-3 text-violet-400" />
-                      <span className="text-[9px] font-semibold text-slate-300">Recruiters</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="text-[9px] text-slate-500 text-center border-t border-white/5 pt-1.5 font-medium uppercase tracking-wider">
-                  Real-time Registered Users
+                <div className="text-left">
+                  <p className="text-[9px] font-bold text-white uppercase tracking-wider leading-none">New Posting</p>
+                  <p className="text-[8px] text-slate-400 mt-0.5 truncate max-w-[95px]">{floatingJobs[1]?.title || "NodeJS Dev"} live</p>
                 </div>
               </motion.div>
 

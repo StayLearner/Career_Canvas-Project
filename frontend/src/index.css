@@ -8,7 +8,10 @@
   }
   body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    @apply bg-slate-950 text-slate-100;
+    @apply bg-[#FAFBFC] text-slate-800 transition-colors duration-300;
+  }
+  .dark body {
+    @apply bg-[#020817] text-slate-100;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Outfit', sans-serif;
@@ -60,22 +63,78 @@
 
 /* Glassmorphism custom classes */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .glass-panel {
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-panel-hover:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.06);
+  transform: translateY(-4px);
+}
+
+.dark .glass-panel-hover:hover {
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(6, 182, 212, 0.3); /* cyan-500/30 */
   box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+  transform: translateY(-4px);
 }
 
 .text-glow-cyan {
   text-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
 }
 
-.text-glow-violet {
-  text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+.text-glow-yellow {
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+}
+
+/* Glowing Effect Custom Mask Properties */
+.glowing-effect-inner-glow {
+  border-radius: inherit;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.glowing-effect-inner-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: var(--glowingeffect-border-width);
+  background: var(--gradient);
+  
+  /* Exclude inner content area so only the border is painted */
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box exclude, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  
+  opacity: var(--active);
+  transition: opacity 0.3s ease;
+}
+
+/* Custom scrollbar utility */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.25);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.45);
 }
