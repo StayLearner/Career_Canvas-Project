@@ -305,11 +305,11 @@ const HeroSection = () => {
 
           </div>
 
-          <div className="lg:col-span-5 relative w-full max-w-xl mx-auto select-none mt-8 lg:mt-0 overflow-visible">
+          <div className="lg:col-span-5 relative w-full max-w-xl mx-auto select-none mt-8 lg:mt-0">
             {/* Visual backdrop radial light */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-gradient-to-tr from-cyan-500/10 to-amber-500/10 blur-[100px] -z-10" />
 
-            <div className="relative w-full h-[480px] flex items-center justify-center overflow-visible" style={{ perspective: 1000 }}>
+            <div className="relative w-full h-[480px] flex items-center justify-center overflow-hidden lg:overflow-visible" style={{ perspective: 1000 }}>
               
               {/* THE CENTERPIECE: Dominant Featured Job Card (70% attention) */}
               {loadingStats ? (
@@ -378,7 +378,7 @@ const HeroSection = () => {
                 animate={{ y: [-5, 5, -5] }}
                 transition={{ duration: 7, ease: "easeInOut", repeat: Infinity, delay: 0.5 }}
                 whileHover={{ scale: 1.03 }}
-                className="absolute -top-6 -right-4 sm:-right-8 md:-right-12 z-10 w-[170px] sm:w-[190px] shrink-0 group/track rounded-2xl"
+                className="absolute -top-6 right-0 sm:-right-4 lg:-right-12 z-10 w-[160px] sm:w-[190px] shrink-0 group/track rounded-2xl"
               >
                 <div className="p-4 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 rounded-2xl shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-left flex flex-col justify-between h-[140px] relative overflow-hidden hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_20px_60px_rgba(56,189,248,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300">
                   {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
@@ -420,7 +420,7 @@ const HeroSection = () => {
                 animate={{ y: [5, -5, 5] }}
                 transition={{ duration: 7.5, ease: "easeInOut", repeat: Infinity, delay: 1 }}
                 whileHover={{ scale: 1.03 }}
-                className="absolute -bottom-8 -right-4 sm:-right-8 md:-right-14 z-10 w-[160px] sm:w-[180px] shrink-0 group/comm rounded-2xl"
+                className="absolute -bottom-8 right-0 sm:-right-4 lg:-right-14 z-10 w-[150px] sm:w-[180px] shrink-0 group/comm rounded-2xl"
               >
                 <div className="p-3.5 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 rounded-2xl shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between h-[145px] relative overflow-hidden hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_20px_60px_rgba(250,204,21,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300">
                   {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
@@ -478,7 +478,7 @@ const HeroSection = () => {
                 animate={{ y: [-3, 3, -3] }}
                 transition={{ duration: 6.5, ease: "easeInOut", repeat: Infinity, delay: 0.2 }}
                 whileHover={{ scale: 1.05 }}
-                className="absolute -top-8 -left-4 sm:-left-8 md:-left-12 z-30 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 px-3 py-2 rounded-xl flex items-center gap-2 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_15px_45px_rgba(6,182,212,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300 cursor-pointer overflow-hidden"
+                className="absolute -top-8 left-0 sm:-left-4 lg:-left-12 z-30 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 px-3 py-2 rounded-xl flex items-center gap-2 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_15px_45px_rgba(6,182,212,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300 cursor-pointer overflow-hidden"
               >
                 {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-xl z-0" />
@@ -496,7 +496,7 @@ const HeroSection = () => {
                 animate={{ y: [3, -3, 3] }}
                 transition={{ duration: 6.8, ease: "easeInOut", repeat: Infinity, delay: 0.8 }}
                 whileHover={{ scale: 1.05 }}
-                className="absolute -bottom-4 -left-4 sm:-left-8 md:-left-10 z-30 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 px-3 py-2 rounded-xl flex items-center gap-2 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_15px_45px_rgba(245,158,11,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300 cursor-pointer overflow-hidden"
+                className="absolute -bottom-4 left-0 sm:-left-4 lg:-left-10 z-30 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 px-3 py-2 rounded-xl flex items-center gap-2 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_15px_45px_rgba(245,158,11,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300 cursor-pointer overflow-hidden"
               >
                 {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-xl z-0" />
@@ -504,7 +504,7 @@ const HeroSection = () => {
                   <Briefcase className="h-3.5 w-3.5" />
                 </div>
                 <div className="text-left">
-                  <p className="text-[9px] font-semibold text-white uppercase tracking-wider leading-none">New Posting</p>
+                  <p className="text-[9px] font-semibold text-slate-800 dark:text-white uppercase tracking-wider leading-none">New Posting</p>
                   <p className="text-[8px] text-slate-400 mt-0.5 truncate max-w-[95px]">{floatingJobs[1]?.title || "NodeJS Dev"} live</p>
                 </div>
               </motion.div>

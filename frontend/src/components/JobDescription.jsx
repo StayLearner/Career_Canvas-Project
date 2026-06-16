@@ -179,7 +179,7 @@ const JobDescription = () => {
     }
 
     return (
-        <div className="bg-gradient-to-br from-slate-50 via-sky-50/50 to-amber-50/40 dark:from-[#020817] dark:to-[#020817] min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-500 font-sans pb-28 lg:pb-16 relative overflow-x-hidden">
+        <div className="bg-gradient-to-br from-slate-50 via-sky-50/50 to-amber-50/40 dark:from-[#020817] dark:to-[#020817] min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-500 font-sans pb-28 lg:pb-16 relative overflow-x-hidden pt-4">
             <Navbar />
 
             {/* Mesh background glows */}

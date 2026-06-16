@@ -175,56 +175,54 @@ const Browse = () => {
             <Navbar />
 
             {/* ── FIXED SEARCH BAND ── fixed below Navbar, always visible at all scroll positions */}
-            <div className="fixed top-[80px] left-0 right-0 z-30 w-full">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="py-3 backdrop-blur-xl bg-white/80 dark:bg-[#08070d]/80 border-b border-slate-200/60 dark:border-white/5 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
-                        {/* Search input */}
-                        <div className="relative group w-full max-w-4xl mx-auto">
-                            <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-400 via-sky-400 to-cyan-400 rounded-full blur opacity-10 group-focus-within:opacity-35 group-hover:opacity-20 transition duration-500" />
-                            <div className="relative flex items-center bg-white dark:bg-[#0c1220]/90 border border-slate-200 dark:border-white/10 rounded-full px-5 py-2.5 shadow-[0_8px_30px_rgba(15,23,42,0.07)] dark:shadow-none group-focus-within:border-transparent transition-all duration-300">
-                                <Search className="h-5 w-5 text-slate-400 dark:text-slate-500 shrink-0 mr-3" />
-                                <input
-                                    type="text"
-                                    placeholder="Search jobs, companies, or locations..."
-                                    value={searchInput}
-                                    onChange={(e) => setSearchInput(e.target.value)}
-                                    className="bg-transparent border-none outline-none w-full text-sm sm:text-base text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 py-1"
-                                />
-                                {searchInput && (
-                                    <button
-                                        onClick={handleReset}
-                                        className="hover:bg-slate-100 dark:hover:bg-white/10 rounded-full p-1 transition mr-1 bg-transparent shrink-0"
-                                    >
-                                        <X className="h-4 w-4 text-slate-400 hover:text-slate-700 dark:text-slate-500 dark:hover:text-slate-300" />
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Results count & reset row */}
-                        <div className="flex flex-wrap items-center justify-between gap-3 px-1.5 pt-2.5 max-w-4xl mx-auto">
-                            <div className="flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                                <span className="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400">
-                                    {isLoading ? "Searching..." : `${filterJobs.length} ${filterJobs.length === 1 ? 'Opportunity' : 'Opportunities'} Found`}
-                                </span>
-                            </div>
+            <div className="fixed top-[80px] left-0 right-0 z-30 backdrop-blur-xl bg-white/90 dark:bg-[#08070d]/90 border-b border-slate-200/60 dark:border-white/5">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+                    {/* Search input */}
+                    <div className="relative group w-full max-w-4xl mx-auto">
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-400 via-sky-400 to-cyan-400 rounded-full blur opacity-10 group-focus-within:opacity-35 group-hover:opacity-20 transition duration-500" />
+                        <div className="relative flex items-center bg-white dark:bg-[#0c1220]/90 border border-slate-200 dark:border-white/10 rounded-full px-4 py-2 shadow-[0_4px_20px_rgba(15,23,42,0.07)] dark:shadow-none group-focus-within:border-transparent transition-all duration-300">
+                            <Search className="h-4 w-4 text-slate-400 dark:text-slate-500 shrink-0 mr-2.5" />
+                            <input
+                                type="text"
+                                placeholder="Search jobs, companies, or locations..."
+                                value={searchInput}
+                                onChange={(e) => setSearchInput(e.target.value)}
+                                className="bg-transparent border-none outline-none w-full text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 py-1"
+                            />
                             {searchInput && (
                                 <button
                                     onClick={handleReset}
-                                    className="text-xs font-semibold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 transition flex items-center gap-1 bg-transparent"
+                                    className="hover:bg-slate-100 dark:hover:bg-white/10 rounded-full p-1 transition mr-1 bg-transparent shrink-0"
                                 >
-                                    <RotateCcw size={12} />
-                                    <span>Reset Search</span>
+                                    <X className="h-3.5 w-3.5 text-slate-400 hover:text-slate-700 dark:text-slate-500 dark:hover:text-slate-300" />
                                 </button>
                             )}
                         </div>
                     </div>
+
+                    {/* Results count & reset row */}
+                    <div className="flex flex-wrap items-center justify-between gap-2 px-1.5 pt-2 max-w-4xl mx-auto">
+                        <div className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                                {isLoading ? "Searching..." : `${filterJobs.length} ${filterJobs.length === 1 ? 'Opportunity' : 'Opportunities'} Found`}
+                            </span>
+                        </div>
+                        {searchInput && (
+                            <button
+                                onClick={handleReset}
+                                className="text-xs font-semibold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 transition flex items-center gap-1 bg-transparent"
+                            >
+                                <RotateCcw size={11} />
+                                <span>Reset</span>
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
 
-            {/* Content pushed down to clear Navbar (80px) + Search band (~76px) */}
-            <div className='max-w-7xl mx-auto pt-[160px] px-4 sm:px-6 lg:px-8 relative z-10'>
+            {/* Content pushed down to clear Navbar + Search band (~152px) */}
+            <div className='max-w-7xl mx-auto pt-[180px] sm:pt-[172px] px-4 sm:px-6 lg:px-8 relative z-10'>
 
                 {/* Active search pill */}
                 <AnimatePresence>

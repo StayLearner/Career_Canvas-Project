@@ -353,7 +353,7 @@ const Navbar = () => {
                     key={item.path}
                     to={item.path}
                     onClick={() => setMobileOpen(false)}
-                    className={`font-semibold rounded-xl px-4 py-2.5 text-left transition ${
+                    className={`font-semibold rounded-xl px-4 py-2.5 text-left block transition ${
                       isActive(item.path)
                         ? "bg-slate-100 dark:bg-white/15 text-slate-950 dark:text-white border border-slate-200 dark:border-white/10 shadow-inner"
                         : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/5"
@@ -376,9 +376,9 @@ const Navbar = () => {
                   </Link>
 
                   <Link to="/signup" onClick={() => setMobileOpen(false)} className="w-full block">
-                    <div className="w-full bg-gradient-to-r from-yellow-400 via-sky-400 to-blue-500 text-slate-950 font-semibold h-10 rounded-full flex items-center justify-center cursor-pointer select-none">
+                    <Button className="w-full bg-gradient-to-r from-yellow-400 via-sky-400 to-blue-500 hover:from-yellow-500 hover:via-sky-500 hover:to-blue-600 text-slate-950 font-semibold h-10 rounded-full flex items-center justify-center cursor-pointer select-none border-0">
                       Signup
-                    </div>
+                    </Button>
                   </Link>
                 </div>
               ) : (
