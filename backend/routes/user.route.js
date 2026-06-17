@@ -1,5 +1,5 @@
 import express from "express";
-import { login, logout, register, updateProfile } from "../controller/user.controller.js";
+import { login, logout, register, updateProfile, getCommunityStats } from "../controller/user.controller.js";
 import isAuthenticated from "../middlewares/isAuthenticated.js";
 import { singleUpload } from "../middlewares/multer.js";
 
@@ -100,6 +100,7 @@ router.route("/login").post(login);
  *         description: User logged out successfully
  */
 router.route("/logout").get(logout);
+router.route("/stats").get(getCommunityStats);
 /**
  * @swagger
  * /api/v1/user/profile/update:

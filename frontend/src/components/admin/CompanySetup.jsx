@@ -74,69 +74,87 @@ const CompanySetup = () => {
     },[singleCompany]);
 
     return (
-        <div>
+        <div className="bg-[#FAFBFC] dark:bg-[#020817] min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-500 font-sans pb-16 relative overflow-x-hidden">
             <Navbar />
             <div className='max-w-xl mx-auto my-8 sm:my-10 px-4 sm:px-6 lg:px-0'>
-                <form onSubmit={submitHandler}>
-                    <div className='flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 p-4 sm:p-8'>
-                        <Button onClick={() => navigate("/admin/companies")} type="button" variant="outline" className="flex items-center gap-2 text-gray-500 font-semibold w-fit">
-                            <ArrowLeft />
+                <form onSubmit={submitHandler} className='bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-200/80 dark:border-white/10 rounded-3xl p-6 sm:p-8 md:p-10 shadow-[0_20px_50px_rgba(15,23,42,0.04)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)]'>
+                    <div className='flex items-center gap-4 sm:gap-5 pb-6 border-b border-slate-100 dark:border-white/5 mb-6 text-left'>
+                        <Button 
+                            onClick={() => navigate("/admin/companies")} 
+                            type="button" 
+                            variant="outline" 
+                            className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full font-semibold w-fit h-9 px-4 shrink-0 transition"
+                        >
+                            <ArrowLeft className="h-4 w-4" />
                             <span>Back</span>
                         </Button>
-                        <h1 className='font-bold text-xl'>Company Setup</h1>
+                        <h1 className='font-bold text-xl sm:text-2xl text-slate-900 dark:text-white truncate'>Company Setup</h1>
                     </div>
-                    <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
-                        <div>
-                            <Label>Company Name</Label>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 text-left'>
+                        <div className="space-y-1">
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Company Name</Label>
                             <Input
                                 type="text"
                                 name="name"
                                 value={input.name}
                                 onChange={changeEventHandler}
+                                className="border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-offset-0 focus-visible:ring-0 text-slate-800 dark:text-slate-100 rounded-xl"
                             />
                         </div>
-                        <div>
-                            <Label>Description</Label>
+                        <div className="space-y-1">
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Description</Label>
                             <Input
                                 type="text"
                                 name="description"
                                 value={input.description}
                                 onChange={changeEventHandler}
+                                className="border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-offset-0 focus-visible:ring-0 text-slate-800 dark:text-slate-100 rounded-xl"
                             />
                         </div>
-                        <div>
-                            <Label>Website</Label>
+                        <div className="space-y-1">
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Website</Label>
                             <Input
                                 type="text"
                                 name="website"
                                 value={input.website}
                                 onChange={changeEventHandler}
+                                className="border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-offset-0 focus-visible:ring-0 text-slate-800 dark:text-slate-100 rounded-xl"
                             />
                         </div>
-                        <div>
-                            <Label>Location</Label>
+                        <div className="space-y-1">
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Location</Label>
                             <Input
                                 type="text"
                                 name="location"
                                 value={input.location}
                                 onChange={changeEventHandler}
+                                className="border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-offset-0 focus-visible:ring-0 text-slate-800 dark:text-slate-100 rounded-xl"
                             />
                         </div>
-                        <div className='sm:col-span-2'>
-                            <Label>Logo</Label>
+                        <div className='sm:col-span-2 space-y-1'>
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Logo</Label>
                             <Input
                                 type="file"
                                 accept="image/*"
                                 onChange={changeFileHandler}
+                                className="border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-offset-0 focus-visible:ring-0 text-slate-800 dark:text-slate-100 rounded-xl"
                             />
                         </div>
                     </div>
                     {
-                        loading ? <Button disabled className="w-full my-4 "> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait </Button> : <Button type="submit" className="w-full my-4 bg-gradient-to-r from-[#ffb703] to-[#00b4d8] text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl ">Update</Button>
+                        loading ? (
+                            <Button disabled className="w-full my-6 bg-slate-100 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-white/10 text-slate-400 dark:text-slate-500 font-semibold py-2.5">
+                                <Loader2 className='mr-2 h-4 w-4 animate-spin' /> 
+                                Please wait 
+                            </Button>
+                        ) : (
+                            <Button type="submit" className="w-full my-6 bg-gradient-to-r from-yellow-400 to-sky-400 hover:scale-[1.02] text-slate-950 font-semibold py-2.5 px-4 rounded-xl shadow-lg transition-transform duration-300 border-0">
+                                Update
+                            </Button>
+                        )
                     }
                 </form>
             </div>
-
         </div>
     )
 }

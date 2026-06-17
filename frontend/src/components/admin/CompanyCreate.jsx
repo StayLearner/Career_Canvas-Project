@@ -42,64 +42,67 @@ const CompanyCreate = () => {
    
 
     return (
-        <div>
+        <div className="bg-[#FAFBFC] dark:bg-[#020817] min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-500 font-sans pb-16 relative overflow-x-hidden">
             <Navbar />
-            <motion.div 
-                className='max-w-4xl mx-4 sm:mx-auto my-8 sm:my-10 p-4 sm:p-6 bg-white shadow-lg rounded-lg' 
-                initial={{ opacity: 0 }} 
-                animate={{ opacity: 1 }} 
-                transition={{ duration: 0.6 }}
-            >
+            <div className="max-w-4xl mx-auto px-4 mt-8">
                 <motion.div 
-                    className='my-6 sm:my-10 text-center' 
-                    initial={{ y: -50, opacity: 0 }} 
-                    animate={{ y: 0, opacity: 1 }} 
-                    transition={{ duration: 0.8, ease: 'easeOut' }}
+                    className='max-w-2xl mx-auto bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-200/80 dark:border-white/10 rounded-3xl p-6 sm:p-10 shadow-[0_20px_50px_rgba(15,23,42,0.04)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)]'
+                    initial={{ opacity: 0, y: 20 }} 
+                    animate={{ opacity: 1, y: 0 }} 
+                    transition={{ duration: 0.6 }}
                 >
-                    <h1 className='font-extrabold text-2xl sm:text-3xl text-[#ffb703] mb-4'>
-                        Your Company Name
-                    </h1>
-                    <p className='text-gray-500 text-base sm:text-lg'>
-                        Choose your brand name to represent your business—don't worry, you can always update it later!
-                    </p>
-                </motion.div>
-
-                <motion.div 
-                    initial={{ x: -100, opacity: 0 }} 
-                    animate={{ x: 0, opacity: 1 }} 
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                >
-                    <Label className="text-[#ffb703] font-semibold">Company Name</Label>
-                    <Input
-                        type="text"
-                        value={companyName}
-                        className="my-2 p-2 border-2 border-[#00b4d8] rounded-lg focus:ring focus:ring-indigo-300"
-                        placeholder="TCS, Cognizant, Swiggy, Google, CloudKaptan, Microsoft etc."
-                        onChange={(e) => setCompanyName(e.target.value)}
-                    />
-                </motion.div>
-
-                <motion.div 
-                    className='flex flex-col sm:flex-row items-center gap-4 my-8 sm:my-10 justify-center'
-                    initial={{ opacity: 0 }} 
-                    animate={{ opacity: 1 }} 
-                    transition={{ duration: 0.8, delay: 0.5 }}
-                >
-                    <Button 
-                        variant="outline" 
-                        className="w-full sm:w-auto px-6 py-2 border-2 border-gray-300 text-white bg-[#00b4d8] hover:bg-[#ffb703] hover:scale-105 transition-transform duration-300 ease-out"
-                        onClick={() => navigate("/admin/companies")}
+                    <motion.div 
+                        className='my-6 sm:my-8 text-center' 
+                        initial={{ y: -30, opacity: 0 }} 
+                        animate={{ y: 0, opacity: 1 }} 
+                        transition={{ duration: 0.8, ease: 'easeOut' }}
                     >
-                        Cancel
-                    </Button>
-                    <Button 
-                        className="w-full sm:w-auto px-6 py-2 border-2  bg-[#00b4d8] text-white hover:bg-[#ffb703] hover:scale-105 transition-transform duration-300 ease-out" 
-                        onClick={registerNewCompany}
+                        <h1 className='font-bold text-2xl sm:text-3xl text-amber-500 dark:text-amber-400 mb-4'>
+                            Your Company Name
+                        </h1>
+                        <p className='text-slate-500 dark:text-slate-400 text-sm sm:text-base'>
+                            Choose your brand name to represent your business—don't worry, you can always update it later!
+                        </p>
+                    </motion.div>
+
+                    <motion.div 
+                        initial={{ x: -50, opacity: 0 }} 
+                        animate={{ x: 0, opacity: 1 }} 
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        className="text-left"
                     >
-                        Continue
-                    </Button>
+                        <Label className="text-amber-500 dark:text-amber-400 font-semibold text-sm">Company Name</Label>
+                        <Input
+                            type="text"
+                            value={companyName}
+                            className="my-2 p-3 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-offset-0 focus-visible:ring-0 text-slate-805 dark:text-slate-100 rounded-xl"
+                            placeholder="TCS, Swiggy, Swiggy, Google, CloudKaptan, Microsoft etc."
+                            onChange={(e) => setCompanyName(e.target.value)}
+                        />
+                    </motion.div>
+
+                    <motion.div 
+                        className='flex flex-col sm:flex-row items-center gap-4 my-8 justify-center'
+                        initial={{ opacity: 0 }} 
+                        animate={{ opacity: 1 }} 
+                        transition={{ duration: 0.8, delay: 0.5 }}
+                    >
+                        <Button 
+                            variant="outline" 
+                            className="w-full sm:w-auto px-6 py-2.5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 rounded-xl font-semibold transition-all duration-300"
+                            onClick={() => navigate("/admin/companies")}
+                        >
+                            Cancel
+                        </Button>
+                        <Button 
+                            className="w-full sm:w-auto px-6 py-2.5 bg-gradient-to-r from-yellow-400 to-sky-400 hover:scale-[1.02] text-slate-950 font-semibold rounded-xl shadow-lg transition-transform duration-300 border-0" 
+                            onClick={registerNewCompany}
+                        >
+                            Continue
+                        </Button>
+                    </motion.div>
                 </motion.div>
-            </motion.div>
+            </div>
         </div>
     )
 }

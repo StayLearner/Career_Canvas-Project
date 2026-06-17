@@ -65,109 +65,112 @@ const PostJob = () => {
     }
 
     return (
-        <div>
+        <div className="bg-[#FAFBFC] dark:bg-[#020817] min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-500 font-sans pb-16 relative overflow-x-hidden">
             <Navbar />
-            <div className='flex items-center justify-center w-full my-5 px-4 sm:px-6 lg:px-8'>
-                <form onSubmit = {submitHandler} className='p-4 sm:p-6 md:p-8 w-full max-w-4xl border border-gray-200 shadow-lg rounded-md'>
-                    <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4'>
-                        <div>
-                            <Label>Title</Label>
+            <div className='flex items-center justify-center w-full my-8 px-4 sm:px-6 lg:px-8'>
+                <form onSubmit = {submitHandler} className='bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-200/80 dark:border-white/10 rounded-3xl p-6 sm:p-8 md:p-10 shadow-[0_20px_50px_rgba(15,23,42,0.04)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)] w-full max-w-4xl'>
+                    <div className="pb-6 border-b border-slate-100 dark:border-white/5 mb-6 text-left">
+                        <h1 className="font-bold text-2xl text-slate-900 dark:text-white">Post New Job</h1>
+                        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Fill in the details below to publish a new position</p>
+                    </div>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 text-left'>
+                        <div className="space-y-1">
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Title</Label>
                             <Input
                                 type="text"
                                 name="title"
                                 value={input.title}
                                 onChange={changeEventHandler}
-                                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                                className="border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-offset-0 focus-visible:ring-0 text-slate-800 dark:text-slate-100 rounded-xl"
                             />
                         </div>
-                        <div>
-                            <Label>Description</Label>
+                        <div className="space-y-1">
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Description</Label>
                             <Input
                                 type="text"
                                 name="description"
                                 value={input.description}
                                 onChange={changeEventHandler}
-                                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                                className="border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-offset-0 focus-visible:ring-0 text-slate-800 dark:text-slate-100 rounded-xl"
                             />
                         </div>
-                        <div>
-                            <Label>Requirements</Label>
+                        <div className="space-y-1">
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Requirements</Label>
                             <Input
                                 type="text"
                                 name="requirements"
                                 value={input.requirements}
                                 onChange={changeEventHandler}
-                                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                                className="border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-offset-0 focus-visible:ring-0 text-slate-800 dark:text-slate-100 rounded-xl"
                             />
                         </div>
-                        <div>
-                            <Label>Salary</Label>
+                        <div className="space-y-1">
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Salary (LPA)</Label>
                             <Input
                                 type="text"
                                 name="salary"
                                 value={input.salary}
                                 onChange={changeEventHandler}
-                                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                                className="border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-offset-0 focus-visible:ring-0 text-slate-800 dark:text-slate-100 rounded-xl"
                             />
                         </div>
-                        <div>
-                            <Label>Location</Label>
+                        <div className="space-y-1">
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Location</Label>
                             <Input
                                 type="text"
                                 name="location"
                                 value={input.location}
                                 onChange={changeEventHandler}
-                                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                                className="border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-offset-0 focus-visible:ring-0 text-slate-800 dark:text-slate-100 rounded-xl"
                             />
                         </div>
-                        <div>
-                            <Label>Job Type</Label>
+                        <div className="space-y-1">
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Job Type</Label>
                             <Input
                                 type="text"
                                 name="jobType"
                                 value={input.jobType}
                                 onChange={changeEventHandler}
-                                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                                className="border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-offset-0 focus-visible:ring-0 text-slate-800 dark:text-slate-100 rounded-xl"
                             />
                         </div>
-                        <div>
-                            <Label>Experience Level</Label>
+                        <div className="space-y-1">
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Experience Level</Label>
                             <Input
                                 type="text"
                                 name="experience"
                                 value={input.experience}
                                 onChange={changeEventHandler}
-                                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                                className="border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-offset-0 focus-visible:ring-0 text-slate-800 dark:text-slate-100 rounded-xl"
                             />
                         </div>
-                        <div>
-                            <Label>No of Position</Label>
+                        <div className="space-y-1">
+                            <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">No of Position</Label>
                             <Input
                                 type="number"
                                 name="position"
                                 value={input.position}
                                 onChange={changeEventHandler}
-                                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                                className="border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-offset-0 focus-visible:ring-0 text-slate-805 dark:text-slate-100 rounded-xl"
                             />
                         </div>
                         {
                             companies.length > 0 && (
-                                <div className='sm:col-span-2'>
-                                    <Label>Company</Label>
+                                <div className='sm:col-span-2 space-y-1'>
+                                    <Label className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Company</Label>
                                     <Select onValueChange={selectChangeHandler}>
-                                        <SelectTrigger className="w-full my-1">
+                                        <SelectTrigger className="w-full border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-800 dark:text-slate-100 rounded-xl my-1 focus:ring-0">
                                             <SelectValue placeholder="Select a Company" />
                                         </SelectTrigger>
-                                        <SelectContent>
+                                        <SelectContent className="bg-white dark:bg-[#0d1220] border border-slate-200 dark:border-white/10">
                                             <SelectGroup>
                                                 {
                                                     companies.map((company) => {
                                                         return (
-                                                            <SelectItem key={company?._id} value={company?._id}>{company.name}</SelectItem>
+                                                            <SelectItem key={company?._id} value={company?._id} className="dark:focus:bg-white/5 dark:focus:text-white">{company.name}</SelectItem>
                                                         )
                                                     })
                                                 }
-
                                             </SelectGroup>
                                         </SelectContent>
                                     </Select>
@@ -176,12 +179,19 @@ const PostJob = () => {
                         }
                     </div> 
                     {
-                        loading ? <Button disabled className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> 
-                        
-                        Please wait </Button> : <Button  type="submit" className="w-full my-4 bg-gradient-to-r from-[#ffb703] to-[#00b4d8] text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl">Post New Job</Button>
+                        loading ? (
+                            <Button disabled className="w-full my-6 bg-slate-100 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-white/10 text-slate-400 dark:text-slate-500 font-semibold py-2.5">
+                                <Loader2 className='mr-2 h-4 w-4 animate-spin' /> 
+                                Please wait 
+                            </Button>
+                        ) : (
+                            <Button type="submit" className="w-full my-6 bg-gradient-to-r from-yellow-400 to-sky-400 hover:scale-[1.02] text-slate-950 font-semibold py-2.5 px-4 rounded-xl shadow-lg transition-transform duration-300 border-0">
+                                Post New Job
+                            </Button>
+                        )
                     }
                     {
-                        companies.length === 0 && <p className='text-xs text-red-600 font-bold text-center my-3'>*Please register a company first, before posting a job</p>
+                        companies.length === 0 && <p className='text-xs text-red-500 font-semibold text-center my-3'>* Please register a company first, before posting a job</p>
                     }
                 </form>
             </div>
