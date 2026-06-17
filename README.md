@@ -1,164 +1,231 @@
 # Career Canvas 🎨💼
 
-Career Canvas is a comprehensive job-seeking platform that connects students with recruiters, providing a dual-interface for students and recruiters.
-With robust search and filtering options, clear application tracking, and a scalable backend, Career Canvas aims to streamline the job search and recruitment process. 🌐
+Career Canvas is a full-stack job portal platform that connects students/job seekers with recruiters. It provides separate interfaces for students and recruiters, allowing users to search jobs, apply for opportunities, manage applications, register companies, post jobs, and track applicant status.
+
+The project is built with a MERN stack architecture and focuses on real-world job portal workflows, secure authentication, protected routes, file uploads, API documentation, and production deployment.
 
 ---
 
 ## 🔗 Live Demo
-🚀 [Career Canvas Live Demo] *(link coming soon after deployment)*
 
----
-
-## 📚 Table of Contents
-
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Installation](#-installation)
-- [Usage](#-usage)
-- [API Endpoints](#-api-endpoints)
-- [Future Enhancements](#-future-enhancements)
-- [Contributing](#-contributing)
-- [License](#-license)
+🚀 Live Website: https://www.careercanvas.online
+🧪 API Docs: https://career-canvas.onrender.com/api-docs
 
 ---
 
 ## ✨ Features
 
-### 🎓 Student Section
+### 🎓 Student Features
 
-- **Job Search & Filter** 🔎: Students can search and filter jobs based on role, location, and other criteria for targeted job searches.
-- **Application Tracking** 📈: Track applications with real-time status updates, including accepted and rejected applications.
-- **Profile Management** 📋: Update profile details (except name and phone number) for a personalized experience.
-  
-### 🏢 Recruiter Section
+* User registration and login
+* JWT-based authentication
+* Browse and search jobs
+* Apply for jobs
+* View applied jobs
+* Track application status
+* Update profile details
+* Upload resume
+* View company/job details
 
-- **Company Management** 🏬: Recruiters can manage multiple companies under their account, with options to add, edit, and delete company profiles.
-- **Job Listings** 📜: Recruiters can create multiple job postings for each company, view applicant lists, and manage application statuses.
+### 🏢 Recruiter Features
 
-### Other Features
+* Recruiter authentication
+* Register company
+* View own companies
+* Update company details with logo upload
+* Post jobs for selected company
+* View recruiter-posted jobs
+* View applicants for each job
+* Accept or reject applications
 
-- **Secure Authentication** 🔐: JWT for secure login, with Google OAuth for convenient access.
-- **Full MVC Architecture** 🛠️: Structured, maintainable codebase.
-- **Persistent Data Storage** 💾: MongoDB for reliable data storage.
-- **Cloudinary Integration** ☁️: Easy file uploads for resumes and profile pictures.
-- **Smooth Animations** 🎥: Framer Motion for interactive UI effects.
-- **Route Protection** 🔒: Secure access with protected routes.
-  
+### 🔐 Backend Features
+
+* MVC backend architecture
+* Protected routes using authentication middleware
+* Cookie-based JWT authentication
+* Cloudinary file upload integration
+* Multer file upload middleware
+* MongoDB Atlas database
+* Swagger API documentation
+* CORS configured for local and production domains
+* Improved error handling
+* Production-ready Render deployment
+
 ---
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **React.js** ⚛️
-- **Tailwind CSS** 🎨
-- **Shadcn UI** 🖌️
-- **Redux Toolkit** 📦 for state management
+
+* React.js
+* Redux Toolkit
+* Tailwind CSS
+* Shadcn UI
+* Framer Motion
+* Axios
 
 ### Backend
-- **Node.js** 🟩
-- **Express.js** 🌐
-- **MongoDB** 🍃
-- **JWT** 🔐 for token-based authentication
-- **OAuth (Google)** 🔗 for streamlined login
 
-### Additional Tools
-- **Postman** 📬 for API testing
-- **Cloudinary** ☁️ for file uploads
-- **Framer Motion** 🎞️ for animations
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JWT
+* Cookie Parser
+* Multer
+* Cloudinary
+* Swagger UI / Swagger JSDoc
+
+### Tools & Deployment
+
+* Postman
+* MongoDB Atlas
+* Render
+* Hostinger Custom Domain
+* Git & GitHub
+
+---
+
+## 📁 Project Structure
+
+```txt
+Career_Canvas-Project/
+├── backend/
+│   ├── controller/
+│   ├── middlewares/
+│   ├── models/
+│   ├── routes/
+│   ├── utils/
+│   └── index.js
+├── frontend/
+│   ├── src/
+│   └── dist/
+├── package.json
+└── README.md
+```
 
 ---
 
 ## 🚀 Installation
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/StayLearner/Career_Canvas-Project.git
-   cd Career_Canvas-Project
-   ```
+### 1. Clone the repository
 
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
+```bash
+git clone https://github.com/StayLearner/Career_Canvas-Project.git
+cd Career_Canvas-Project
+```
 
-3. **Environment Variables**:
-   Create a `.env` file and add the following:
-   ```plaintext
-   MONGO_URI=your_mongodb_uri
-   JWT_SECRET=your_jwt_secret
-   CLOUDINARY_NAME=your_cloudinary_name
-   CLOUDINARY_API_KEY=your_api_key
-   CLOUDINARY_API_SECRET=your_api_secret
-   ```
+### 2. Install root/backend dependencies
 
-4. **Run the application**:
-   ```bash
-   npm run start
-   ```
+```bash
+npm install
+```
+
+### 3. Install frontend dependencies
+
+```bash
+cd frontend
+npm install
+cd ..
+```
+
+### 4. Create `.env` file in root folder
+
+```env
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET_KEY=your_jwt_secret_key
+CLOUD_NAME=your_cloudinary_cloud_name
+API_KEY=your_cloudinary_api_key
+API_SECRET=your_cloudinary_api_secret
+```
+
+### 5. Run development server
+
+```bash
+npm run dev
+```
+
+---
+
+## 📡 API Endpoints
+
+Swagger API documentation is available at:
+
+```txt
+/api-docs
+```
+
+### User APIs
+
+| Method | Endpoint                      | Description         |
+| ------ | ----------------------------- | ------------------- |
+| POST   | `/api/v1/user/register`       | Register user       |
+| POST   | `/api/v1/user/login`          | Login user          |
+| GET    | `/api/v1/user/logout`         | Logout user         |
+| POST   | `/api/v1/user/profile/update` | Update user profile |
+
+### Company APIs
+
+| Method | Endpoint                        | Description             |
+| ------ | ------------------------------- | ----------------------- |
+| POST   | `/api/v1/company/register`      | Register company        |
+| GET    | `/api/v1/company/get`           | Get recruiter companies |
+| GET    | `/api/v1/company/get/:id`       | Get company by ID       |
+| PUT    | `/api/v1/company/update/:id`    | Update company          |
+| GET    | `/api/v1/company/all-companies` | Get all companies       |
+
+### Job APIs
+
+| Method | Endpoint                   | Description        |
+| ------ | -------------------------- | ------------------ |
+| POST   | `/api/v1/job/post`         | Post new job       |
+| GET    | `/api/v1/job/get`          | Get all jobs       |
+| GET    | `/api/v1/job/getAdminJobs` | Get recruiter jobs |
+| GET    | `/api/v1/job/get/:id`      | Get job by ID      |
+
+### Application APIs
+
+| Method | Endpoint                                | Description               |
+| ------ | --------------------------------------- | ------------------------- |
+| POST   | `/api/v1/application/apply/:id`         | Apply for a job           |
+| GET    | `/api/v1/application/get`               | Get applied jobs          |
+| GET    | `/api/v1/application/:id/applicants`    | Get applicants            |
+| POST   | `/api/v1/application/status/:id/update` | Update application status |
 
 ---
 
 ## 📖 Usage
 
-1. **Student Login & Job Search**: 
-   - Students can log in and browse job listings. 
-   - They can apply for jobs and check their application statuses (Accepted/Rejected).
-   - Students can update their profile (except for name and phone number).
+### Student Flow
 
-2. **Recruiter Job & Company Management**:
-   - Recruiters can log in, register companies, and post job listings.
-   - They can view and update company details.
-   - Recruiters can view applicants for each job and update the application status (Accepted/Rejected).
-  
-3. **Profile Management**:
-   - Users (students) can update their profiles, including the ability to edit most fields except for their name and phone number.
+1. Register or login as a student.
+2. Browse available jobs.
+3. Search jobs by keyword.
+4. Apply for jobs.
+5. Track applied job status.
+6. Update profile and upload resume.
 
----
+### Recruiter Flow
 
-
-## 📡 API Endpoints
-
-Here’s a quick overview of the key API endpoints:
-
-| Endpoint                     | Description                                     | Method |
-|------------------------------|-------------------------------------------------|--------|
-| `/api/auth/register`          | Register a new user (Student/Recruiter)         | POST   |
-| `/api/auth/login`             | Login for users (Student/Recruiter)             | POST   |
-| `/api/auth/logout`            | Logout the user                                 | GET    |
-| `/api/jobs/post`              | Post a new job listing                          | POST   |
-| `/api/jobs/all`               | Get all job listings                            | GET    |
-| `/api/jobs/apply/:id`         | Apply for a job                                 | GET    |
-| `/api/jobs/applied`           | Get all jobs a user has applied for             | GET    |
-| `/api/jobs/applicants/:id`    | Get applicants for a specific job               | GET    |
-| `/api/jobs/status/:id`        | Update the application status (Accepted/Rejected) | POST   |
-
-Note: Detailed API testing done via Postman.
----
-
-## 🔮 Future Enhancements
-
-- **Custom Domain** 🌍: Deployment with a `.com` or `.in` domain.
-- **Advanced Filtering** 📊: Additional filters for a more refined job search.
-- **Admin Dashboard** 📊: For enhanced management capabilities.
+1. Register or login as a recruiter.
+2. Register a company.
+3. Update company profile and logo.
+4. Post jobs under company.
+5. View applicants.
+6. Update application status.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Follow these steps:
+Contributions are welcome.
 
-1. Fork the repository.
-2. Create a new feature branch.
-3. Commit changes and push them.
-4. Open a pull request.
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License.
+1. Fork the repository
+2. Create a new branch
+3. Commit your changes
+4. Push to your branch
+5. Open a pull request
 
 ---
 
-### ✨ Built with passion and dedication!
+### ✨ Built with passion, consistency, and continuous learning.
