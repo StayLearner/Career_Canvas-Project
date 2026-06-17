@@ -61,8 +61,8 @@ const corsOptions = {
     "http://localhost:3000",
     "https://career-canvas.onrender.com",
     "https://careercanvas.online",
-    "https://www.careercanvas.online"
-
+    "https://www.careercanvas.online",
+    "https://career-canvas-development.onrender.com/",
   ],
   credentials:true
 }
