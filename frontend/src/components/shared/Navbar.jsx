@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Avatar, AvatarImage } from "../ui/avatar";
-import { LogOut, Menu, User2, X, Briefcase, Sun, Moon } from "lucide-react";
+import { LogOut, Menu, User2, X, Briefcase, Sun, Moon, List, Bookmark, UserCog2Icon } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -284,6 +284,36 @@ const Navbar = () => {
                           >
                             <User2 className="h-4 w-4 text-slate-500 dark:text-cyan-400" />
                             <span>View Profile</span>
+                          </Link>
+                        )}
+
+                        {user?.role === "student" && (
+                          <Link
+                            to="/applications"
+                            className="flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-cyan-400 transition-colors"
+                          >
+                            <List className="h-4 w-4 text-slate-500 dark:text-green-400" />
+                            <span>My Applications</span>
+                          </Link>
+                        )}
+
+                        {user?.role === "student" && (
+                          <Link
+                            to="/"
+                            className="cursor-not-allowed flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-cyan-400 transition-colors"
+                          >
+                            <Bookmark className="h-4 w-4 text-slate-500 dark:text-amber-400" />
+                            <span>Saved Jobs (Coming Soon)</span>
+                          </Link>
+                        )}
+
+                        {user?.role === "student" && (
+                          <Link
+                            to="/profile?tab=settings"
+                            className="flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-cyan-400 transition-colors"
+                          >
+                            <UserCog2Icon className="h-4 w-4 text-slate-500 dark:text-orange-400" />
+                            <span>Settings</span>
                           </Link>
                         )}
 
