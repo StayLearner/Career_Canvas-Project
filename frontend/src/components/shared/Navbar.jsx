@@ -333,7 +333,7 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-
+       </div>
         {/* Mobile Drawer (Floating glass panel) */}
         <AnimatePresence>
           {mobileOpen && (
@@ -423,7 +423,7 @@ const Navbar = () => {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+
     </motion.header>
   );
 };
