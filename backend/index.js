@@ -23,8 +23,21 @@ const  _dirname= path.resolve();
 
 const PORT = process.env.PORT || 8000;
 
-
 //middleware
+
+const corsOptions = {
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://career-canvas.onrender.com",
+    "https://careercanvas.online",
+    "https://www.careercanvas.online",
+    "https://career-canvas-development.onrender.com",
+    "https://career-canvas-old-ui.onrender.com"
+  ],
+  credentials:true
+}
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
@@ -33,7 +46,7 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        connectSrc: ["'self'", "https://career-canvas.onrender.com"],
+        connectSrc: ["'self'", "https://career-canvas.onrender.com","https://www.careercanvas.online","https://careercanvas.online","https://career-canvas-development.onrender.com","https://career-canvas-old-ui.onrender.com"],
         imgSrc: ["'self'", "data:", "https:"],
         scriptSrc: ["'self'"],
         styleSrc: ["'self'", "'unsafe-inline'", "https:"],
@@ -55,19 +68,6 @@ app.use(rateLimit({
 
 app.use(morgan("dev"));
 
-const corsOptions = {
-  origin: [
-    "http://localhost:5173",
-    "http://localhost:3000",
-    "https://career-canvas.onrender.com",
-    "https://careercanvas.online",
-    "https://www.careercanvas.online",
-    "https://career-canvas-development.onrender.com/",
-    "https://career-canvas-old-ui.onrender.com"
-  ],
-  credentials:true
-}
-app.use(cors(corsOptions));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));  // for swagger docs
 
 
