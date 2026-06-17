@@ -2,105 +2,245 @@ import React, { useState } from "react";
 import Navbar from "../shared/Navbar";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
-import { Contact, Mail, Pen } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Label } from "../ui/label";
 import UpdateProfileDialog from "../UpdateProfileDialog";
 import { useSelector } from "react-redux";
+import {
+  Contact,
+  Mail,
+  Pen,
+  CameraIcon,
+  FileText,
+  CheckCircle2,
+  GraduationCap,
+  BriefcaseBusiness,
+  GithubIcon,
+  Linkedin,
+} from "lucide-react";
 
 const ProfileCard = () => {
   const [open, setOpen] = useState(false);
+  const [profilePhoto, setProfilePhoto] = useState(null);
   const { user } = useSelector((store) => store.auth);
+
   const isResume = user?.profile?.resume;
+  const skills = user?.profile?.skills || [];
+
+  const education = user?.profile?.education || [];
+  const experience = user?.profile?.experience || [];
+
+  const changePhotoHandler = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setProfilePhoto(file);
+      setOpen(true);
+    }
+  };
+
+  let profileCompletion = 0;
+
+  if (user?.fullname) profileCompletion += 15;
+  if (user?.email) profileCompletion += 10;
+  if (user?.profile?.profilePhoto) profileCompletion += 15;
+  if (user?.phoneNumber) profileCompletion += 15;
+  if (user?.profile?.bio) profileCompletion += 15;
+  if (skills.length > 0) profileCompletion += 15;
+  if (isResume) profileCompletion += 15;
 
   return (
-    <div className="bg-[#FAFBFC] dark:bg-[#020817] min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-500 font-sans pb-16 relative overflow-x-hidden">
+    <div className="bg-[#FAFBFC] dark:bg-[#020817] min-h-screen text-slate-800 dark:text-slate-100 pb-16 overflow-x-hidden">
       <Navbar />
 
-      <div className="max-w-4xl mx-auto px-4 mt-5">
-        <div className="bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-200/80 dark:border-white/10 rounded-3xl p-6 sm:p-8 md:p-10 shadow-[0_20px_50px_rgba(15,23,42,0.04)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-          <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-5 pb-6 border-b border-slate-100 dark:border-white/5">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-left">
-              <Avatar className="h-20 w-20 sm:h-24 sm:w-24 shadow-md ring-4 ring-amber-400/80 dark:ring-amber-400/50">
+      <div className="max-w-6xl mx-auto px-4 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] min-h-[620px] overflow-hidden rounded-3xl bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-200/80 dark:border-white/10 shadow-[0_24px_70px_rgba(15,23,42,0.08)] dark:shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
+          {/* Left Panel */}
+          <div className="p-8 flex flex-col items-center justify-center text-center border-b md:border-b-0 md:border-r border-slate-100 dark:border-white/5 bg-slate-50/60 dark:bg-white/[0.02]">
+            <div className="relative group">
+              <Avatar className="h-36 w-36 shadow-xl ring-4 ring-cyan-500/60 dark:ring-cyan-400/50">
                 <AvatarImage
                   src={user?.profile?.profilePhoto}
                   alt={user?.fullname || "User"}
                 />
               </Avatar>
 
-              <div className="space-y-1">
-                <h1 className="font-bold text-xl sm:text-2xl text-slate-900 dark:text-white">
-                  {user?.fullname}
-                </h1>
-                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 break-words">
+              <label
+                htmlFor="profile-photo"
+                className="absolute bottom-2 right-2 h-10 w-10 rounded-full bg-cyan-500 hover:bg-cyan-600 text-white flex items-center justify-center cursor-pointer shadow-lg transition"
+              >
+                <CameraIcon className="h-4 w-4" />
+              </label>
+
+              <input
+                id="profile-photo"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={changePhotoHandler}
+              />
+            </div>
+
+            <div className="mt-8 w-full">
+              <div className="flex justify-between text-xs mb-2">
+                <span className="text-slate-500 dark:text-slate-400">
+                  Profile Completion
+                </span>
+                <span className="font-semibold text-cyan-600 dark:text-cyan-400">
+                  {profileCompletion}%
+                </span>
+              </div>
+
+              <div className="h-2 rounded-full bg-slate-200 dark:bg-white/10 overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-amber-400 to-cyan-400"
+                  style={{ width: `${profileCompletion}%` }}
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 mt-8 w-full">
+              <div className="rounded-2xl bg-white/60 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/5 p-4">
+                <p className="text-xl font-bold text-slate-900 dark:text-white">
+                  {skills.length}
+                </p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Skills</p>
+              </div>
+
+              <div className="rounded-2xl bg-white/60 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/5 p-4">
+                <p className="text-xl font-bold text-slate-900 dark:text-white">
+                  {isResume ? "Yes" : "No"}
+                </p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Resume</p>
+              </div>
+
+              <div className="rounded-2xl bg-white/60 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/5 p-4 flex flex-col items-center">
+                <Linkedin className="h-5 w-5 text-sky-500 mb-1" />
+                <p className="text-xs text-slate-500 dark:text-slate-400">LinkedIn</p>
+              </div>
+
+              <div className="rounded-2xl bg-white/60 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/5 p-4 flex flex-col items-center">
+                <GithubIcon className="h-5 w-5 text-slate-800 dark:text-white mb-1" />
+                <p className="text-xs text-slate-500 dark:text-slate-400">GitHub</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Panel */}
+          <div className="p-6 sm:p-8 md:p-10">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-3 flex-wrap">
+                  <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+                    {user?.fullname}
+                  </h1>
+
+                  <Badge className="bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 rounded-full">
+                    Active Candidate
+                  </Badge>
+                </div>
+
+                <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400">
                   {user?.profile?.bio || "No bio added yet"}
                 </p>
               </div>
+
+              <Button
+                onClick={() => setOpen(true)}
+                className="bg-white text-slate-900 hover:bg-slate-100 dark:bg-white dark:text-slate-900 rounded-full px-5 gap-2 shrink-0"
+              >
+                <Pen className="h-4 w-4" />
+                Edit
+              </Button>
             </div>
 
-            <Button
-              onClick={() => setOpen(true)}
-              variant="outline"
-              className="border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 rounded-full p-2 h-10 w-10"
+            <div className="my-8 border-t border-slate-100 dark:border-white/5" />
+
+            <div className="space-y-4">
+              <InfoRow
+                label="Email"
+                icon={<Mail className="h-4 w-4 text-cyan-500" />}
+              >
+                {user?.email || "Not added"}
+              </InfoRow>
+
+              <InfoRow
+                label="Phone"
+                icon={<Contact className="h-4 w-4 text-amber-500" />}
+              >
+                {user?.phoneNumber || "Not added"}
+              </InfoRow>
+
+              <InfoRow
+                label="Resume"
+                icon={<FileText className="h-4 w-4 text-cyan-500" />}
+              >
+                {isResume ? (
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={user?.profile?.resume}
+                    className="text-cyan-600 dark:text-cyan-400 font-semibold hover:underline break-all"
+                  >
+                    {user?.profile?.resumeOriginalName}
+                  </a>
+                ) : (
+                  "No resume uploaded"
+                )}
+              </InfoRow>
+            </div>
+
+            <Section title="Skills">
+              <div className="flex flex-wrap gap-2">
+                {skills.length ? (
+                  skills.map((item, index) => (
+                    <Badge
+                      key={index}
+                      className="bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 text-xs font-semibold px-3 py-1 rounded-full"
+                    >
+                      <CheckCircle2 className="h-3 w-3 mr-1" />
+                      {item}
+                    </Badge>
+                  ))
+                ) : (
+                  <EmptyText text="No skills added yet" />
+                )}
+              </div>
+            </Section>
+
+            <Section
+              title="Education"
+              icon={<GraduationCap className="h-4 w-4 text-amber-500" />}
             >
-              <Pen className="h-4 w-4" />
-            </Button>
-          </div>
-
-          <div className="my-6 space-y-3 text-left">
-            <div className="flex items-center gap-3 text-slate-600 dark:text-slate-300 break-all text-sm sm:text-base">
-              <Mail className="h-4 w-4 text-cyan-500 shrink-0" />
-              <span>{user?.email}</span>
-            </div>
-
-            <div className="flex items-center gap-3 text-slate-600 dark:text-slate-300 text-sm sm:text-base">
-              <Contact className="h-4 w-4 text-amber-500 shrink-0" />
-              <span>{user?.phoneNumber || "No contact info"}</span>
-            </div>
-          </div>
-
-          <div className="my-6 border-t border-slate-100 dark:border-white/5 pt-6 text-left">
-            <h2 className="font-semibold text-sm sm:text-base text-slate-900 dark:text-white uppercase tracking-wider">
-              Skills
-            </h2>
-
-            <div className="flex flex-wrap items-center gap-2 mt-3">
-              {user?.profile?.skills?.length ? (
-                user.profile.skills.map((item, index) => (
-                  <Badge
+              {education.length ? (
+                education.map((item, index) => (
+                  <p
                     key={index}
-                    className="bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 text-xs font-semibold px-2.5 py-1 rounded-lg hover:bg-cyan-500/20 shadow-none transition"
+                    className="text-sm text-slate-600 dark:text-slate-300"
                   >
                     {item}
-                  </Badge>
+                  </p>
                 ))
               ) : (
-                <span className="text-sm text-slate-400">
-                  No skills added yet
-                </span>
+                <EmptyText text="No education added yet" />
               )}
-            </div>
-          </div>
+            </Section>
 
-          <div className="my-6 border-t border-slate-100 dark:border-white/5 pt-6 text-left">
-            <Label className="text-sm sm:text-base font-semibold text-slate-900 dark:text-white block mb-2">
-              Resume
-            </Label>
-
-            {isResume ? (
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href={user?.profile?.resume}
-                className="text-blue-600 dark:text-cyan-400 hover:underline cursor-pointer font-semibold break-all text-sm sm:text-base block mt-1"
-              >
-                {user?.profile?.resumeOriginalName}
-              </a>
-            ) : (
-              <span className="text-sm text-slate-400">
-                No resume uploaded
-              </span>
-            )}
+            <Section
+              title="Experience"
+              icon={<BriefcaseBusiness className="h-4 w-4 text-cyan-500" />}
+            >
+              {experience.length ? (
+                experience.map((item, index) => (
+                  <p
+                    key={index}
+                    className="text-sm text-slate-600 dark:text-slate-300"
+                  >
+                    {item}
+                  </p>
+                ))
+              ) : (
+                <EmptyText text="No experience added yet" />
+              )}
+            </Section>
           </div>
         </div>
       </div>
@@ -108,6 +248,36 @@ const ProfileCard = () => {
       <UpdateProfileDialog open={open} setOpen={setOpen} />
     </div>
   );
+};
+
+const InfoRow = ({ label, icon, children }) => {
+  return (
+    <div className="grid grid-cols-[90px_1fr] gap-4 text-sm">
+      <span className="text-slate-400 dark:text-slate-500">{label}</span>
+      <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300 break-all">
+        {icon}
+        <span>{children}</span>
+      </div>
+    </div>
+  );
+};
+
+const Section = ({ title, icon, children }) => {
+  return (
+    <div className="mt-8 border-t border-slate-100 dark:border-white/5 pt-6">
+      <div className="flex items-center gap-2 mb-3">
+        {icon}
+        <Label className="font-semibold text-slate-900 dark:text-white">
+          {title}
+        </Label>
+      </div>
+      {children}
+    </div>
+  );
+};
+
+const EmptyText = ({ text }) => {
+  return <span className="text-sm text-slate-400">{text}</span>;
 };
 
 export default ProfileCard;
