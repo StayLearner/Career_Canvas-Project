@@ -46,11 +46,7 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        connectSrc: ["'self'", "https://career-canvas.onrender.com",
-          "https://www.careercanvas.online",
-          "https://careercanvas.online",
-          "https://career-canvas-development.onrender.com",
-          "https://career-canvas-old-ui.onrender.com"],
+        connectSrc: ["'self'", "https://career-canvas.onrender.com","https://www.careercanvas.online","https://careercanvas.online","https://career-canvas-development.onrender.com","https://career-canvas-old-ui.onrender.com"],
         imgSrc: ["'self'", "data:", "https:"],
         scriptSrc: ["'self'"],
         styleSrc: ["'self'", "'unsafe-inline'", "https:"],
