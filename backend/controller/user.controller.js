@@ -138,17 +138,8 @@ export const logout = async (req, res) => {
 export const updateProfile = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
-        
         const file = req.file;
         let cloudResponse;
-        // cloudinary ayega idhar
-        if(file){
-            const fileUri = getDataUri(file);
-            cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-        }
-
-
-
         let skillsArray;
         if(skills){
             skillsArray = skills.split(",");
@@ -162,20 +153,22 @@ export const updateProfile = async (req, res) => {
                 message: "User not found."
             })
         }
+
         // updating data
         if(fullname) user.fullname = fullname
         if(email) user.email = email
         if(phoneNumber)  user.phoneNumber = phoneNumber
         if(bio) user.profile.bio = bio
         if(skills) user.profile.skills = skillsArray
-      
-        // resume comes later here...
-        if(file){
-            const fileUri = getDataUri(file);
+        if (file) {
+            cloudResponse = await cloudinary.uploader.upload(file.path, {
+                resource_type: "auto",
+                folder: "resumes",
+                public_id: `${Date.now()}-${file.originalname.replace(/\.[^/.]+$/, "")}`
+            });
 
-            cloudResponse= await cloudinary.uploader.upload(fileUri.content, {
-                resource_type: "raw",
-            })
+            user.profile.resume = cloudResponse.secure_url;
+            user.profile.resumeOriginalName = file.originalname;
         }
 
 
