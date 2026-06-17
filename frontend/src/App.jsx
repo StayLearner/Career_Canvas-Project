@@ -5,7 +5,6 @@ import Signup from "./components/auth/Signup"
 import Login from "./components/auth/Login"
 import Jobs from "./components/Jobs"
 import Browse from "./components/Browse"
-import Profile from "./components/Profile"
 import JobDescription from "./components/JobDescription"
 import Companies from "./components/admin/Companies"
 import CompanyCreate from './components/admin/CompanyCreate'
@@ -14,6 +13,8 @@ import AdminJobs from "./components/admin/AdminJobs";
 import PostJob from './components/admin/PostJob'
 import Applicants from './components/admin/Applicants'
 import ProtectedRoute from './components/admin/ProtectedRoute'
+import ProfileCard from "./components/student/ProfileCard"
+import AppliedJobsCard from "./components/student/AppliedJobs"
 
 
 
@@ -46,7 +47,11 @@ const appRouter = createBrowserRouter([
   },
   {
     path:'/profile',
-    element:<Profile/>
+    element:<ProfileCard/>
+  },
+  {
+    path:'/applied-jobs',
+    element:<AppliedJobsCard/>
   },
   {
     path:"/admin/companies",
