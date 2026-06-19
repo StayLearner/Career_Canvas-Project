@@ -89,7 +89,14 @@ const Jobs = () => {
 
     // Toggle a filter option
     const handleToggleFilter = (category, value) => {
-        const key = category.toLowerCase().replace(" ", "");
+        const keyMap = {
+            "Location": "location",
+            "Job Type": "jobType",
+            "Salary": "salary",
+            "Experience": "experience"
+        };
+
+        const key = keyMap[category];
         setSelectedFilters(prev => {
             const current = prev[key] || [];
             const updated = current.includes(value)

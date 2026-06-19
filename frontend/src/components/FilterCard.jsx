@@ -37,7 +37,7 @@ const FilterCard = ({ selectedFilters = {}, onToggleFilter, onClearAll, getOptio
     // Expand state for Show More/Less toggle (mapped by category type)
     const [showAllOptions, setShowAllOptions] = useState({
         "Location": false,
-        "Job Type": false,
+       "Job Type": false,
         "Salary": false,
         "Experience": false
     });
@@ -54,8 +54,15 @@ const FilterCard = ({ selectedFilters = {}, onToggleFilter, onClearAll, getOptio
     const hasActiveFilters = Object.values(selectedFilters).some(arr => arr && arr.length > 0);
 
     const getFilterKey = (category) => {
-        return category.toLowerCase().replace(" ", ""); // e.g. "jobtype", "location", "salary", "experience"
+    const keyMap = {
+        "Location": "location",
+        "Job Type": "jobType",
+        "Salary": "salary",
+        "Experience": "experience"
     };
+
+    return keyMap[category];
+};
 
     return (
         <div className='w-full bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] p-5 sm:p-6 rounded-3xl shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)] border border-sky-200/70 dark:border-white/10 text-slate-900 dark:text-slate-100 transition-all duration-300 select-none relative overflow-hidden'>
