@@ -132,7 +132,7 @@ const StudentFeatures = () => {
                 For Aspiring Candidates
               </span>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
-                Discover your path, track your goals, build your canvas.
+                Search active job openings, manage applications, and submit your resume.
               </h2>
               <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
                 Career Canvas equips you with features designed to take the stress out of job hunting. Streamline your processes and get hired in modern startup environments.
@@ -144,7 +144,7 @@ const StudentFeatures = () => {
                 const IconComponent = feat.icon;
                 return (
                   <div key={feat.title} className="relative group/card rounded-3xl">
-                    <div className="bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-sky-200/70 dark:border-white/10 p-5 rounded-3xl flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] hover:border-sky-300/80 dark:hover:border-white/20 h-full relative z-10 overflow-hidden text-left">
+                    <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-white/5 p-5 rounded-3xl flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1.5 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] hover:border-sky-300/80 dark:hover:border-white/20 h-full relative z-10 overflow-hidden text-left">
                       {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-3xl z-0" />
                       

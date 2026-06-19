@@ -11,7 +11,7 @@ const FinalCTA = () => {
   return (
     <section className="py-20 lg:py-28 relative overflow-hidden">
       {/* Background glow effects */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] rounded-full bg-gradient-to-tr from-cyan-500/5 to-amber-500/10 dark:from-cyan-500/10 dark:to-amber-500/15 blur-[120px] -z-10 animate-pulse-glow" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] rounded-full bg-gradient-to-tr from-cyan-500/5 to-amber-500/10 dark:from-cyan-500/10 dark:to-amber-500/15 blur-[64px] -z-10 animate-pulse-glow" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative group/card rounded-[2.5rem]">
         <motion.div
@@ -19,7 +19,7 @@ const FinalCTA = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-sky-200/70 dark:border-white/10 p-8 sm:p-12 lg:p-16 rounded-[2.5rem] text-center relative overflow-hidden shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-2xl"
+          className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-white/5 p-8 sm:p-12 lg:p-16 rounded-[2.5rem] text-center relative overflow-hidden shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-2xl"
         >
           {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-[2.5rem] z-0" />

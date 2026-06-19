@@ -46,6 +46,10 @@ const Browse = () => {
     const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains("dark"));
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         setIsDark(document.documentElement.classList.contains("dark"));
         const observer = new MutationObserver(() => {
             setIsDark(document.documentElement.classList.contains("dark"));

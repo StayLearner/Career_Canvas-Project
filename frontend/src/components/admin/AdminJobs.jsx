@@ -5,8 +5,10 @@ import { Button } from '../ui/button'
 import { useNavigate } from 'react-router-dom' 
 import { useDispatch } from 'react-redux' 
 import AdminJobsTable from './AdminJobsTable'
+import RecruiterStats from './RecruiterStats'
 import useGetAllAdminJobs from '@/hooks/useGetAllAdminJobs'
 import { setSearchJobByText } from '@/redux/jobSlice'
+import { Plus, Search } from 'lucide-react'
 
 const AdminJobs = () => {
   useGetAllAdminJobs();
@@ -19,27 +21,39 @@ const AdminJobs = () => {
   }, [input, dispatch]);
 
   return (
-    <div className="bg-[#FAFBFC] dark:bg-[#020817] min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-500 font-sans pb-16 relative overflow-x-hidden">
+    <div className="bg-gradient-to-br from-slate-50 via-sky-50/40 to-amber-50/30 dark:bg-none dark:bg-[#020817] min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-500 font-sans pb-16 relative overflow-x-hidden">
       <Navbar />
-      <div className='max-w-6xl mx-auto my-8 sm:my-10 px-4 sm:px-6 lg:px-8'>
-        <div className='bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-200/80 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(15,23,42,0.04)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)]'>
-          <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-slate-100 dark:border-white/5 gap-4">
-            <h1 className="font-bold text-2xl text-slate-900 dark:text-white text-left">Your Jobs</h1>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 text-left">Create, view, and inspect job applicants for your published roles</p>
+      
+      <div className="max-w-7xl mx-auto pt-6 sm:pt-8 lg:pt-10 px-4 sm:px-6 lg:px-8 flex flex-col gap-6 sm:gap-8">
+        {/* Header Controls */}
+        <div className="bg-white/95 dark:bg-[#0f172a] border border-slate-200/90 dark:border-white/[0.08] rounded-3xl p-6 sm:p-8 shadow-[0_20px_60px_rgba(15,23,42,0.10)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.25)] flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="text-left">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-950 dark:text-white">Posted Jobs</h1>
+            <p className="text-sm text-slate-550 dark:text-slate-400 mt-1">Track and manage your published hiring opportunities.</p>
           </div>
-          <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 my-6'>
-            <Input
-              className="w-full sm:w-64 border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-offset-0 focus-visible:ring-0 text-slate-800 dark:text-slate-100 rounded-xl"
-              placeholder="Filter by name, role..."
-              onChange={(e) => setInput(e.target.value)}
-            />
+          
+          <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+            <div className="relative w-full sm:w-64">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+              <Input
+                className="w-full pl-10 border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-sky-300/50 focus-visible:border-sky-400 text-slate-900 dark:text-slate-100 rounded-xl"
+                placeholder="Filter by name, company..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+              />
+            </div>
             <Button 
-              className='w-full sm:w-auto bg-gradient-to-r from-yellow-400 to-sky-400 hover:scale-[1.02] text-slate-950 font-semibold py-2 px-6 rounded-xl shadow-lg transition-transform duration-300' 
+              className="w-full sm:w-auto bg-gradient-to-r from-yellow-400 to-sky-400 hover:scale-[1.02] text-slate-950 font-bold py-2.5 px-6 rounded-xl shadow transition-all duration-300 border-0 flex items-center justify-center gap-2" 
               onClick={() => navigate("/admin/jobs/create")}
             >
-              Create New Job
+              <Plus className="h-4 w-4" />
+              <span>Post New Job</span>
             </Button>
           </div>
+        </div>
+
+        {/* Jobs Main Container */}
+        <div className="bg-white/95 dark:bg-[#0f172a] border border-slate-200/90 dark:border-white/[0.08] rounded-3xl p-6 sm:p-8 shadow-[0_20px_60px_rgba(15,23,42,0.10)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
           <AdminJobsTable />
         </div>
       </div>

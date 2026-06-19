@@ -42,33 +42,33 @@ const RecruiterFeatures = () => {
                 For Recruiters & Hiring Managers
               </span>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
-                Source top-tier talent. Streamline your hiring pipeline.
+                Create company workspaces, publish job openings, and manage candidate pipelines.
               </h2>
               <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
-                Empower your recruitment team with collaborative tools to post jobs, screen resumes, and move applicants forward without clutter. Keep your recruitment clean and quick.
+                Manage job listings, review candidate submissions, and update hiring status directly in your dashboard.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-              {features.map((feat) => {
+            <div className="space-y-4 pt-4 text-left">
+              {features.map((feat, index) => {
                 const IconComponent = feat.icon;
                 return (
-                  <div key={feat.title} className="relative group/card rounded-2xl">
-                    <div className="bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-amber-200/70 dark:border-white/10 p-5 rounded-2xl flex flex-col gap-3 group hover:border-amber-400/50 dark:hover:border-violet-500/20 transition-all duration-300 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-md hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] relative overflow-hidden text-left h-full z-10">
-                      {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-2xl z-0" />
-                      
-                      <div className="relative z-10 space-y-3 flex flex-col h-full">
-                        <div className={`h-9 w-9 rounded-xl bg-gradient-to-tr ${feat.color} flex items-center justify-center text-white shrink-0 shadow-md shadow-amber-500/10`}>
-                          <IconComponent className="h-5 w-5" />
-                        </div>
-                        <h4 className="font-semibold text-sm text-slate-950 dark:text-white group-hover:text-amber-500 dark:group-hover:text-violet-400 transition-colors">
-                          {feat.title}
-                        </h4>
-                        <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed flex-1">
-                          {feat.desc}
-                        </p>
+                  <div key={feat.title} className="flex gap-4 p-4 rounded-xl border border-slate-200/60 dark:border-white/5 bg-white dark:bg-[#0d1220]/40 transition duration-300 hover:border-amber-400/30 dark:hover:border-violet-500/20 shadow-sm relative overflow-hidden group">
+                    <div className="flex flex-col items-center">
+                      <div className="h-9 w-9 rounded-lg bg-amber-500/10 dark:bg-amber-500/20 flex items-center justify-center text-amber-600 dark:text-amber-500 dark:text-amber-400 font-semibold shadow-sm shrink-0 transition-transform group-hover:scale-105 group-hover:rotate-3 duration-300">
+                        <IconComponent className="h-5 w-5" />
                       </div>
+                      {index < features.length - 1 && (
+                        <div className="w-0.5 bg-gradient-to-b from-amber-500/20 to-transparent flex-1 mt-2 min-h-[20px]" />
+                      )}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-sm text-slate-905 dark:text-white group-hover:text-amber-605 dark:group-hover:text-amber-400 transition-colors">
+                        {feat.title}
+                      </h4>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                        {feat.desc}
+                      </p>
                     </div>
                   </div>
                 );

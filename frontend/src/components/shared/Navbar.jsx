@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Avatar, AvatarImage } from "../ui/avatar";
-import { LogOut, Menu, User2, X, Briefcase, Sun, Moon, List, Bookmark, UserCog2Icon } from "lucide-react";
+import { LogOut, Menu, User2, X, Briefcase, Sun, Moon, List, Bookmark, UserCog2Icon, Building2, PlusCircle, Sparkles } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -68,6 +68,7 @@ const Navbar = () => {
   const navLinks =
     user?.role === "recruiter"
       ? [
+          { label: "Home", path: "/" },
           { label: "Companies", path: "/admin/companies" },
           { label: "Jobs", path: "/admin/jobs" },
         ]
@@ -184,7 +185,7 @@ const Navbar = () => {
               className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-400/30 dark:border-amber-400/20 bg-amber-400/5 dark:bg-amber-400/10 text-[11px] font-semibold text-amber-600 dark:text-amber-300 tracking-wider uppercase shadow-sm cursor-default"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-              <span><span>✨ New Opportunities Daily</span></span>
+              <span className="flex items-center gap-1"><Sparkles className="h-3 w-3 text-amber-500 shrink-0" /><span>New Opportunities Daily</span></span>
             </motion.div>
 
             {/* Premium Theme Switcher Toggle */}
@@ -278,48 +279,74 @@ const Navbar = () => {
 
                       <div className="flex flex-col space-y-1">
                         {user?.role === "student" && (
-                          <Link
-                            to="/profile"
-                            className="flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-cyan-400 transition-colors"
-                          >
-                            <User2 className="h-4 w-4 text-slate-500 dark:text-cyan-400" />
-                            <span>View Profile</span>
-                          </Link>
+                          <>
+                            <Link
+                              to="/profile"
+                              className="flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-cyan-400 transition-colors"
+                            >
+                              <User2 className="h-4 w-4 text-slate-500 dark:text-cyan-400" />
+                              <span>View Profile</span>
+                            </Link>
+                            <Link
+                              to="/applied-jobs"
+                              className="flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-green-500 transition-colors"
+                            >
+                              <List className="h-4 w-4 text-slate-500 dark:text-green-400" />
+                              <span>My Applications</span>
+                            </Link>
+                            <Link
+                              to="/"
+                              className="cursor-not-allowed flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-cyan-400 transition-colors"
+                            >
+                              <Bookmark className="h-4 w-4 text-slate-500 dark:text-amber-400" />
+                              <span>Saved Jobs (Coming Soon)</span>
+                            </Link>
+                            <Link
+                              to="/profile?tab=settings"
+                              className="cursor-not-allowed flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-cyan-400 transition-colors"
+                            >
+                              <UserCog2Icon className="h-4 w-4 text-slate-500 dark:text-orange-400" />
+                              <span>Settings  (Coming Soon)</span>
+                            </Link>
+                          </>
                         )}
 
-                        {user?.role === "student" && (
-                          <Link
-                            to="/applied-jobs"
-                            className="flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-green-500 transition-colors"
-                          >
-                            <List className="h-4 w-4 text-slate-500 dark:text-green-400" />
-                            <span>My Applications</span>
-                          </Link>
-                        )}
-
-                        {user?.role === "student" && (
-                          <Link
-                            to="/"
-                            className="cursor-not-allowed flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-cyan-400 transition-colors"
-                          >
-                            <Bookmark className="h-4 w-4 text-slate-500 dark:text-amber-400" />
-                            <span>Saved Jobs (Coming Soon)</span>
-                          </Link>
-                        )}
-
-                        {user?.role === "student" && (
-                          <Link
-                            to="/profile?tab=settings"
-                            className="cursor-not-allowed flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-cyan-400 transition-colors"
-                          >
-                            <UserCog2Icon className="h-4 w-4 text-slate-500 dark:text-orange-400" />
-                            <span>Settings  (Coming Soon)</span>
-                          </Link>
+                        {user?.role === "recruiter" && (
+                          <>
+                            <Link
+                              to="/profile"
+                              className="flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-cyan-400 transition-colors"
+                            >
+                              <User2 className="h-4 w-4 text-slate-500 dark:text-cyan-400" />
+                              <span>My Profile</span>
+                            </Link>
+                            <Link
+                              to="/admin/companies"
+                              className="flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-amber-500 transition-colors"
+                            >
+                              <Building2 className="h-4 w-4 text-slate-500 dark:text-amber-400" />
+                              <span>Companies</span>
+                            </Link>
+                            <Link
+                              to="/admin/jobs"
+                              className="flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-cyan-400 transition-colors"
+                            >
+                              <Briefcase className="h-4 w-4 text-slate-500 dark:text-cyan-400" />
+                              <span>Posted Jobs</span>
+                            </Link>
+                            <Link
+                              to="/admin/jobs/create"
+                              className="flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-green-500 transition-colors"
+                            >
+                              <PlusCircle className="h-4 w-4 text-slate-500 dark:text-green-400" />
+                              <span>Post Job</span>
+                            </Link>
+                          </>
                         )}
 
                         <button
                           onClick={logoutHandler}
-                          className="flex items-center gap-2 hover:bg-red-500/10 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-red-500 dark:hover:text-red-400 transition-colors text-left"
+                          className="flex items-center gap-2 hover:bg-red-500/10 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-red-500 dark:hover:text-red-400 transition-colors text-left w-full"
                         >
                           <LogOut className="h-4 w-4 text-red-500" />
                           <span>Logout</span>
@@ -438,6 +465,43 @@ const Navbar = () => {
                         <User2 className="h-4 w-4 text-slate-500 dark:text-cyan-400" />
                         <span>View Profile</span>
                       </Link>
+                    )}
+
+                    {user?.role === "recruiter" && (
+                      <>
+                        <Link
+                          to="/profile"
+                          onClick={() => setMobileOpen(false)}
+                          className="flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-white/5 transition"
+                        >
+                          <User2 className="h-4 w-4 text-slate-500 dark:text-cyan-400" />
+                          <span>My Profile</span>
+                        </Link>
+                        <Link
+                          to="/admin/companies"
+                          onClick={() => setMobileOpen(false)}
+                          className="flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-amber-500 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-white/5 transition"
+                        >
+                          <Building2 className="h-4 w-4 text-slate-500 dark:text-amber-400" />
+                          <span>Companies</span>
+                        </Link>
+                        <Link
+                          to="/admin/jobs"
+                          onClick={() => setMobileOpen(false)}
+                          className="flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-white/5 transition"
+                        >
+                          <Briefcase className="h-4 w-4 text-slate-500 dark:text-cyan-400" />
+                          <span>Posted Jobs</span>
+                        </Link>
+                        <Link
+                          to="/admin/jobs/create"
+                          onClick={() => setMobileOpen(false)}
+                          className="flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-green-500 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-white/5 transition"
+                        >
+                          <PlusCircle className="h-4 w-4 text-slate-500 dark:text-green-400" />
+                          <span>Post Job</span>
+                        </Link>
+                      </>
                     )}
 
                     <button

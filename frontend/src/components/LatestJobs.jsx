@@ -39,7 +39,7 @@ const LatestJobs = () => {
             <Sparkles className="h-3 w-3" /> Direct Openings
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight">
-            Hot & Featured <span className="bg-gradient-to-r from-amber-500 to-orange-500 dark:from-amber-400 dark:to-orange-500 bg-clip-text text-transparent">Job Positions</span>
+            Featured <span className="bg-gradient-to-r from-amber-500 to-orange-500 dark:from-amber-400 dark:to-orange-500 bg-clip-text text-transparent">Job Openings</span>
           </h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
             Inspect immediate positions published by active companies. Review wages, roles, and submit profiles.

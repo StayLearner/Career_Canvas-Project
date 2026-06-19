@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, lazy, Suspense } from 'react'
 import Navbar from './shared/Navbar'
 import HeroSection from './HeroSection'
 import TrustedCompanies from './TrustedCompanies'
-import StudentFeatures from './StudentFeatures'
-import RecruiterFeatures from './RecruiterFeatures'
 import HowItWorks from './HowItWorks'
-import LatestJobs from './LatestJobs'
 
 import Footer from './shared/Footer'
 import useGetAllJobs from '@/hooks/useGetAllJobs'
@@ -14,12 +11,18 @@ import { useNavigate } from 'react-router-dom'
 import { setSearchedQuery } from '@/redux/jobSlice'
 import Prism from './Prism'
 import Grainient from './Grainient'
+import useReducedMotion from '@/hooks/useReducedMotion'
+
+const StudentFeatures = lazy(() => import('./StudentFeatures'));
+const RecruiterFeatures = lazy(() => import('./RecruiterFeatures'));
+const LatestJobs = lazy(() => import('./LatestJobs'));
 
 const Home = () => {
   const dispatch = useDispatch();
   useGetAllJobs();
   const { user } = useSelector(store => store.auth);
   const navigate = useNavigate();
+  const prefersReducedMotion = useReducedMotion();
 
   // Detect theme from html element's dark class dynamically
   const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains("dark"));
@@ -28,11 +31,7 @@ const Home = () => {
     dispatch(setSearchedQuery(""));
   }, [dispatch]);
 
-  useEffect(() => {
-    if (user?.role === 'recruiter') {
-      navigate("/admin/companies");
-    }
-  }, [user, navigate]);
+
 
   useEffect(() => {
     // Initial sync
@@ -62,7 +61,7 @@ const Home = () => {
           <div style={{ position: 'absolute', inset: 0, opacity: 0.92 }}>
             <Prism
               animationType="rotate"
-              timeScale={0.4}
+              timeScale={prefersReducedMotion ? 0 : 0.4}
               height={3.5}
               baseWidth={5.5}
               scale={3.6}
@@ -175,7 +174,7 @@ const Home = () => {
             color1="#FACC15"
             color2="#38BDF8"
             color3="#F8FAFC"
-            timeSpeed={0.18}
+            timeSpeed={prefersReducedMotion ? 0 : 0.18}
             colorBalance={0.25}
             warpStrength={0.8}
             warpFrequency={3.5}
@@ -207,10 +206,16 @@ const Home = () => {
       <main className="relative z-10">
         <HeroSection />
         <TrustedCompanies />
-        <StudentFeatures />
-        <RecruiterFeatures />
+        <Suspense fallback={<div className="py-20 text-center text-slate-500/80 animate-pulse">Loading features...</div>}>
+          <StudentFeatures />
+        </Suspense>
+        <Suspense fallback={<div className="py-20 text-center text-slate-500/80 animate-pulse">Loading pipeline console...</div>}>
+          <RecruiterFeatures />
+        </Suspense>
         <HowItWorks />
-        <LatestJobs />
+        <Suspense fallback={<div className="py-20 text-center text-slate-500/80 animate-pulse">Loading openings...</div>}>
+          <LatestJobs />
+        </Suspense>
 
       </main>
       <Footer />

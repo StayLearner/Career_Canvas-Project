@@ -146,7 +146,7 @@ const JobDescription = () => {
         return (
             <div className="bg-gradient-to-br from-slate-50 via-sky-50/50 to-amber-50/40 dark:from-[#020817] dark:to-[#020817] min-h-screen text-slate-800 dark:text-slate-100 font-sans pb-16 relative overflow-x-hidden">
                 <Navbar />
-                <div className="max-w-7xl mx-auto pt-28 px-4 sm:px-6 lg:px-8 relative z-10 space-y-6 animate-pulse select-none">
+                <div className="max-w-7xl mx-auto pt-20 px-4 sm:px-6 lg:px-8 relative z-10 space-y-6 animate-pulse select-none">
                     
                     {/* Back Button Skeleton */}
                     <div className="h-5 w-24 bg-slate-200 dark:bg-white/10 rounded-md" />
@@ -185,7 +185,7 @@ const JobDescription = () => {
             {/* Mesh background glows */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-r from-amber-500/5 to-cyan-500/5 dark:from-amber-500/10 dark:to-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto pt-28 px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
+            <div className="max-w-7xl mx-auto pt-20 px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
                 
                 {/* Back Link */}
                 <div className="flex items-center justify-between select-none">

@@ -20,10 +20,10 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
         email: user?.email || "",
         phoneNumber: String(user?.phoneNumber || ""),
         bio: user?.profile?.bio || "",
-        skills: user?.profile?.skills?.join(",") || "",
+        skills: user?.profile?.skills?.join(",") || (user?.role === 'recruiter' ? 'Recruiting' : ''),
         linkedin: user?.profile?.linkedinLink || "",
         github: user?.profile?.githubLink || "",
-        education: user?.profile?.education || "",
+        education: user?.profile?.education || (user?.role === 'recruiter' ? 'N/A' : ''),
         experience: user?.profile?.experience?.join(", ") || "",
         file: null
     });
@@ -37,10 +37,10 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                 email: user?.email || "",
                 phoneNumber: String(user?.phoneNumber || ""),
                 bio: user?.profile?.bio || "",
-                skills: user?.profile?.skills?.join(", ") || "",
+                skills: user?.profile?.skills?.join(", ") || (user?.role === 'recruiter' ? 'Recruiting' : ''),
                 linkedin: user?.profile?.linkedinLink || "",
                 github: user?.profile?.githubLink || "",
-                education: user?.profile?.education || "",
+                education: user?.profile?.education || (user?.role === 'recruiter' ? 'N/A' : ''),
                 experience: user?.profile?.experience?.join(", ") || "",
                 file: null
             });
@@ -109,70 +109,77 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent
-                className="w-[95%] sm:max-w-2xl max-h-[90vh] overflow-hidden rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0f172a] p-0 shadow-2xl"
+                className="w-[95%] sm:max-w-2xl max-h-[90vh] overflow-hidden rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0f172a] p-0 shadow-[0_20px_60px_rgba(15,23,42,0.15)]"
                 onInteractOutside={() => setOpen(false)}
             >
-                <div className="sticky top-0 z-10 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-xl border-b border-slate-100 dark:border-white/10 px-6 py-5">
+                <div className="sticky top-0 z-10 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-xl border-b border-slate-200 dark:border-white/10 px-6 py-5">
                     <DialogHeader>
-                        <DialogTitle className="text-xl font-bold text-slate-900 dark:text-white">
+                        <DialogTitle className="text-xl font-bold text-slate-955 dark:text-white">
                             Update Profile
                         </DialogTitle>
-                        <p className="text-sm text-slate-500 dark:text-slate-400">
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
                             Keep your Career Canvas profile updated.
                         </p>
                     </DialogHeader>
                 </div>
 
-                <form onSubmit={submitHandler} id="update-profile-form" className="flex flex-col max-h-[calc(90vh-96px)]">
+                <form onSubmit={submitHandler} id="update-profile-form" className="flex flex-col max-h-[calc(90vh-96px)] text-left">
                     <div className="overflow-y-auto px-6 py-5">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <InputField label="Full Name *" id="fullname" name="fullname" value={input.fullname} onChange={changeEventHandler} placeholder="Your name" />
                             <InputField label="Email Address *" id="email" name="email" type="email" value={input.email} onChange={changeEventHandler} placeholder="example@email.com" />
                             <InputField label="Phone Number *" id="phoneNumber" name="phoneNumber" value={input.phoneNumber} onChange={changeEventHandler} placeholder="Your phone number" />
-                            <InputField label="Skills *" id="skills" name="skills" value={input.skills} onChange={changeEventHandler} placeholder="React, Node.js, MongoDB" />
-                            <InputField label="Education *" id="education" name="education" value={input.education} onChange={changeEventHandler} placeholder="B.Tech CSE, College name" />
-                            <InputField label="Experience" id="experience" name="experience" value={input.experience} onChange={changeEventHandler} placeholder="Frontend Intern, Company name" />
-                            <InputField label="LinkedIn" id="linkedin" name="linkedin" value={input.linkedin} onChange={changeEventHandler} placeholder="https://linkedin.com/in/username" />
-                            <InputField label="GitHub" id="github" name="github" value={input.github} onChange={changeEventHandler} placeholder="https://github.com/username" />
+                            
+                            {user?.role !== "recruiter" && (
+                                <>
+                                    <InputField label="Skills *" id="skills" name="skills" value={input.skills} onChange={changeEventHandler} placeholder="React, Node.js, MongoDB" />
+                                    <InputField label="Education *" id="education" name="education" value={input.education} onChange={changeEventHandler} placeholder="B.Tech CSE, College name" />
+                                    <InputField label="Experience" id="experience" name="experience" value={input.experience} onChange={changeEventHandler} placeholder="Frontend Intern, Company name" />
+                                    <InputField label="LinkedIn" id="linkedin" name="linkedin" value={input.linkedin} onChange={changeEventHandler} placeholder="https://linkedin.com/in/username" />
+                                    <InputField label="GitHub" id="github" name="github" value={input.github} onChange={changeEventHandler} placeholder="https://github.com/username" />
+                                </>
+                            )}
 
                             <div className="sm:col-span-2">
                                 <InputField label="Bio" id="bio" name="bio" value={input.bio} onChange={changeEventHandler} placeholder="Tell something about yourself" />
                             </div>
 
-                            <div className="sm:col-span-2 space-y-1">
-                                <Label htmlFor="file" className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-                                    Resume
-                                </Label>
-                                <Input
-                                    id="file"
-                                    name="file"
-                                    type="file"
-                                    accept="application/pdf"
-                                    onChange={fileChangeHandler}
-                                    className="h-10 rounded-xl border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 file:text-slate-700 dark:file:text-slate-200"
-                                />
-                            </div>
+                            {user?.role !== "recruiter" && (
+                                <div className="sm:col-span-2 space-y-1">
+                                    <Label htmlFor="file" className="text-xs font-semibold text-slate-700 dark:text-slate-350">
+                                        Resume
+                                    </Label>
+                                    <Input
+                                        id="file"
+                                        name="file"
+                                        type="file"
+                                        accept="application/pdf"
+                                        onChange={fileChangeHandler}
+                                        className="h-10 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-900 focus-visible:ring-sky-300/50 focus-visible:border-sky-400 file:text-slate-700 dark:file:text-slate-200"
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
 
-                    <div className="sticky bottom-0 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-xl border-t border-slate-100 dark:border-white/10 px-6 py-4 flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
+                    <div className="sticky bottom-0 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-xl border-t border-slate-200 dark:border-white/10 px-6 py-4 flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
                         <button
                             type="button"
                             onClick={() => setOpen(false)}
-                            className="h-10 w-full sm:w-auto px-5 rounded-xl text-sm text-slate-500 hover:text-slate-800 dark:hover:text-white transition"
+                            className="h-10 w-full sm:w-auto px-5 rounded-xl text-sm text-slate-705 hover:text-slate-950 hover:bg-slate-50 dark:hover:text-white transition bg-transparent border-0 cursor-pointer"
                         >
                             Cancel
                         </button>
 
                         {loading ? (
-                            <Button disabled className="h-10 w-full sm:w-auto rounded-xl">
+                            <Button disabled className="h-10 w-full sm:w-auto rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 text-slate-400 font-bold">
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                                 Please wait
                             </Button>
                         ) : (
                             <Button
                                 type="submit"
-                                className="h-10 w-full sm:w-auto rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-semibold px-6"
+                                className="h-10 w-full sm:w-auto rounded-xl bg-gradient-to-r from-yellow-400 to-sky-400 hover:scale-[1.02] text-slate-955 font-bold px-6 shadow border-0 transition"
                             >
                                 Update Profile
                             </Button>
@@ -201,7 +208,7 @@ const InputField = ({ label, id, name, value, onChange, placeholder, type = "tex
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
-                className="h-10 rounded-xl border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-cyan-400"
+                className="h-10 rounded-xl border border-slate-305 dark:border-white/10 bg-slate-50 dark:bg-white/5 focus-visible:ring-sky-300/50 focus-visible:border-sky-400 text-slate-900 dark:text-slate-100 placeholder-slate-400"
             />
         </div>
     );
