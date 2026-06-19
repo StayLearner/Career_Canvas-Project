@@ -88,7 +88,7 @@ const TrustedCompanies = () => {
           className="text-center"
         >
           <p className="text-xs font-semibold tracking-widest text-slate-500 dark:text-slate-400 uppercase">
-            Empowering growth for talent at top-tier startups & tech giants
+            Startups and tech companies hiring on Career Canvas
           </p>
         </motion.div>
 
@@ -114,7 +114,7 @@ const TrustedCompanies = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.08 }}
                 whileHover={{ y: -4, scale: 1.05 }}
-                className="px-5 py-3 rounded-2xl flex items-center gap-2.5 cursor-pointer transition-all duration-300 group relative shrink-0 w-[240px] h-14 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-sky-200/70 dark:border-white/10 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-lg hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-2xl hover:border-sky-300/80 dark:hover:border-white/20 overflow-hidden"
+                className="px-5 py-3 rounded-2xl flex items-center gap-2.5 cursor-pointer transition-all duration-300 group relative shrink-0 w-[240px] h-14 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-white/5 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-lg hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-2xl hover:border-sky-300/80 dark:hover:border-white/20 overflow-hidden"
               >
                 {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-2xl z-0" />

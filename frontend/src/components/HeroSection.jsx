@@ -12,8 +12,10 @@ import { GlowingEffect } from './ui/glowing-effect';
 import { GoogleGeminiEffect } from './ui/google-gemini-effect';
 import SplitText from './SplitText';
 import ShinyText from './ShinyText';
+import useReducedMotion from '@/hooks/useReducedMotion';
 
 const HeroSection = () => {
+  const prefersReducedMotion = useReducedMotion();
   const [query, setQuery] = useState("");
   const { allJobs } = useSelector((store) => store.job);
   const [companyCount, setCompanyCount] = useState(0);
@@ -140,7 +142,7 @@ const HeroSection = () => {
   return (
     <div className="relative pt-10 md:pt-16 lg:pt-20 pb-16 md:pb-20 lg:pb-24 overflow-hidden">
       {/* Background Decorative Blur Orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full bg-gradient-to-tr from-cyan-500/10 to-amber-500/10 blur-[130px] -z-10" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full bg-gradient-to-tr from-cyan-500/10 to-amber-500/10 blur-[64px] -z-10" />
 
       {/* Google Gemini scroll-animated decorative effect */}
       <GoogleGeminiEffect className="opacity-45 scale-[1.05]" />
@@ -305,9 +307,8 @@ const HeroSection = () => {
 
           </div>
 
-          <div className="lg:col-span-5 relative w-full max-w-xl mx-auto select-none mt-8 lg:mt-0">
-            {/* Visual backdrop radial light */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-gradient-to-tr from-cyan-500/10 to-amber-500/10 blur-[100px] -z-10" />
+          <div className="lg:col-span-5 relative w-full max-w-xl mx-auto select-none mt-8 lg:mt-0">            {/* Visual backdrop radial light */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-gradient-to-tr from-cyan-500/10 to-amber-500/10 blur-[48px] -z-10" />
 
             <div className="relative w-full h-[480px] flex items-center justify-center overflow-hidden lg:overflow-visible" style={{ perspective: 1000 }}>
               
@@ -316,8 +317,8 @@ const HeroSection = () => {
                 <div className="w-[300px] sm:w-[340px] h-[260px] sm:h-[290px] rounded-[2rem] border border-white/10 bg-[#0B1220] backdrop-blur-xl animate-pulse z-20" />
               ) : floatingJobs[0] ? (
                 <motion.div
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
+                  animate={prefersReducedMotion ? {} : { y: [0, -8, 0] }}
+                  transition={prefersReducedMotion ? {} : { duration: 6, ease: "easeInOut", repeat: Infinity }}
                   className="w-[300px] sm:w-[340px] h-[260px] sm:h-[290px] shrink-0 relative group/card rounded-[2rem] z-20"
                 >
                   <GlareCard
@@ -352,7 +353,7 @@ const HeroSection = () => {
                     <div className="border-t border-slate-100 dark:border-white/5 pt-3 flex justify-between items-center text-xs z-10 relative">
                       <div className="flex items-center gap-2 text-[10px]">
                         <span className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md">{floatingJobs[0]?.jobType}</span>
-                        <span className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md">{floatingJobs[0]?.salary} LPA</span>
+                        <span className="bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md">{floatingJobs[0]?.salary} LPA</span>
                       </div>
                       <span className="text-cyan-600 dark:text-cyan-400 font-semibold flex items-center gap-0.5 group-hover:text-cyan-500 dark:group-hover:text-cyan-300 transition-colors">
                         <span>View Details</span>
@@ -375,9 +376,7 @@ const HeroSection = () => {
 
               {/* FLOATING SUPPORTING WIDGET 1: Top Right - Application Tracking (20% attention) */}
               <motion.div
-                animate={{ y: [-5, 5, -5] }}
-                transition={{ duration: 7, ease: "easeInOut", repeat: Infinity, delay: 0.5 }}
-                whileHover={{ scale: 1.03 }}
+                whileHover={prefersReducedMotion ? {} : { scale: 1.03 }}
                 className="absolute -top-6 right-0 sm:-right-4 lg:-right-12 z-10 w-[160px] sm:w-[190px] shrink-0 group/track rounded-2xl"
               >
                 <div className="p-4 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 rounded-2xl shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-left flex flex-col justify-between h-[140px] relative overflow-hidden hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_20px_60px_rgba(56,189,248,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300">
@@ -417,9 +416,7 @@ const HeroSection = () => {
 
               {/* FLOATING SUPPORTING WIDGET 2: Bottom Right - Community Growth (10% attention) */}
               <motion.div
-                animate={{ y: [5, -5, 5] }}
-                transition={{ duration: 7.5, ease: "easeInOut", repeat: Infinity, delay: 1 }}
-                whileHover={{ scale: 1.03 }}
+                whileHover={prefersReducedMotion ? {} : { scale: 1.03 }}
                 className="absolute -bottom-8 right-0 sm:-right-4 lg:-right-14 z-10 w-[150px] sm:w-[180px] shrink-0 group/comm rounded-2xl"
               >
                 <div className="p-3.5 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 rounded-2xl shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between h-[145px] relative overflow-hidden hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_20px_60px_rgba(250,204,21,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300">
@@ -475,9 +472,7 @@ const HeroSection = () => {
 
               {/* FLOATING SUPPORTING BADGE 3: Top Left - Live Recruiter Activity */}
               <motion.div
-                animate={{ y: [-3, 3, -3] }}
-                transition={{ duration: 6.5, ease: "easeInOut", repeat: Infinity, delay: 0.2 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
                 className="absolute -top-8 left-0 sm:-left-4 lg:-left-12 z-30 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 px-3 py-2 rounded-xl flex items-center gap-2 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_15px_45px_rgba(6,182,212,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300 cursor-pointer overflow-hidden"
               >
                 {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
@@ -493,9 +488,7 @@ const HeroSection = () => {
 
               {/* FLOATING SUPPORTING BADGE 4: Bottom Left - New Job Posted */}
               <motion.div
-                animate={{ y: [3, -3, 3] }}
-                transition={{ duration: 6.8, ease: "easeInOut", repeat: Infinity, delay: 0.8 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
                 className="absolute -bottom-4 left-0 sm:-left-4 lg:-left-10 z-30 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 px-3 py-2 rounded-xl flex items-center gap-2 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_15px_45px_rgba(245,158,11,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300 cursor-pointer overflow-hidden"
               >
                 {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
@@ -508,7 +501,6 @@ const HeroSection = () => {
                   <p className="text-[8px] text-slate-400 mt-0.5 truncate max-w-[95px]">{floatingJobs[1]?.title || "NodeJS Dev"} live</p>
                 </div>
               </motion.div>
-
             </div>
           </div>
 

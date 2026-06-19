@@ -65,9 +65,9 @@ const FilterCard = ({ selectedFilters = {}, onToggleFilter, onClearAll, getOptio
 };
 
     return (
-        <div className='w-full bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] p-5 sm:p-6 rounded-3xl shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)] border border-sky-200/70 dark:border-white/10 text-slate-900 dark:text-slate-100 transition-all duration-300 select-none relative overflow-hidden'>
+        <div className='w-full bg-white dark:bg-slate-900 p-5 sm:p-6 rounded-2xl shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)] border border-slate-200/80 dark:border-white/5 text-slate-900 dark:text-slate-100 transition-all duration-300 select-none relative overflow-hidden'>
             {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-3xl z-0" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-2xl z-0" />
             
             <div className="relative z-10">
             <div className='flex items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-white/5'>
@@ -200,4 +200,4 @@ const FilterCard = ({ selectedFilters = {}, onToggleFilter, onClearAll, getOptio
     )
 }
 
-export default FilterCard
+export default React.memo(FilterCard);
