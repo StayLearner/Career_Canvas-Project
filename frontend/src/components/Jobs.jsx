@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import Navbar from './shared/Navbar';
 import FilterCard from './FilterCard';
 import Job from './Job';
@@ -41,9 +41,7 @@ const Jobs = () => {
     useGetAllJobs();
 
     const { allJobs, searchedQuery } = useSelector(store => store.job);
-    const [filterJobs, setFilterJobs] = useState([]);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
     const dispatch = useDispatch();
 
     // Detect theme from html element's dark class dynamically
@@ -81,18 +79,18 @@ const Jobs = () => {
         setSearchInput(searchedQuery || "");
     }, [searchedQuery]);
 
-    // Debounce syncing local searchInput changes back to Redux searchedQuery
+    // Debounce syncing local searchInput changes back to Redux searchedQuery (250-350ms as requested, using 300ms)
     useEffect(() => {
         const handler = setTimeout(() => {
             if (searchInput !== (searchedQuery || "")) {
                 dispatch(setSearchedQuery(searchInput));
             }
-        }, 400);
+        }, 300);
         return () => clearTimeout(handler);
     }, [searchInput, dispatch, searchedQuery]);
 
     // Toggle a filter option
-    const handleToggleFilter = (category, value) => {
+    const handleToggleFilter = useCallback((category, value) => {
         const keyMap = {
             "Location": "location",
             "Job Type": "jobType",
@@ -108,10 +106,10 @@ const Jobs = () => {
                 : [...current, value];
             return { ...prev, [key]: updated };
         });
-    };
+    }, []);
 
     // Clear all filters (local sidebar + global keyword search)
-    const handleClearAll = () => {
+    const handleClearAll = useCallback(() => {
         setSelectedFilters({
             location: [],
             jobType: [],
@@ -120,14 +118,14 @@ const Jobs = () => {
         });
         setSearchInput("");
         dispatch(setSearchedQuery(""));
-    };
+    }, [dispatch]);
 
-    // Compute dynamic option counts matching active searchInput
-    const getOptionCount = (category, value) => {
-        if (!allJobs) return 0;
+    // Precompute all option counts in a single O(N) step per search query
+    const optionCounts = useMemo(() => {
+        const countsMap = new Map();
+        if (!allJobs) return countsMap;
+
         let pool = allJobs;
-
-        // Filter pool by general text searchInput if active
         if (searchInput) {
             const queryLower = searchInput.toLowerCase();
             pool = pool.filter(job =>
@@ -140,117 +138,151 @@ const Jobs = () => {
             );
         }
 
-        return pool.filter(job => {
-            if (category === "Location") {
-                return job.location.toLowerCase().includes(value.toLowerCase());
-            }
-            if (category === "Job Type") {
-                return job.jobType.toLowerCase().includes(value.toLowerCase());
-            }
-            if (category === "Salary") {
+        const locations = ["Delhi", "Bengaluru", "Hyderabad", "Pune", "Mumbai", "Kolkata", "Indore", "Chennai", "Noida", "Remote"];
+        const jobTypes = ["Full Time", "Internship", "Remote", "Hybrid", "Contract"];
+        const salaries = ["0-3 LPA", "3-6 LPA", "6-10 LPA", "10-15 LPA", "15+ LPA"];
+        const experiences = ["Fresher (0-1 Yrs)", "1-3 Yrs", "3-5 Yrs", "5+ Yrs"];
+
+        locations.forEach(loc => {
+            const count = pool.filter(job => job.location.toLowerCase().includes(loc.toLowerCase())).length;
+            countsMap.set(`Location-${loc}`, count);
+        });
+
+        jobTypes.forEach(type => {
+            const count = pool.filter(job => job.jobType.toLowerCase().includes(type.toLowerCase())).length;
+            countsMap.set(`Job Type-${type}`, count);
+        });
+
+        salaries.forEach(val => {
+            const count = pool.filter(job => {
                 const salary = Number(job.salary);
-                if (value === "0-3 LPA") return salary <= 3;
-                if (value === "3-6 LPA") return salary > 3 && salary <= 6;
-                if (value === "6-10 LPA") return salary > 6 && salary <= 10;
-                if (value === "10-15 LPA") return salary > 10 && salary <= 15;
-                if (value === "15+ LPA") return salary > 15;
-            }
-            if (category === "Experience") {
+                if (val === "0-3 LPA") return salary <= 3;
+                if (val === "3-6 LPA") return salary > 3 && salary <= 6;
+                if (val === "6-10 LPA") return salary > 6 && salary <= 10;
+                if (val === "10-15 LPA") return salary > 10 && salary <= 15;
+                if (val === "15+ LPA") return salary > 15;
+                return false;
+            }).length;
+            countsMap.set(`Salary-${val}`, count);
+        });
+
+        experiences.forEach(val => {
+            const count = pool.filter(job => {
                 const exp = Number(job.experienceLevel);
-                if (value === "Fresher (0-1 Yrs)") return exp <= 1;
-                if (value === "1-3 Yrs") return exp > 1 && exp <= 3;
-                if (value === "3-5 Yrs") return exp > 3 && exp <= 5;
-                if (value === "5+ Yrs") return exp > 5;
-            }
-            return false;
-        }).length;
-    };
+                if (val === "Fresher (0-1 Yrs)") return exp <= 1;
+                if (val === "1-3 Yrs") return exp > 1 && exp <= 3;
+                if (val === "3-5 Yrs") return exp > 3 && exp <= 5;
+                if (val === "5+ Yrs") return exp > 5;
+                return false;
+            }).length;
+            countsMap.set(`Experience-${val}`, count);
+        });
 
-    // Apply multi-faceted local filters on allJobs
-    useEffect(() => {
-        setIsLoading(true);
-        const timer = setTimeout(() => {
-            let filtered = allJobs || [];
+        return countsMap;
+    }, [allJobs, searchInput]);
 
-            // 1. Local text search input
-            if (searchInput) {
-                const queryLower = searchInput.toLowerCase();
-                filtered = filtered.filter((job) => {
-                    return job.title.toLowerCase().includes(queryLower) ||
-                        job.description.toLowerCase().includes(queryLower) ||
-                        job.location.toLowerCase().includes(queryLower) ||
-                        job.jobType.toLowerCase().includes(queryLower) ||
-                        (job.company?.name && job.company.name.toLowerCase().includes(queryLower)) ||
-                        (job.requirements && job.requirements.some(s => s.toLowerCase().includes(queryLower)));
+    // Callback getter function for FilterCard to retrieve option counts instantly
+    const getOptionCount = useCallback((category, value) => {
+        return optionCounts.get(`${category}-${value}`) || 0;
+    }, [optionCounts]);
+
+    // Synchronous, memoized filter calculation
+    const filterJobs = useMemo(() => {
+        let filtered = allJobs || [];
+
+        // 1. Local text search input
+        if (searchInput) {
+            const queryLower = searchInput.toLowerCase();
+            filtered = filtered.filter((job) => {
+                return job.title.toLowerCase().includes(queryLower) ||
+                    job.description.toLowerCase().includes(queryLower) ||
+                    job.location.toLowerCase().includes(queryLower) ||
+                    job.jobType.toLowerCase().includes(queryLower) ||
+                    (job.company?.name && job.company.name.toLowerCase().includes(queryLower)) ||
+                    (job.requirements && job.requirements.some(s => s.toLowerCase().includes(queryLower)));
+            });
+        }
+
+        // 2. Location filter
+        if (selectedFilters.location.length > 0) {
+            filtered = filtered.filter(job =>
+                selectedFilters.location.some(loc =>
+                    job.location.toLowerCase().includes(loc.toLowerCase())
+                )
+            );
+        }
+
+        // 3. Job Type filter
+        if (selectedFilters.jobType.length > 0) {
+            filtered = filtered.filter(job =>
+                selectedFilters.jobType.some(type =>
+                    job.jobType.toLowerCase().includes(type.toLowerCase())
+                )
+            );
+        }
+
+        // 4. Salary filter
+        if (selectedFilters.salary.length > 0) {
+            filtered = filtered.filter(job => {
+                const salary = Number(job.salary);
+                return selectedFilters.salary.some(salRange => {
+                    if (salRange === "0-3 LPA") return salary <= 3;
+                    if (salRange === "3-6 LPA") return salary > 3 && salary <= 6;
+                    if (salRange === "6-10 LPA") return salary > 6 && salary <= 10;
+                    if (salRange === "10-15 LPA") return salary > 10 && salary <= 15;
+                    if (salRange === "15+ LPA") return salary > 15;
+                    return false;
                 });
-            }
+            });
+        }
 
-            // 2. Location filter
-            if (selectedFilters.location.length > 0) {
-                filtered = filtered.filter(job =>
-                    selectedFilters.location.some(loc =>
-                        job.location.toLowerCase().includes(loc.toLowerCase())
-                    )
-                );
-            }
-
-            // 3. Job Type filter
-            if (selectedFilters.jobType.length > 0) {
-                filtered = filtered.filter(job =>
-                    selectedFilters.jobType.some(type =>
-                        job.jobType.toLowerCase().includes(type.toLowerCase())
-                    )
-                );
-            }
-
-            // 4. Salary filter
-            if (selectedFilters.salary.length > 0) {
-                filtered = filtered.filter(job => {
-                    const salary = Number(job.salary);
-                    return selectedFilters.salary.some(salRange => {
-                        if (salRange === "0-3 LPA") return salary <= 3;
-                        if (salRange === "3-6 LPA") return salary > 3 && salary <= 6;
-                        if (salRange === "6-10 LPA") return salary > 6 && salary <= 10;
-                        if (salRange === "10-15 LPA") return salary > 10 && salary <= 15;
-                        if (salRange === "15+ LPA") return salary > 15;
-                        return false;
-                    });
+        // 5. Experience filter
+        if (selectedFilters.experience.length > 0) {
+            filtered = filtered.filter(job => {
+                const exp = Number(job.experienceLevel);
+                return selectedFilters.experience.some(expRange => {
+                    if (expRange === "Fresher (0-1 Yrs)") return exp <= 1;
+                    if (expRange === "1-3 Yrs") return exp > 1 && exp <= 3;
+                    if (expRange === "3-5 Yrs") return exp > 3 && exp <= 5;
+                    if (expRange === "5+ Yrs") return exp > 5;
+                    return false;
                 });
-            }
+            });
+        }
 
-            // 5. Experience filter
-            if (selectedFilters.experience.length > 0) {
-                filtered = filtered.filter(job => {
-                    const exp = Number(job.experienceLevel);
-                    return selectedFilters.experience.some(expRange => {
-                        if (expRange === "Fresher (0-1 Yrs)") return exp <= 1;
-                        if (expRange === "1-3 Yrs") return exp > 1 && exp <= 3;
-                        if (expRange === "3-5 Yrs") return exp > 3 && exp <= 5;
-                        if (expRange === "5+ Yrs") return exp > 5;
-                        return false;
-                    });
-                });
-            }
-
-            setFilterJobs(filtered);
-            setIsLoading(false);
-        }, 400);
-
-        return () => clearTimeout(timer);
+        return filtered;
     }, [allJobs, searchInput, selectedFilters]);
 
-    // Gather flat array of active pills to render
-    const activePills = [];
-    if (searchInput) {
-        activePills.push({ id: 'search', type: 'search', label: `Search: "${searchInput}"`, value: searchInput });
-    }
-    Object.entries(selectedFilters).forEach(([key, values]) => {
-        values.forEach(val => {
-            activePills.push({ id: `${key}-${val}`, type: key, label: val, value: val });
-        });
-    });
+    // Batching / visible count control for pagination
+    const [visibleCount, setVisibleCount] = useState(30);
 
-    const removePill = (pill) => {
+    // Reset pagination whenever search query or sidebar filters change
+    useEffect(() => {
+        setVisibleCount(30);
+    }, [searchInput, selectedFilters]);
+
+    const displayedJobs = useMemo(() => {
+        return filterJobs.slice(0, visibleCount);
+    }, [filterJobs, visibleCount]);
+
+    // Skeletons only render during real initial loading (when allJobs is null/undefined)
+    const isInitialLoad = !allJobs;
+
+    // Gather flat array of active pills to render
+    const activePills = useMemo(() => {
+        const pills = [];
+        if (searchInput) {
+            pills.push({ id: 'search', type: 'search', label: `Search: "${searchInput}"`, value: searchInput });
+        }
+        Object.entries(selectedFilters).forEach(([key, values]) => {
+            values.forEach(val => {
+                pills.push({ id: `${key}-${val}`, type: key, label: val, value: val });
+            });
+        });
+        return pills;
+    }, [searchInput, selectedFilters]);
+
+    const removePill = useCallback((pill) => {
         if (pill.type === 'search') {
             setSearchInput("");
             dispatch(setSearchedQuery(""));
@@ -260,7 +292,7 @@ const Jobs = () => {
                 [pill.type]: prev[pill.type].filter(v => v !== pill.value)
             }));
         }
-    };
+    }, [dispatch]);
 
     const hasAnyFilter = activePills.length > 0;
 
@@ -361,7 +393,7 @@ const Jobs = () => {
                         <div className="flex items-center gap-2">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                             <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
-                                {isLoading ? "Searching..." : `${filterJobs.length} ${filterJobs.length === 1 ? 'Opportunity' : 'Opportunities'} Found`}
+                                {isInitialLoad ? "Searching..." : `${filterJobs.length} ${filterJobs.length === 1 ? 'Opportunity' : 'Opportunities'} Found`}
                             </span>
                         </div>
                         {hasAnyFilter && (
@@ -440,7 +472,7 @@ const Jobs = () => {
                         </AnimatePresence>
 
                         {
-                            isLoading ? (
+                            isInitialLoad ? (
                                 <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5'>
                                     {
                                         Array.from({ length: 6 }).map((_, index) => (
@@ -474,24 +506,37 @@ const Jobs = () => {
                                     </motion.div>
                                 </div>
                             ) : (
-                                <motion.div
-                                    variants={containerVariants}
-                                    initial="hidden"
-                                    animate="show"
-                                    className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5'
-                                >
-                                    {
-                                        filterJobs.map((job) => (
-                                            <motion.div
-                                                variants={cardVariants}
-                                                key={job?._id}
-                                                className="h-full"
+                                <div className="space-y-8">
+                                    <motion.div
+                                        variants={containerVariants}
+                                        initial="hidden"
+                                        animate="show"
+                                        className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5'
+                                    >
+                                        {
+                                            displayedJobs.map((job) => (
+                                                <motion.div
+                                                    variants={cardVariants}
+                                                    key={job?._id}
+                                                    className="h-full"
+                                                >
+                                                    <Job job={job} />
+                                                </motion.div>
+                                            ))
+                                        }
+                                    </motion.div>
+                                    
+                                    {filterJobs.length > visibleCount && (
+                                        <div className="flex justify-center pt-4">
+                                            <Button 
+                                                onClick={() => setVisibleCount(prev => prev + 30)}
+                                                className="bg-gradient-to-r from-yellow-400 to-sky-400 hover:from-yellow-500 hover:to-sky-500 text-slate-950 font-bold py-2.5 px-8 rounded-xl shadow-md hover:scale-[1.02] transition-transform duration-300 border-0 cursor-pointer"
                                             >
-                                                <Job job={job} />
-                                            </motion.div>
-                                        ))
-                                    }
-                                </motion.div>
+                                                Load More Jobs
+                                            </Button>
+                                        </div>
+                                    )}
+                                </div>
                             )
                         }
                     </div>

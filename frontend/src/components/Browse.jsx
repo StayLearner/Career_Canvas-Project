@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import Navbar from './shared/Navbar';
 import Job from './Job';
 import { useDispatch, useSelector } from 'react-redux';
@@ -38,8 +38,6 @@ const cardVariants = {
 const Browse = () => {
     useGetAllJobs();
     const { allJobs, searchedQuery } = useSelector(store => store.job);
-    const [filterJobs, setFilterJobs] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
     const dispatch = useDispatch();
 
     // Detect theme from html element's dark class dynamically
@@ -75,45 +73,54 @@ const Browse = () => {
         setSearchInput(searchedQuery || "");
     }, [searchedQuery]);
 
-    // Debounce syncing local searchInput changes back to Redux searchedQuery
+    // Debounce syncing local search input to Redux searchedQuery (250-350ms as requested, using 300ms)
     useEffect(() => {
         const handler = setTimeout(() => {
             if (searchInput !== (searchedQuery || "")) {
                 dispatch(setSearchedQuery(searchInput));
             }
-        }, 400);
+        }, 300);
         return () => clearTimeout(handler);
     }, [searchInput, dispatch, searchedQuery]);
 
-    // Filter jobs locally based on keyword search
-    useEffect(() => {
-        setIsLoading(true);
-        const timer = setTimeout(() => {
-            let filtered = allJobs || [];
+    // Synchronous, memoized filter calculation
+    const filterJobs = useMemo(() => {
+        let filtered = allJobs || [];
 
-            if (searchInput) {
-                const queryLower = searchInput.toLowerCase();
-                filtered = filtered.filter((job) => {
-                    return job.title.toLowerCase().includes(queryLower) ||
-                        job.description.toLowerCase().includes(queryLower) ||
-                        job.location.toLowerCase().includes(queryLower) ||
-                        job.jobType.toLowerCase().includes(queryLower) ||
-                        (job.company?.name && job.company.name.toLowerCase().includes(queryLower)) ||
-                        (job.requirements && job.requirements.some(s => s.toLowerCase().includes(queryLower)));
-                });
-            }
+        if (searchInput) {
+            const queryLower = searchInput.toLowerCase();
+            filtered = filtered.filter((job) => {
+                return job.title.toLowerCase().includes(queryLower) ||
+                    job.description.toLowerCase().includes(queryLower) ||
+                    job.location.toLowerCase().includes(queryLower) ||
+                    job.jobType.toLowerCase().includes(queryLower) ||
+                    (job.company?.name && job.company.name.toLowerCase().includes(queryLower)) ||
+                    (job.requirements && job.requirements.some(s => s.toLowerCase().includes(queryLower)));
+            });
+        }
 
-            setFilterJobs(filtered);
-            setIsLoading(false);
-        }, 400);
-
-        return () => clearTimeout(timer);
+        return filtered;
     }, [allJobs, searchInput]);
 
-    const handleReset = () => {
+    // Batching / visible count control for pagination
+    const [visibleCount, setVisibleCount] = useState(30);
+
+    // Reset pagination whenever search query changes
+    useEffect(() => {
+        setVisibleCount(30);
+    }, [searchInput]);
+
+    const displayedJobs = useMemo(() => {
+        return filterJobs.slice(0, visibleCount);
+    }, [filterJobs, visibleCount]);
+
+    // Skeletons only render during real initial loading (when allJobs is null/undefined)
+    const isInitialLoad = !allJobs;
+
+    const handleReset = useCallback(() => {
         setSearchInput("");
         dispatch(setSearchedQuery(""));
-    };
+    }, [dispatch]);
 
     return (
         <div className="bg-[#FAFBFC] dark:bg-[#08070d] min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-500 font-sans pb-16 relative">
@@ -209,7 +216,7 @@ const Browse = () => {
                         <div className="flex items-center gap-2">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-                                {isLoading ? "Searching..." : `${filterJobs.length} ${filterJobs.length === 1 ? 'Opportunity' : 'Opportunities'} Found`}
+                                {isInitialLoad ? "Searching..." : `${filterJobs.length} ${filterJobs.length === 1 ? 'Opportunity' : 'Opportunities'} Found`}
                             </span>
                         </div>
                         {searchInput && (
@@ -264,7 +271,7 @@ const Browse = () => {
                 </AnimatePresence>
 
                 {
-                    isLoading ? (
+                    isInitialLoad ? (
                         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 pb-10'>
                             {
                                 Array.from({ length: 6 }).map((_, index) => (
@@ -298,26 +305,39 @@ const Browse = () => {
                             </motion.div>
                         </div>
                     ) : (
-                        <motion.div
-                            variants={containerVariants}
-                            initial="hidden"
-                            animate="show"
-                            className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 pb-10'
-                        >
-                            {
-                                filterJobs.map((job) => {
-                                    return (
-                                        <motion.div
-                                            variants={cardVariants}
-                                            key={job._id}
-                                            className="h-full"
-                                        >
-                                            <Job job={job} />
-                                        </motion.div>
-                                    )
-                                })
-                            }
-                        </motion.div>
+                        <div className="space-y-8 pb-10">
+                            <motion.div
+                                variants={containerVariants}
+                                initial="hidden"
+                                animate="show"
+                                className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5'
+                            >
+                                {
+                                    displayedJobs.map((job) => {
+                                        return (
+                                            <motion.div
+                                                variants={cardVariants}
+                                                key={job._id}
+                                                className="h-full"
+                                            >
+                                                <Job job={job} />
+                                            </motion.div>
+                                        )
+                                    })
+                                }
+                            </motion.div>
+
+                            {filterJobs.length > visibleCount && (
+                                <div className="flex justify-center pt-4">
+                                    <Button 
+                                        onClick={() => setVisibleCount(prev => prev + 30)}
+                                        className="bg-gradient-to-r from-yellow-400 to-sky-400 hover:from-yellow-500 hover:to-sky-500 text-slate-950 font-bold py-2.5 px-8 rounded-xl shadow-md hover:scale-[1.02] transition-transform duration-300 border-0 cursor-pointer"
+                                    >
+                                        Load More Jobs
+                                    </Button>
+                                </div>
+                            )}
+                        </div>
                     )
                 }
             </div>

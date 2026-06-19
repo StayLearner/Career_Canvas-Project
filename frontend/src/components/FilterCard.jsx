@@ -200,4 +200,4 @@ const FilterCard = ({ selectedFilters = {}, onToggleFilter, onClearAll, getOptio
     )
 }
 
-export default FilterCard
+export default React.memo(FilterCard);
