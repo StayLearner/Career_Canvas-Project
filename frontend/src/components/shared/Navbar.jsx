@@ -310,10 +310,10 @@ const Navbar = () => {
                         {user?.role === "student" && (
                           <Link
                             to="/profile?tab=settings"
-                            className="flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-cyan-400 transition-colors"
+                            className="cursor-not-allowed flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/5 p-2 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-cyan-400 transition-colors"
                           >
                             <UserCog2Icon className="h-4 w-4 text-slate-500 dark:text-orange-400" />
-                            <span>Settings</span>
+                            <span>Settings  (Coming Soon)</span>
                           </Link>
                         )}
 

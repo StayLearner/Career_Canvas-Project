@@ -5,7 +5,11 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Label } from "../ui/label";
 import UpdateProfileDialog from "./UpdateProfileDialog";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { toast } from "sonner";
+import { USER_API_END_POINT } from "@/utils/constant";
+import { setUser } from "@/redux/authSlice";
 import {
   Contact,
   Mail,
@@ -21,32 +25,53 @@ import {
 
 const ProfileCard = () => {
   const [open, setOpen] = useState(false);
-  const [profilePhoto, setProfilePhoto] = useState(null);
   const { user } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
 
   const isResume = user?.profile?.resume;
   const skills = user?.profile?.skills || [];
-
-  const education = user?.profile?.education || [];
+  const education = user?.profile?.education || "";
   const experience = user?.profile?.experience || [];
 
-  const changePhotoHandler = (e) => {
+  const changePhotoHandler = async (e) => {
     const file = e.target.files?.[0];
-    if (file) {
-      setProfilePhoto(file);
-      setOpen(true);
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("profilePhoto", file);
+
+    try {
+      const res = await axios.post(
+        `${USER_API_END_POINT}/profile/update`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+          withCredentials: true,
+        }
+      );
+
+      if (res.data.success) {
+        dispatch(setUser(res.data.user));
+        toast.success("Profile photo updated successfully");
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Photo update failed");
     }
   };
 
   let profileCompletion = 0;
 
-  if (user?.fullname) profileCompletion += 15;
+  if (user?.fullname) profileCompletion += 10;
   if (user?.email) profileCompletion += 10;
-  if (user?.profile?.profilePhoto) profileCompletion += 15;
-  if (user?.phoneNumber) profileCompletion += 15;
-  if (user?.profile?.bio) profileCompletion += 15;
-  if (skills.length > 0) profileCompletion += 15;
-  if (isResume) profileCompletion += 15;
+  if (user?.phoneNumber) profileCompletion += 10;
+  if (user?.profile?.profilePhoto) profileCompletion += 10;
+  if (user?.profile?.bio) profileCompletion += 10;
+  if (user?.profile?.githubLink) profileCompletion += 5;
+  if (user?.profile?.linkedinLink) profileCompletion += 5;
+  if (skills.length > 0) profileCompletion += 10;
+  if (user?.profile?.education) profileCompletion += 10;
+  if (user?.profile?.experience?.length > 0) profileCompletion += 10;
+  if (isResume) profileCompletion += 10;
 
   return (
     <div className="bg-[#FAFBFC] dark:bg-[#020817] min-h-screen text-slate-800 dark:text-slate-100 pb-16 overflow-x-hidden">
@@ -54,7 +79,6 @@ const ProfileCard = () => {
 
       <div className="max-w-6xl mx-auto px-4 mt-8">
         <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] min-h-[620px] overflow-hidden rounded-3xl bg-white dark:bg-gradient-to-br dark:from-[#0F172A] dark:via-[#111827] dark:to-[#0B1220] border border-slate-200/80 dark:border-white/10 shadow-[0_24px_70px_rgba(15,23,42,0.08)] dark:shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
-          {/* Left Panel */}
           <div className="p-8 flex flex-col items-center justify-center text-center border-b md:border-b-0 md:border-r border-slate-100 dark:border-white/5 bg-slate-50/60 dark:bg-white/[0.02]">
             <div className="relative group">
               <Avatar className="h-36 w-36 shadow-xl ring-4 ring-cyan-500/60 dark:ring-cyan-400/50">
@@ -97,34 +121,39 @@ const ProfileCard = () => {
                 />
               </div>
             </div>
+
             <div className="grid grid-cols-2 gap-4 mt-8 w-full">
-              <div className="rounded-2xl bg-white/60 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/5 p-4">
-                <p className="text-xl font-bold text-slate-900 dark:text-white">
-                  {skills.length}
-                </p>
-                <p className="text-xs text-slate-500 dark:text-slate-400">Skills</p>
-              </div>
+              <SummaryBox title="Skills" value={skills.length} />
+              <SummaryBox title="Resume" value={isResume ? "Yes" : "No"} />
 
-              <div className="rounded-2xl bg-white/60 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/5 p-4">
-                <p className="text-xl font-bold text-slate-900 dark:text-white">
-                  {isResume ? "Yes" : "No"}
-                </p>
-                <p className="text-xs text-slate-500 dark:text-slate-400">Resume</p>
-              </div>
-
-              <div className="rounded-2xl bg-white/60 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/5 p-4 flex flex-col items-center">
+              <a
+                href={user?.profile?.linkedinLink || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`rounded-2xl bg-white/60 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/5 p-4 flex flex-col items-center transition ${user?.profile?.linkedinLink
+                    ? "hover:border-sky-400 cursor-pointer"
+                    : "opacity-50 pointer-events-none"
+                  }`}
+              >
                 <Linkedin className="h-5 w-5 text-sky-500 mb-1" />
                 <p className="text-xs text-slate-500 dark:text-slate-400">LinkedIn</p>
-              </div>
+              </a>
 
-              <div className="rounded-2xl bg-white/60 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/5 p-4 flex flex-col items-center">
+              <a
+                href={user?.profile?.githubLink || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`rounded-2xl bg-white/60 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/5 p-4 flex flex-col items-center transition ${user?.profile?.githubLink
+                    ? "hover:border-slate-500 cursor-pointer"
+                    : "opacity-50 pointer-events-none"
+                  }`}
+              >
                 <GithubIcon className="h-5 w-5 text-slate-800 dark:text-white mb-1" />
                 <p className="text-xs text-slate-500 dark:text-slate-400">GitHub</p>
-              </div>
+              </a>
             </div>
           </div>
 
-          {/* Right Panel */}
           <div className="p-6 sm:p-8 md:p-10">
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
               <div>
@@ -155,24 +184,15 @@ const ProfileCard = () => {
             <div className="my-8 border-t border-slate-100 dark:border-white/5" />
 
             <div className="space-y-4">
-              <InfoRow
-                label="Email"
-                icon={<Mail className="h-4 w-4 text-cyan-500" />}
-              >
+              <InfoRow label="Email" icon={<Mail className="h-4 w-4 text-cyan-500" />}>
                 {user?.email || "Not added"}
               </InfoRow>
 
-              <InfoRow
-                label="Phone"
-                icon={<Contact className="h-4 w-4 text-amber-500" />}
-              >
+              <InfoRow label="Phone" icon={<Contact className="h-4 w-4 text-amber-500" />}>
                 {user?.phoneNumber || "Not added"}
               </InfoRow>
 
-              <InfoRow
-                label="Resume"
-                icon={<FileText className="h-4 w-4 text-cyan-500" />}
-              >
+              <InfoRow label="Resume" icon={<FileText className="h-4 w-4 text-cyan-500" />}>
                 {isResume ? (
                   <a
                     target="_blank"
@@ -194,7 +214,7 @@ const ProfileCard = () => {
                   skills.map((item, index) => (
                     <Badge
                       key={index}
-                      className="bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 text-xs font-semibold px-3 py-1 rounded-full"
+                      className="bg-cyan-500/10 text-cyan-600 dark:text-green-500 border border-cyan-500/20 text-sm font-bold px-3 py-1 rounded-full"
                     >
                       <CheckCircle2 className="h-3 w-3 mr-1" />
                       {item}
@@ -206,34 +226,20 @@ const ProfileCard = () => {
               </div>
             </Section>
 
-            <Section
-              title="Education"
-              icon={<GraduationCap className="h-4 w-4 text-amber-500" />}
-            >
-              {education.length ? (
-                education.map((item, index) => (
-                  <p
-                    key={index}
-                    className="text-sm text-slate-600 dark:text-slate-300"
-                  >
-                    {item}
-                  </p>
-                ))
+            <Section title="Education" icon={<GraduationCap className="h-4 w-4 text-amber-500" />}>
+              {education ? (
+                <p className="text-sm text-slate-600 dark:text-slate-300">
+                  {education}
+                </p>
               ) : (
                 <EmptyText text="No education added yet" />
               )}
             </Section>
 
-            <Section
-              title="Experience"
-              icon={<BriefcaseBusiness className="h-4 w-4 text-cyan-500" />}
-            >
+            <Section title="Experience" icon={<BriefcaseBusiness className="h-4 w-4 text-cyan-500" />}>
               {experience.length ? (
                 experience.map((item, index) => (
-                  <p
-                    key={index}
-                    className="text-sm text-slate-600 dark:text-slate-300"
-                  >
+                  <p key={index} className="text-sm text-slate-600 dark:text-slate-300">
                     {item}
                   </p>
                 ))
@@ -250,13 +256,24 @@ const ProfileCard = () => {
   );
 };
 
+const SummaryBox = ({ title, value }) => {
+  return (
+    <div className="rounded-2xl bg-white/60 dark:bg-white/[0.03] border border-slate-200/70 dark:border-white/5 p-4">
+      <p className="text-xl font-bold text-slate-900 dark:text-white">
+        {value}
+      </p>
+      <p className="text-xs text-slate-500 dark:text-slate-400">{title}</p>
+    </div>
+  );
+};
+
 const InfoRow = ({ label, icon, children }) => {
   return (
     <div className="grid grid-cols-[90px_1fr] gap-4 text-sm">
       <span className="text-slate-400 dark:text-slate-500">{label}</span>
       <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300 break-all">
         {icon}
-        <span>{children}</span>
+        <div>{children}</div>
       </div>
     </div>
   );

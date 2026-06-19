@@ -3,3 +3,8 @@ import multer from "multer";
 const storage = multer.diskStorage({});
 
 export const singleUpload = multer({ storage }).single("file");
+
+export const profileUpload = multer({ storage }).fields([
+    { name : "resume", maxCount:1 },
+    { name : "profilePhoto", maxCount:1 }
+])
