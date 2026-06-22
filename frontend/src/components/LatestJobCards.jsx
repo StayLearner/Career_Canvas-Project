@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Badge } from './ui/badge';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -7,6 +7,7 @@ import { GlowingEffect } from './ui/glowing-effect';
 
 const LatestJobCards = ({ job }) => {
   const navigate = useNavigate();
+  const [logoError, setLogoError] = useState(false);
     
   return (
     <motion.div
@@ -29,8 +30,13 @@ const LatestJobCards = ({ job }) => {
         <div className="flex justify-between items-start gap-4 shrink-0">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-cyan-500/10 to-amber-500/10 border border-slate-200 dark:border-white/10 flex items-center justify-center text-cyan-500 dark:text-cyan-400 group-hover:from-cyan-500 group-hover:to-amber-500 group-hover:text-white shadow-sm dark:shadow-[0_0_15px_rgba(6,182,212,0.2)] group-hover:shadow-[0_0_25px_rgba(6,182,212,0.45)] transition-all duration-500 shrink-0">
-              {job?.company?.logo ? (
-                <img src={job.company.logo} alt={job.company.name} className="h-full w-full object-cover rounded-xl" />
+              {job?.company?.logo && !logoError ? (
+                <img 
+                  src={job.company.logo} 
+                  alt={job.company.name} 
+                  className="h-full w-full object-cover rounded-xl" 
+                  onError={() => setLogoError(true)}
+                />
               ) : (
                 <Building2 className="h-5 w-5" />
               )}

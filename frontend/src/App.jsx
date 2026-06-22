@@ -78,7 +78,12 @@ const appRouter = createBrowserRouter([
     path:"/admin/jobs/:id/applicants",
     element:<ProtectedRoute><Applicants/></ProtectedRoute> 
   },
-])
+], {
+  future: {
+    v7_relativeSplatPath: true,
+    v7_startTransition: true,
+  }
+})
 
 
 
