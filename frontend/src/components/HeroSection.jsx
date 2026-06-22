@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Sparkles, Briefcase, CheckCircle2, Users } from 'lucide-react';
+import { Search, Sparkles, Briefcase, CheckCircle2, Users, Building2 } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { USER_API_END_POINT } from '@/utils/constant';
-import { GlareCard } from './ui/glare-card';
 import { GlowingEffect } from './ui/glowing-effect';
 import TextType from './TextType';
 import useReducedMotion from '@/hooks/useReducedMotion';
@@ -296,67 +295,48 @@ const HeroSection = () => {
 
           {/* COLUMN 3: RIGHT - Existing Floating Decorative Cards Column - Hidden on Tablet/Mobile */}
           <div className="hidden lg:flex flex-1 relative h-[480px] items-center justify-center overflow-visible z-10" style={{ perspective: 1000 }}>
-            {/* THE CENTERPIECE: Dominant Featured Job Card (70% attention) */}
-            {loadingStats ? (
-              <div className="w-[280px] sm:w-[320px] h-[240px] sm:h-[270px] rounded-[2rem] border border-white/10 bg-[#0B1220] backdrop-blur-xl animate-pulse z-20" />
-            ) : floatingJobs[0] ? (
-              <motion.div
-                animate={prefersReducedMotion ? {} : { y: [0, -8, 0] }}
-                transition={prefersReducedMotion ? {} : { duration: 6, ease: "easeInOut", repeat: Infinity }}
-                className="w-[280px] sm:w-[320px] h-[240px] sm:h-[270px] shrink-0 relative group/card rounded-[2rem] z-20"
-              >
-                <GlareCard
-                  onClick={() => navigate(`/description/${floatingJobs[0]._id}`)}
-                  className="p-5 transition-all duration-300 cursor-pointer flex flex-col justify-between h-full relative overflow-hidden bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_24px_80px_rgba(0,0,0,0.4)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_30px_90px_rgba(56,189,248,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 md:rotate-[-0.5deg] hover:rotate-0"
+            {/* THE CENTERPIECE: Compact Stats Cluster (Replacing large job card) */}
+            <div className="w-[280px] sm:w-[320px] h-[240px] sm:h-[270px] relative z-20 flex flex-col justify-center">
+              {loadingStats ? (
+                <div className="absolute inset-0 rounded-[2rem] border border-white/10 bg-[#0B1220] backdrop-blur-xl animate-pulse z-20" />
+              ) : (
+                <motion.div
+                  animate={prefersReducedMotion ? {} : { y: [0, -6, 0] }}
+                  transition={prefersReducedMotion ? {} : { duration: 6, ease: "easeInOut", repeat: Infinity }}
+                  className="grid grid-cols-2 gap-3 w-full"
                 >
-                  {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-inherit z-0" />
-
-                  {/* Top Section */}
-                  <div className="flex items-start justify-between gap-3 z-10 relative">
-                    <div className="flex items-center gap-3.5 min-w-0">
-                      <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center text-white font-semibold text-[11px] uppercase shrink-0 shadow-md">
-                        {floatingJobs[0]?.company?.name?.slice(0, 2) || "CO"}
+                  {/* Top Row: Active Jobs & Open Positions (Span 2) */}
+                  <div className="col-span-2 p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 shadow-[0_15px_40px_rgba(15,23,42,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] relative overflow-hidden group">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.12),transparent_40%)] dark:hidden pointer-events-none rounded-2xl z-0" />
+                    <div className="flex items-center justify-between z-10 relative">
+                      <div>
+                        <p className="text-[10px] sm:text-xs uppercase tracking-wider font-semibold text-slate-500 dark:text-slate-400">Active Jobs</p>
+                        <p className="text-3xl font-bold text-slate-900 dark:text-white font-heading mt-1">{allJobs?.length || 0}</p>
                       </div>
-                      <div className="text-left min-w-0">
-                        <h4 className="text-xs font-semibold text-slate-800 dark:text-slate-100 truncate max-w-[130px] group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors leading-tight">{floatingJobs[0]?.title}</h4>
-                        <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate mt-0.5">{floatingJobs[0]?.company?.name}</p>
+                      <div className="h-10 w-[1px] bg-slate-200 dark:bg-white/10 mx-2" />
+                      <div className="text-right">
+                        <p className="text-[10px] sm:text-xs uppercase tracking-wider font-semibold text-slate-500 dark:text-slate-400">Open Positions</p>
+                        <p className="text-3xl font-bold text-sky-600 dark:text-sky-400 font-heading mt-1">{allJobs ? allJobs.reduce((acc, job) => acc + (job?.position || 1), 0) : 0}</p>
                       </div>
                     </div>
-                    <span className="text-[9px] px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-semibold truncate shrink-0 max-w-[75px]">
-                      {floatingJobs[0]?.location || "Remote"}
-                    </span>
                   </div>
 
-                  {/* Middle Section */}
-                  <p className="text-[11px] text-slate-600 dark:text-slate-400 line-clamp-3 text-left z-10 relative leading-relaxed">
-                    {floatingJobs[0]?.description || "Experience high-growth software engineering, custom platforms, and product shipping at this top startup."}
-                  </p>
-
-                  {/* Bottom Section */}
-                  <div className="border-t border-slate-100 dark:border-white/5 pt-3 flex justify-between items-center text-[11px] z-10 relative">
-                    <div className="flex items-center gap-2 text-[9px]">
-                      <span className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md">{floatingJobs[0]?.jobType}</span>
-                      <span className="bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md">{floatingJobs[0]?.salary} LPA</span>
+                  {/* Middle Row: Total Companies (Centered Square) */}
+                  <div className="col-span-2 flex justify-center">
+                    <div className="w-[140px] sm:w-[150px] aspect-square p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 shadow-[0_15px_40px_rgba(15,23,42,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] relative overflow-hidden flex flex-col justify-center group">
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.12),transparent_40%)] dark:hidden pointer-events-none rounded-2xl z-0" />
+                      <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-3 z-10">
+                        <Building2 className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+                      </div>
+                      <div className="z-10 relative text-left">
+                        <p className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white font-heading leading-none">{allJobs ? new Set(allJobs.map(job => job?.company?._id).filter(Boolean)).size : 0}</p>
+                        <p className="text-[9px] sm:text-[10px] uppercase tracking-wider font-semibold text-slate-500 dark:text-slate-400 mt-1.5">Total Companies</p>
+                      </div>
                     </div>
-                    <span className="text-cyan-600 dark:text-cyan-400 font-semibold flex items-center gap-0.5 group-hover:text-cyan-500 dark:group-hover:text-cyan-300 transition-colors">
-                      <span>View Details</span>
-                      <span className="transform group-hover:translate-x-0.5 transition-transform">→</span>
-                    </span>
                   </div>
-                </GlareCard>
-                <GlowingEffect
-                  disabled={false}
-                  proximity={80}
-                  inactiveZone={0.01}
-                  borderWidth={1.5}
-                  spread={50}
-                  glow={false}
-                />
-              </motion.div>
-            ) : (
-              <div className="w-[280px] sm:w-[320px] h-[240px] sm:h-[270px] rounded-[2rem] border border-white/10 bg-[#0B1220] backdrop-blur-xl shadow-[0_24px_80px_rgba(0,0,0,0.4)] p-6 flex items-center justify-center text-slate-500 text-xs z-20">No Jobs Posted</div>
-            )}
+                </motion.div>
+              )}
+            </div>
 
             {/* FLOATING SUPPORTING WIDGET 1: Top Right - Application Tracking (20% attention) */}
             <motion.div
@@ -401,9 +381,9 @@ const HeroSection = () => {
             {/* FLOATING SUPPORTING WIDGET 2: Bottom Right - Community Growth (10% attention) */}
             <motion.div
               whileHover={prefersReducedMotion ? {} : { scale: 1.03 }}
-              className="absolute -bottom-8 right-0 sm:-right-4 lg:-right-14 z-10 w-[140px] sm:w-[160px] shrink-0 group/comm rounded-2xl"
+              className="absolute -bottom-8 right-0 sm:-right-4 lg:-right-14 z-10 w-[180px] sm:w-[200px] shrink-0 group/comm rounded-2xl"
             >
-              <div className="p-3 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 rounded-2xl shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between h-[135px] relative overflow-hidden hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_20px_60px_rgba(250,204,21,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300">
+              <div className="p-3 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 rounded-2xl shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between h-[160px] relative overflow-hidden hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_20px_60px_rgba(250,204,21,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300">
                 {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-2xl z-0" />
                 
@@ -414,29 +394,29 @@ const HeroSection = () => {
                   <span className="text-[9px] font-semibold text-slate-800 dark:text-white tracking-wide uppercase">Community</span>
                 </div>
 
-                <div className="flex items-center justify-around gap-1.5 py-1 z-10 relative flex-1">
+                <div className="flex items-center justify-around gap-2 py-1 z-10 relative flex-1">
                   {/* Left Circle: Students */}
                   <div className="flex flex-col items-center">
                     <div className="relative flex items-center justify-center">
-                      <svg className="w-8 h-8 transform -rotate-90">
-                        <circle cx="16" cy="16" r="13" className="stroke-slate-100 dark:stroke-white/5" strokeWidth="2" fill="transparent" />
-                        <circle cx="16" cy="16" r="13" className="stroke-cyan-500 dark:stroke-cyan-400 drop-shadow-[0_0_4px_rgba(34,211,238,0.4)]" strokeWidth="2" fill="transparent" strokeDasharray={2 * Math.PI * 13} strokeDashoffset={(2 * Math.PI * 13) * (1 - Math.min((animatedStudents || 1) / (animatedStudents + animatedRecruiters || 50), 0.85))} strokeLinecap="round" />
+                      <svg className="w-11 h-11 transform -rotate-90">
+                        <circle cx="22" cy="22" r="18" className="stroke-slate-100 dark:stroke-white/5" strokeWidth="2.5" fill="transparent" />
+                        <circle cx="22" cy="22" r="18" className="stroke-cyan-500 dark:stroke-cyan-400 drop-shadow-[0_0_4px_rgba(34,211,238,0.4)]" strokeWidth="2.5" fill="transparent" strokeDasharray={2 * Math.PI * 18} strokeDashoffset={(2 * Math.PI * 18) * (1 - Math.min((animatedStudents || 1) / (animatedStudents + animatedRecruiters || 50), 0.85))} strokeLinecap="round" />
                       </svg>
-                      <span className="absolute text-[7px] font-semibold text-cyan-600 dark:text-cyan-300">{animatedStudents}</span>
+                      <span className="absolute text-[8.5px] font-semibold text-cyan-600 dark:text-cyan-300">{animatedStudents}</span>
                     </div>
-                    <span className="text-[6.5px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Students</span>
+                    <span className="text-[7.5px] font-semibold text-slate-500 dark:text-slate-400 mt-1">Students</span>
                   </div>
 
                   {/* Right Circle: Recruiters */}
                   <div className="flex flex-col items-center">
                     <div className="relative flex items-center justify-center">
-                      <svg className="w-8 h-8 transform -rotate-90">
-                        <circle cx="16" cy="16" r="13" className="stroke-slate-100 dark:stroke-white/5" strokeWidth="2" fill="transparent" />
-                        <circle cx="16" cy="16" r="13" className="stroke-amber-500 dark:stroke-amber-400 drop-shadow-[0_0_4px_rgba(245,158,11,0.4)]" strokeWidth="2" fill="transparent" strokeDasharray={2 * Math.PI * 13} strokeDashoffset={(2 * Math.PI * 13) * (1 - Math.min((animatedRecruiters || 1) / (animatedStudents + animatedRecruiters || 50), 0.85))} strokeLinecap="round" />
+                      <svg className="w-11 h-11 transform -rotate-90">
+                        <circle cx="22" cy="22" r="18" className="stroke-slate-100 dark:stroke-white/5" strokeWidth="2.5" fill="transparent" />
+                        <circle cx="22" cy="22" r="18" className="stroke-amber-500 dark:stroke-amber-400 drop-shadow-[0_0_4px_rgba(245,158,11,0.4)]" strokeWidth="2.5" fill="transparent" strokeDasharray={2 * Math.PI * 18} strokeDashoffset={(2 * Math.PI * 18) * (1 - Math.min((animatedRecruiters || 1) / (animatedStudents + animatedRecruiters || 50), 0.85))} strokeLinecap="round" />
                       </svg>
-                      <span className="absolute text-[7px] font-semibold text-amber-600 dark:text-amber-300">{animatedRecruiters}</span>
+                      <span className="absolute text-[8.5px] font-semibold text-amber-600 dark:text-amber-300">{animatedRecruiters}</span>
                     </div>
-                    <span className="text-[6.5px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Hires</span>
+                    <span className="text-[7.5px] font-semibold text-slate-500 dark:text-slate-400 mt-1">Recruiters</span>
                   </div>
                 </div>
 

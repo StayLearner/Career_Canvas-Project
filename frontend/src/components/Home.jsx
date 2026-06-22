@@ -206,6 +206,9 @@ const Home = () => {
       <main className="relative z-10">
         <HeroSection />
         <TrustedCompanies />
+        <Suspense fallback={<div className="py-20 text-center text-slate-500/80 animate-pulse">Loading openings...</div>}>
+          <LatestJobs />
+        </Suspense>
         <Suspense fallback={<div className="py-20 text-center text-slate-500/80 animate-pulse">Loading features...</div>}>
           <StudentFeatures />
         </Suspense>
@@ -213,9 +216,6 @@ const Home = () => {
           <RecruiterFeatures />
         </Suspense>
         <HowItWorks />
-        <Suspense fallback={<div className="py-20 text-center text-slate-500/80 animate-pulse">Loading openings...</div>}>
-          <LatestJobs />
-        </Suspense>
 
       </main>
       <Footer />
