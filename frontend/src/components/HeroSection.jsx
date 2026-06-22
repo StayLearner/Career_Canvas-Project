@@ -1,47 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from './ui/button';
-import { Search, Sparkles, Building2, Briefcase, CheckCircle2, GraduationCap, Users } from 'lucide-react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Search, Sparkles, Briefcase, CheckCircle2, Users } from 'lucide-react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setSearchedQuery } from '@/redux/jobSlice';
 import { motion } from 'framer-motion';
 import axios from 'axios';
-import { COMPANY_API_END_POINT, USER_API_END_POINT } from '@/utils/constant';
+import { USER_API_END_POINT } from '@/utils/constant';
 import { GlareCard } from './ui/glare-card';
 import { GlowingEffect } from './ui/glowing-effect';
-import { GoogleGeminiEffect } from './ui/google-gemini-effect';
-import SplitText from './SplitText';
-import ShinyText from './ShinyText';
+import TextType from './TextType';
 import useReducedMotion from '@/hooks/useReducedMotion';
 
 const HeroSection = () => {
   const prefersReducedMotion = useReducedMotion();
-  const [query, setQuery] = useState("");
   const { allJobs } = useSelector((store) => store.job);
-  const [companyCount, setCompanyCount] = useState(0);
   const [floatingJobs, setFloatingJobs] = useState([]);
   const [loadingStats, setLoadingStats] = useState(true);
-  const [communityStats, setCommunityStats] = useState({ studentsCount: 0, recruitersCount: 0 });
   const [animatedStudents, setAnimatedStudents] = useState(0);
   const [animatedRecruiters, setAnimatedRecruiters] = useState(0);
+  const [communityStats, setCommunityStats] = useState({ studentsCount: 0, recruitersCount: 0 });
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const searchJobHandler = () => {
-    dispatch(setSearchedQuery(query.trim()));
-    navigate("/browse");
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      searchJobHandler();
-    }
-  };
-
-  const handleFindJobsClick = () => {
-    document.getElementById('latest-jobs-grid')?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   // Fisher-Yates Shuffle
   const shuffleArray = (array) => {
@@ -54,17 +32,6 @@ const HeroSection = () => {
   };
 
   useEffect(() => {
-    const fetchCompanyCount = async () => {
-      try {
-        const res = await axios.get(`${COMPANY_API_END_POINT}/all-companies`, { withCredentials: true });
-        if (res.data.success && res.data.companies) {
-          setCompanyCount(res.data.companies.length);
-        }
-      } catch (error) {
-        console.error("Failed to fetch companies count for hero stats:", error);
-      }
-    };
-
     const fetchCommunityStats = async () => {
       try {
         const res = await axios.get(`${USER_API_END_POINT}/stats`, { withCredentials: true });
@@ -79,7 +46,6 @@ const HeroSection = () => {
       }
     };
 
-    fetchCompanyCount();
     fetchCommunityStats();
   }, []);
 
@@ -134,374 +100,391 @@ const HeroSection = () => {
     }
   }, [allJobs]);
 
-  // Sum of vacancies (job.position)
-  const totalPositions = allJobs 
-    ? allJobs.reduce((acc, job) => acc + (Number(job.position) || 0), 0) 
-    : 0;
 
   return (
     <div className="relative pt-10 md:pt-16 lg:pt-20 pb-16 md:pb-20 lg:pb-24 overflow-hidden">
       {/* Background Decorative Blur Orbs */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full bg-gradient-to-tr from-cyan-500/10 to-amber-500/10 blur-[64px] -z-10" />
 
-      {/* Google Gemini scroll-animated decorative effect */}
-      <GoogleGeminiEffect className="opacity-45 scale-[1.05]" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <div className="max-w-[90rem] mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.1fr_1fr] gap-16 lg:gap-20 items-center">
           
-          {/* Left Column: Headline, Description, Search, Stats */}
-          <div className="lg:col-span-7 text-left space-y-6 sm:space-y-8">
-            
+          {/* COLUMN 1: LEFT - Premium Mobile Showcase (iPhone-style Mockup) - Hidden on Mobile */}
+          <div className="hidden md:flex justify-center items-center w-full relative select-none overflow-visible z-10">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[250px] rounded-full bg-gradient-to-tr from-[#00b4d8]/10 to-[#ffb703]/10 blur-[48px] -z-10 pointer-events-none" />
+            <motion.div 
+              initial={{ opacity: 0, y: 30, rotateY: -10 }}
+              animate={{ opacity: 1, y: 0, rotateY: 5 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="relative flex justify-center h-[380px] w-[190px] border-[5px] border-slate-950 dark:border-slate-800 rounded-[30px] bg-slate-900 shadow-[0_20px_50px_rgba(0,0,0,0.4)] overflow-hidden [perspective:1000px]"
+            >
+              {/* Notch */}
+              <span className="absolute top-1 left-1/2 -translate-x-1/2 bg-slate-950 dark:bg-slate-800 w-16 h-3 rounded-full flex items-center justify-center z-50">
+                <span className="w-5 h-0.5 bg-slate-800 dark:bg-slate-700 rounded-full mb-0.5" />
+              </span>
+              {/* Buttons */}
+              <span className="absolute -right-[6px] top-12 border border-slate-950 dark:border-slate-850 bg-slate-950 dark:bg-slate-800 w-1 h-5 rounded-l-md z-45" />
+              <span className="absolute -right-[6px] bottom-28 border border-slate-950 dark:border-slate-850 bg-slate-950 dark:bg-slate-800 w-1.5 h-7 rounded-l-md z-45" />
+
+              {/* Simulated Screen Content Carousel Container */}
+              <div className="w-full h-full flex flex-col justify-between p-2.5 relative bg-gradient-to-b from-[#0F172A] to-[#020617] text-white">
+                <div className="w-full h-full pt-3 flex flex-col justify-between relative overflow-hidden text-left">
+                  <motion.div 
+                    animate={{ y: ["0%", "0%", "-33.33%", "-33.33%", "-66.66%", "-66.66%", "0%"] }}
+                    transition={{
+                      duration: 12,
+                      ease: "easeInOut",
+                      repeat: Infinity,
+                      times: [0, 0.28, 0.33, 0.61, 0.66, 0.95, 1]
+                    }}
+                    className="w-full h-[300%]"
+                  >
+                    {/* SCREEN 1: Real Jobs Page Miniature */}
+                    <div className="h-1/3 w-full flex flex-col justify-between py-1 text-left">
+                      {/* Logo header */}
+                      <div className="flex items-center justify-between border-b border-white/5 pb-1">
+                        <div className="flex items-center gap-1">
+                          <div className="h-4 w-4 rounded bg-gradient-to-tr from-[#ffb703] to-[#00b4d8] flex items-center justify-center text-[7.5px] font-black text-slate-950">CC</div>
+                          <span className="text-[8.5px] font-bold tracking-tight bg-gradient-to-r from-[#ffb703] to-[#00b4d8] bg-clip-text text-transparent">Career Canvas</span>
+                        </div>
+                      </div>
+
+                      {/* Search jobs bar */}
+                      <div className="mt-1 bg-white/5 border border-white/10 rounded-lg p-1 flex items-center gap-1">
+                        <Search className="h-2.5 w-2.5 text-slate-400" />
+                        <span className="text-[7px] text-slate-400">Search jobs...</span>
+                      </div>
+
+                      {/* Miniature Job Card Design matches actual application */}
+                      <div className="mt-1.5 flex-1 flex flex-col gap-1.5">
+                        <span className="text-[7px] font-bold text-slate-400 uppercase tracking-wider">Latest Jobs</span>
+                        
+                        <div className="p-2 rounded-lg border border-sky-500/10 bg-white/5 backdrop-blur-md flex flex-col gap-1">
+                          <div className="flex justify-between items-start">
+                            <span className="text-[8px] font-bold text-white leading-none">Frontend Engineer</span>
+                            <span className="text-[6.5px] px-1 py-0.5 rounded bg-cyan-500/10 text-cyan-400 font-semibold">12 LPA</span>
+                          </div>
+                          <p className="text-[7px] text-slate-400">Google Inc. • Delhi NCR</p>
+                          <div className="flex flex-wrap gap-1 mt-0.5">
+                            <span className="text-[5.5px] bg-slate-800 text-slate-300 px-1 py-0.5 rounded">Full Time</span>
+                            <span className="text-[5.5px] bg-emerald-500/10 text-emerald-400 px-1 py-0.5 rounded">Remote</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* SCREEN 2: Real Applied Jobs Page Miniature */}
+                    <div className="h-1/3 w-full flex flex-col justify-between py-1 text-left">
+                      <div className="flex items-center justify-between border-b border-white/5 pb-1">
+                        <span className="text-[8.5px] font-bold text-white">Applied Jobs</span>
+                        <span className="text-[7px] text-slate-400">History (3)</span>
+                      </div>
+
+                      <div className="flex-1 flex flex-col justify-center space-y-1.5">
+                        {/* Status Accepted */}
+                        <div className="p-1.5 bg-white/5 border border-white/10 rounded-lg flex items-center justify-between">
+                          <div className="flex flex-col text-left">
+                            <span className="text-[8px] font-bold text-white leading-tight">Software Engineer</span>
+                            <span className="text-[6.5px] text-slate-400">Microsoft</span>
+                          </div>
+                          <span className="text-[6.5px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-1 py-0.5 rounded-full font-bold">ACCEPTED</span>
+                        </div>
+
+                        {/* Status Pending */}
+                        <div className="p-1.5 bg-white/5 border border-white/10 rounded-lg flex items-center justify-between">
+                          <div className="flex flex-col text-left">
+                            <span className="text-[8px] font-bold text-white">UI Developer</span>
+                            <span className="text-[6.5px] text-slate-400">Adobe</span>
+                          </div>
+                          <span className="text-[6.5px] bg-amber-500/10 text-amber-500 border border-amber-500/20 px-1.5 py-0.5 rounded-full font-bold">PENDING</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* SCREEN 3: Real Recruiter Dashboard Miniature */}
+                    <div className="h-1/3 w-full flex flex-col justify-between py-1 text-left">
+                      <div className="flex items-center justify-between border-b border-white/5 pb-1">
+                        <span className="text-[8.5px] font-bold text-white">Recruiter Workspace</span>
+                      </div>
+
+                      <div className="flex-1 flex flex-col justify-center space-y-2">
+                        <div className="grid grid-cols-3 gap-1">
+                          <div className="p-1 bg-white/5 border border-white/10 rounded-lg flex flex-col text-left">
+                            <span className="text-[5.5px] text-slate-400 uppercase">Jobs</span>
+                            <span className="text-[10px] font-bold text-white">8</span>
+                          </div>
+                          <div className="p-1 bg-white/5 border border-white/10 rounded-lg flex flex-col text-left">
+                            <span className="text-[5.5px] text-slate-400 uppercase">Applicants</span>
+                            <span className="text-[10px] font-bold text-[#00b4d8]">148</span>
+                          </div>
+                          <div className="p-1 bg-white/5 border border-white/10 rounded-lg flex flex-col text-left">
+                            <span className="text-[5.5px] text-slate-400 uppercase">Companies</span>
+                            <span className="text-[10px] font-bold text-[#ffb703]">4</span>
+                          </div>
+                        </div>
+
+                        <div className="p-1.5 bg-gradient-to-r from-[#00b4d8]/10 to-[#ffb703]/10 border border-white/5 rounded-lg text-left">
+                          <span className="text-[6.5px] text-slate-400">Total job applications are up +24% this week.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* COLUMN 2: CENTER - Badge, TextType Headline, Description */}
+          <div className="flex flex-col items-center text-center lg:text-left lg:items-start space-y-7 mx-auto w-full z-10 py-4">
+
             {/* Top Micro-badge */}
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-200/50 dark:bg-white/5 text-cyan-600 dark:text-cyan-300 border border-slate-300/20 dark:border-white/10"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10"
             >
-              <Sparkles className="h-3.5 w-3.5 text-cyan-500 dark:text-cyan-400" />
-              <ShinyText text="Next-Generation Career Canvas" className="text-cyan-600 dark:text-cyan-300 font-semibold" shineColor="#ffffff" color="#38bdf8" speed={2.5} />
+              <Sparkles className="h-3 w-3 text-[#00b4d8]" />
+              <span className="tracking-wide">Next-Generation Career Canvas</span>
             </motion.div>
 
-            {/* Headline */}
-            <div className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white leading-none flex flex-col items-start gap-1">
-              <SplitText 
-                text="Seek, Apply &" 
-                className="text-slate-900 dark:text-white"
-                delay={40}
-                duration={0.8}
-                textAlign="left"
-                tag="span"
-              />
-              <motion.span 
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="bg-gradient-to-r from-cyan-500 via-sky-400 to-amber-500 dark:from-cyan-400 dark:via-sky-400 dark:to-amber-400 bg-clip-text text-transparent py-1 leading-[1.15] block"
-              >
-                Build Your Future
-              </motion.span>
-            </div>
-
-            {/* Paragraph Description */}
+            {/* Static label above headline */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed max-w-2xl"
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-[11px] font-semibold tracking-[0.18em] uppercase text-slate-400 dark:text-slate-500"
             >
-              Navigate your career journey with confidence. Screen real-time opportunities, manage applications, and land your role at modern software platforms.
+              Career Canvas
             </motion.p>
 
-            {/* Search Input Bar */}
+            {/* TextType animated headline */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+            >
+              <TextType
+                text={[
+                  "Seek smarter opportunities.",
+                  "Apply with confidence.",
+                  "Build your future."
+                ]}
+                as="h1"
+                typingSpeed={60}
+                deletingSpeed={35}
+                pauseDuration={1800}
+                showCursor={true}
+                cursorCharacter="|"
+                cursorClassName="text-[#00b4d8]"
+                startOnVisible={true}
+                className="text-4xl sm:text-5xl lg:text-[3rem] xl:text-[3.25rem] font-bold tracking-tight text-slate-950 dark:text-white leading-[1.1] min-h-[4rem] sm:min-h-[5rem] lg:min-h-[4rem]"
+              />
+            </motion.div>
+
+            {/* Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="relative max-w-xl group"
+              className="text-slate-500 dark:text-slate-400 text-base sm:text-lg leading-relaxed max-w-[420px]"
             >
-              {/* Outer Glow */}
-              <div className="absolute -inset-px bg-gradient-to-r from-cyan-500 to-amber-500 rounded-2xl blur opacity-15 dark:opacity-30 group-hover:opacity-40 dark:group-hover:opacity-60 transition duration-500" />
-              
-              <div className="relative flex items-center bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-[#0d1220]/90 border border-sky-200/70 dark:border-white/10 rounded-2xl p-1.5 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-none overflow-hidden">
-                {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-2xl z-0" />
-                <GlowingEffect
-                  disabled={false}
-                  proximity={64}
-                  inactiveZone={0.01}
-                  borderWidth={1.5}
-                  spread={40}
-                  glow={false}
-                />
-                <div className="flex items-center pl-3 pr-2 text-slate-400 z-10">
-                  <Search className="h-5 w-5" />
-                </div>
-                <input
-                  type="text"
-                  placeholder="Search job titles, skills, or companies..."
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  className="bg-transparent border-none outline-none w-full text-sm sm:text-base text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 py-2.5 z-10"
-                />
-                <Button 
-                  onClick={searchJobHandler} 
-                  className="bg-gradient-to-r from-cyan-500 to-amber-500 hover:from-cyan-400 hover:to-amber-400 text-white font-semibold h-10 px-5 sm:px-6 rounded-xl transition duration-300 hover:scale-[1.03] active:scale-[0.98] shadow-[0_0_15px_rgba(6,182,212,0.3)] shrink-0 z-10"
-                >
-                  Search
-                </Button>
-              </div>
-            </motion.div>
-
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-wrap items-center gap-4"
-            >
-              <motion.div
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-                className="relative rounded-xl"
-              >
-                <Button 
-                  onClick={handleFindJobsClick}
-                  className="relative overflow-hidden bg-slate-900 hover:bg-slate-950 text-white dark:bg-gradient-to-r dark:from-yellow-400 dark:to-sky-400 dark:text-[#020817] dark:hover:from-yellow-300 dark:hover:to-sky-300 border border-slate-800 dark:border-transparent font-semibold px-6 py-5.5 rounded-xl transition-all duration-300 shrink-0 text-sm sm:text-base shadow-sm hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
-                >
-                  <GlowingEffect
-                    disabled={true}
-                    proximity={48}
-                    inactiveZone={0.01}
-                    borderWidth={1.2}
-                    spread={30}
-                    glow={false}
-                  />
-                  <span className="relative z-10">Find Jobs</span>
-                </Button>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Button 
-                  onClick={() => navigate("/signup")}
-                  variant="ghost"
-                  className="text-slate-600 dark:text-sky-200 hover:text-slate-900 dark:hover:text-sky-300 hover:bg-slate-100 dark:hover:bg-white/5 font-semibold px-5 py-5.5 rounded-xl transition shrink-0 text-sm sm:text-base flex items-center gap-1.5 group"
-                >
-                  <span>Hire Talent</span>
-                  <span className="text-cyan-400 font-semibold group-hover:translate-x-1 transition-transform">→</span>
-                </Button>
-              </motion.div>
-            </motion.div>
-
-            {/* Stats Counter Row */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="grid grid-cols-3 gap-4 border-t border-slate-200 dark:border-white/5 pt-8 max-w-lg animate-transition"
-            >
-              <div className="text-left">
-                <h4 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
-                  {loadingStats ? "..." : (allJobs?.length || 0)}
-                </h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase mt-0.5">Active Jobs</p>
-              </div>
-              <div className="text-left">
-                <h4 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
-                  {loadingStats ? "..." : (companyCount || 0)}
-                </h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase mt-0.5">Companies</p>
-              </div>
-              <div className="text-left">
-                <h4 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
-                  {loadingStats ? "..." : totalPositions}
-                </h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase mt-0.5">Open Positions</p>
-              </div>
-            </motion.div>
+              A modern career platform for students and recruiters to discover jobs, manage applications, and build hiring workflows with clarity.
+            </motion.p>
 
           </div>
 
-          <div className="lg:col-span-5 relative w-full max-w-xl mx-auto select-none mt-8 lg:mt-0">            {/* Visual backdrop radial light */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-gradient-to-tr from-cyan-500/10 to-amber-500/10 blur-[48px] -z-10" />
-
-            <div className="relative w-full h-[480px] flex items-center justify-center overflow-hidden lg:overflow-visible" style={{ perspective: 1000 }}>
-              
-              {/* THE CENTERPIECE: Dominant Featured Job Card (70% attention) */}
-              {loadingStats ? (
-                <div className="w-[300px] sm:w-[340px] h-[260px] sm:h-[290px] rounded-[2rem] border border-white/10 bg-[#0B1220] backdrop-blur-xl animate-pulse z-20" />
-              ) : floatingJobs[0] ? (
-                <motion.div
-                  animate={prefersReducedMotion ? {} : { y: [0, -8, 0] }}
-                  transition={prefersReducedMotion ? {} : { duration: 6, ease: "easeInOut", repeat: Infinity }}
-                  className="w-[300px] sm:w-[340px] h-[260px] sm:h-[290px] shrink-0 relative group/card rounded-[2rem] z-20"
+          {/* COLUMN 3: RIGHT - Existing Floating Decorative Cards Column - Hidden on Tablet/Mobile */}
+          <div className="hidden lg:flex flex-1 relative h-[480px] items-center justify-center overflow-visible z-10" style={{ perspective: 1000 }}>
+            {/* THE CENTERPIECE: Dominant Featured Job Card (70% attention) */}
+            {loadingStats ? (
+              <div className="w-[280px] sm:w-[320px] h-[240px] sm:h-[270px] rounded-[2rem] border border-white/10 bg-[#0B1220] backdrop-blur-xl animate-pulse z-20" />
+            ) : floatingJobs[0] ? (
+              <motion.div
+                animate={prefersReducedMotion ? {} : { y: [0, -8, 0] }}
+                transition={prefersReducedMotion ? {} : { duration: 6, ease: "easeInOut", repeat: Infinity }}
+                className="w-[280px] sm:w-[320px] h-[240px] sm:h-[270px] shrink-0 relative group/card rounded-[2rem] z-20"
+              >
+                <GlareCard
+                  onClick={() => navigate(`/description/${floatingJobs[0]._id}`)}
+                  className="p-5 transition-all duration-300 cursor-pointer flex flex-col justify-between h-full relative overflow-hidden bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_24px_80px_rgba(0,0,0,0.4)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_30px_90px_rgba(56,189,248,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 md:rotate-[-0.5deg] hover:rotate-0"
                 >
-                  <GlareCard
-                    onClick={() => navigate(`/description/${floatingJobs[0]._id}`)}
-                    className="p-6 transition-all duration-300 cursor-pointer flex flex-col justify-between h-full relative overflow-hidden bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_24px_80px_rgba(0,0,0,0.4)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_30px_90px_rgba(56,189,248,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 md:rotate-[-0.5deg] hover:rotate-0"
-                  >
-                    {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-inherit z-0" />
-
-                    {/* Top Section */}
-                    <div className="flex items-start justify-between gap-3 z-10 relative">
-                      <div className="flex items-center gap-3.5 min-w-0">
-                        <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center text-white font-semibold text-[12px] uppercase shrink-0 shadow-md">
-                          {floatingJobs[0]?.company?.name?.slice(0, 2) || "CO"}
-                        </div>
-                        <div className="text-left min-w-0">
-                          <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate max-w-[150px] group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors leading-tight">{floatingJobs[0]?.title}</h4>
-                          <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">{floatingJobs[0]?.company?.name}</p>
-                        </div>
-                      </div>
-                      <span className="text-[10px] px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-semibold truncate shrink-0 max-w-[85px]">
-                        {floatingJobs[0]?.location || "Remote"}
-                      </span>
-                    </div>
-
-                    {/* Middle Section */}
-                    <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 text-left z-10 relative leading-relaxed">
-                      {floatingJobs[0]?.description || "Experience high-growth software engineering, custom platforms, and product shipping at this top startup."}
-                    </p>
-
-                    {/* Bottom Section */}
-                    <div className="border-t border-slate-100 dark:border-white/5 pt-3 flex justify-between items-center text-xs z-10 relative">
-                      <div className="flex items-center gap-2 text-[10px]">
-                        <span className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md">{floatingJobs[0]?.jobType}</span>
-                        <span className="bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md">{floatingJobs[0]?.salary} LPA</span>
-                      </div>
-                      <span className="text-cyan-600 dark:text-cyan-400 font-semibold flex items-center gap-0.5 group-hover:text-cyan-500 dark:group-hover:text-cyan-300 transition-colors">
-                        <span>View Details</span>
-                        <span className="transform group-hover:translate-x-0.5 transition-transform">→</span>
-                      </span>
-                    </div>
-                  </GlareCard>
-                  <GlowingEffect
-                    disabled={false}
-                    proximity={80}
-                    inactiveZone={0.01}
-                    borderWidth={1.5}
-                    spread={50}
-                    glow={false}
-                  />
-                </motion.div>
-              ) : (
-                <div className="w-[300px] sm:w-[340px] h-[260px] sm:h-[290px] rounded-[2rem] border border-white/10 bg-[#0B1220] backdrop-blur-xl shadow-[0_24px_80px_rgba(0,0,0,0.4)] p-6 flex items-center justify-center text-slate-500 text-xs z-20">No Jobs Posted</div>
-              )}
-
-              {/* FLOATING SUPPORTING WIDGET 1: Top Right - Application Tracking (20% attention) */}
-              <motion.div
-                whileHover={prefersReducedMotion ? {} : { scale: 1.03 }}
-                className="absolute -top-6 right-0 sm:-right-4 lg:-right-12 z-10 w-[160px] sm:w-[190px] shrink-0 group/track rounded-2xl"
-              >
-                <div className="p-4 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 rounded-2xl shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-left flex flex-col justify-between h-[140px] relative overflow-hidden hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_20px_60px_rgba(56,189,248,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300">
                   {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-2xl z-0" />
-                  
-                  <div className="flex items-center gap-1.5 z-10 relative">
-                    <div className="h-5 w-5 rounded-md bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center">
-                      <CheckCircle2 className="h-3.5 w-3.5" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-inherit z-0" />
+
+                  {/* Top Section */}
+                  <div className="flex items-start justify-between gap-3 z-10 relative">
+                    <div className="flex items-center gap-3.5 min-w-0">
+                      <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-sky-500 flex items-center justify-center text-white font-semibold text-[11px] uppercase shrink-0 shadow-md">
+                        {floatingJobs[0]?.company?.name?.slice(0, 2) || "CO"}
+                      </div>
+                      <div className="text-left min-w-0">
+                        <h4 className="text-xs font-semibold text-slate-800 dark:text-slate-100 truncate max-w-[130px] group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors leading-tight">{floatingJobs[0]?.title}</h4>
+                        <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate mt-0.5">{floatingJobs[0]?.company?.name}</p>
+                      </div>
                     </div>
-                    <span className="text-[10px] font-semibold text-slate-800 dark:text-white tracking-wide uppercase">Applications</span>
+                    <span className="text-[9px] px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-semibold truncate shrink-0 max-w-[75px]">
+                      {floatingJobs[0]?.location || "Remote"}
+                    </span>
                   </div>
-                  
-                  <div className="space-y-1.5 py-1 z-10 relative">
-                    <div className="flex justify-between items-center text-[9px]">
-                      <span className="text-slate-600 dark:text-slate-300 truncate max-w-[85px] font-semibold">Software Eng</span>
-                      <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-semibold text-[8px] uppercase tracking-wider scale-90">Accepted</span>
+
+                  {/* Middle Section */}
+                  <p className="text-[11px] text-slate-600 dark:text-slate-400 line-clamp-3 text-left z-10 relative leading-relaxed">
+                    {floatingJobs[0]?.description || "Experience high-growth software engineering, custom platforms, and product shipping at this top startup."}
+                  </p>
+
+                  {/* Bottom Section */}
+                  <div className="border-t border-slate-100 dark:border-white/5 pt-3 flex justify-between items-center text-[11px] z-10 relative">
+                    <div className="flex items-center gap-2 text-[9px]">
+                      <span className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md">{floatingJobs[0]?.jobType}</span>
+                      <span className="bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md">{floatingJobs[0]?.salary} LPA</span>
                     </div>
-                    <div className="flex justify-between items-center text-[9px]">
-                      <span className="text-slate-600 dark:text-slate-300 truncate max-w-[85px] font-semibold">UI/UX Intern</span>
-                      <span className="px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-semibold text-[8px] uppercase tracking-wider scale-90">Pending</span>
-                    </div>
+                    <span className="text-cyan-600 dark:text-cyan-400 font-semibold flex items-center gap-0.5 group-hover:text-cyan-500 dark:group-hover:text-cyan-300 transition-colors">
+                      <span>View Details</span>
+                      <span className="transform group-hover:translate-x-0.5 transition-transform">→</span>
+                    </span>
                   </div>
-                  <div className="text-[8px] text-slate-400 dark:text-slate-500 border-t border-slate-100 dark:border-white/5 pt-1.5 font-medium uppercase tracking-wider z-10 relative text-center">
-                    Live Status Sync
-                  </div>
-                </div>
+                </GlareCard>
                 <GlowingEffect
                   disabled={false}
-                  proximity={48}
+                  proximity={80}
                   inactiveZone={0.01}
-                  borderWidth={1.2}
-                  spread={30}
+                  borderWidth={1.5}
+                  spread={50}
                   glow={false}
                 />
               </motion.div>
+            ) : (
+              <div className="w-[280px] sm:w-[320px] h-[240px] sm:h-[270px] rounded-[2rem] border border-white/10 bg-[#0B1220] backdrop-blur-xl shadow-[0_24px_80px_rgba(0,0,0,0.4)] p-6 flex items-center justify-center text-slate-500 text-xs z-20">No Jobs Posted</div>
+            )}
 
-              {/* FLOATING SUPPORTING WIDGET 2: Bottom Right - Community Growth (10% attention) */}
-              <motion.div
-                whileHover={prefersReducedMotion ? {} : { scale: 1.03 }}
-                className="absolute -bottom-8 right-0 sm:-right-4 lg:-right-14 z-10 w-[150px] sm:w-[180px] shrink-0 group/comm rounded-2xl"
-              >
-                <div className="p-3.5 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 rounded-2xl shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between h-[145px] relative overflow-hidden hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_20px_60px_rgba(250,204,21,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300">
-                  {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-2xl z-0" />
-                  
-                  <div className="flex items-center gap-1.5 z-10 relative text-left">
-                    <div className="h-5 w-5 rounded-md bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0">
-                      <Users className="h-3.5 w-3.5" />
-                    </div>
-                    <span className="text-[10px] font-semibold text-slate-800 dark:text-white tracking-wide uppercase">Community</span>
-                  </div>
-
-                  <div className="flex items-center justify-around gap-1.5 py-1 z-10 relative flex-1">
-                    {/* Left Circle: Students */}
-                    <div className="flex flex-col items-center">
-                      <div className="relative flex items-center justify-center">
-                        <svg className="w-10 h-10 transform -rotate-90">
-                          <circle cx="20" cy="20" r="16" className="stroke-slate-100 dark:stroke-white/5" strokeWidth="2" fill="transparent" />
-                          <circle cx="20" cy="20" r="16" className="stroke-cyan-500 dark:stroke-cyan-400 drop-shadow-[0_0_4px_rgba(34,211,238,0.4)]" strokeWidth="2" fill="transparent" strokeDasharray={2 * Math.PI * 16} strokeDashoffset={(2 * Math.PI * 16) * (1 - Math.min((animatedStudents || 1) / (animatedStudents + animatedRecruiters || 50), 0.85))} strokeLinecap="round" />
-                        </svg>
-                        <span className="absolute text-[8px] font-semibold text-cyan-600 dark:text-cyan-300">{animatedStudents}</span>
-                      </div>
-                      <span className="text-[7px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Students</span>
-                    </div>
-
-                    {/* Right Circle: Recruiters */}
-                    <div className="flex flex-col items-center">
-                      <div className="relative flex items-center justify-center">
-                        <svg className="w-10 h-10 transform -rotate-90">
-                          <circle cx="20" cy="20" r="16" className="stroke-slate-100 dark:stroke-white/5" strokeWidth="2" fill="transparent" />
-                          <circle cx="20" cy="20" r="16" className="stroke-amber-500 dark:stroke-amber-400 drop-shadow-[0_0_4px_rgba(245,158,11,0.4)]" strokeWidth="2" fill="transparent" strokeDasharray={2 * Math.PI * 16} strokeDashoffset={(2 * Math.PI * 16) * (1 - Math.min((animatedRecruiters || 1) / (animatedStudents + animatedRecruiters || 50), 0.85))} strokeLinecap="round" />
-                        </svg>
-                        <span className="absolute text-[8px] font-semibold text-amber-600 dark:text-amber-300">{animatedRecruiters}</span>
-                      </div>
-                      <span className="text-[7px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Hires</span>
-                    </div>
-                  </div>
-
-                  <div className="text-[8px] text-slate-400 dark:text-slate-500 border-t border-slate-100 dark:border-white/5 pt-1.5 font-medium uppercase tracking-wider z-10 relative text-center">
-                    Active Growth
-                  </div>
-                </div>
-                <GlowingEffect
-                  disabled={false}
-                  proximity={48}
-                  inactiveZone={0.01}
-                  borderWidth={1.2}
-                  spread={30}
-                  glow={false}
-                />
-              </motion.div>
-
-              {/* FLOATING SUPPORTING BADGE 3: Top Left - Live Recruiter Activity */}
-              <motion.div
-                whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
-                className="absolute -top-8 left-0 sm:-left-4 lg:-left-12 z-30 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 px-3 py-2 rounded-xl flex items-center gap-2 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_15px_45px_rgba(6,182,212,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300 cursor-pointer overflow-hidden"
-              >
+            {/* FLOATING SUPPORTING WIDGET 1: Top Right - Application Tracking (20% attention) */}
+            <motion.div
+              whileHover={prefersReducedMotion ? {} : { scale: 1.03 }}
+              className="absolute -top-6 right-0 sm:-right-4 lg:-right-12 z-10 w-[150px] sm:w-[170px] shrink-0 group/track rounded-2xl"
+            >
+              <div className="p-3.5 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 rounded-2xl shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-left flex flex-col justify-between h-[130px] relative overflow-hidden hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_20px_60px_rgba(56,189,248,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300">
                 {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-xl z-0" />
-                <div className="h-6 w-6 rounded-lg bg-cyan-500/10 dark:bg-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400 shrink-0">
-                  <Sparkles className="h-3.5 w-3.5 animate-pulse" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-2xl z-0" />
+                
+                <div className="flex items-center gap-1.5 z-10 relative">
+                  <div className="h-5 w-5 rounded-md bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center">
+                    <CheckCircle2 className="h-3.5 w-3.5" />
+                  </div>
+                  <span className="text-[9px] font-semibold text-slate-800 dark:text-white tracking-wide uppercase">Applications</span>
                 </div>
-                <div className="text-left">
-                  <p className="text-[9px] font-semibold text-slate-800 dark:text-white uppercase tracking-wider leading-none">Recruiter Active</p>
-                  <p className="text-[8px] text-slate-500 dark:text-slate-400 mt-0.5 truncate max-w-[80px]">{floatingJobs[0]?.company?.name || "ApexHQ"} hired</p>
+                
+                <div className="space-y-1.5 py-1 z-10 relative">
+                  <div className="flex justify-between items-center text-[8px]">
+                    <span className="text-slate-600 dark:text-slate-300 truncate max-w-[75px] font-semibold">Software Eng</span>
+                    <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-semibold text-[7px] uppercase tracking-wider scale-90">Accepted</span>
+                  </div>
+                  <div className="flex justify-between items-center text-[8px]">
+                    <span className="text-slate-600 dark:text-slate-300 truncate max-w-[75px] font-semibold">UI/UX Intern</span>
+                    <span className="px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-semibold text-[7px] uppercase tracking-wider scale-90">Pending</span>
+                  </div>
                 </div>
-              </motion.div>
+                <div className="text-[8px] text-slate-400 dark:text-slate-500 border-t border-slate-100 dark:border-white/5 pt-1.5 font-medium uppercase tracking-wider z-10 relative text-center">
+                  Live Status Sync
+                </div>
+              </div>
+              <GlowingEffect
+                disabled={false}
+                proximity={48}
+                inactiveZone={0.01}
+                borderWidth={1.2}
+                spread={30}
+                glow={false}
+              />
+            </motion.div>
 
-              {/* FLOATING SUPPORTING BADGE 4: Bottom Left - New Job Posted */}
-              <motion.div
-                whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
-                className="absolute -bottom-4 left-0 sm:-left-4 lg:-left-10 z-30 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 px-3 py-2 rounded-xl flex items-center gap-2 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_15px_45px_rgba(245,158,11,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300 cursor-pointer overflow-hidden"
-              >
+            {/* FLOATING SUPPORTING WIDGET 2: Bottom Right - Community Growth (10% attention) */}
+            <motion.div
+              whileHover={prefersReducedMotion ? {} : { scale: 1.03 }}
+              className="absolute -bottom-8 right-0 sm:-right-4 lg:-right-14 z-10 w-[140px] sm:w-[160px] shrink-0 group/comm rounded-2xl"
+            >
+              <div className="p-3 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 rounded-2xl shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between h-[135px] relative overflow-hidden hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_20px_60px_rgba(250,204,21,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300">
                 {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-xl z-0" />
-                <div className="h-6 w-6 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400 shrink-0">
-                  <Briefcase className="h-3.5 w-3.5" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-2xl z-0" />
+                
+                <div className="flex items-center gap-1.5 z-10 relative text-left">
+                  <div className="h-5 w-5 rounded-md bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0">
+                    <Users className="h-3.5 w-3.5" />
+                  </div>
+                  <span className="text-[9px] font-semibold text-slate-800 dark:text-white tracking-wide uppercase">Community</span>
                 </div>
-                <div className="text-left">
-                  <p className="text-[9px] font-semibold text-slate-800 dark:text-white uppercase tracking-wider leading-none">New Posting</p>
-                  <p className="text-[8px] text-slate-400 mt-0.5 truncate max-w-[95px]">{floatingJobs[1]?.title || "NodeJS Dev"} live</p>
+
+                <div className="flex items-center justify-around gap-1.5 py-1 z-10 relative flex-1">
+                  {/* Left Circle: Students */}
+                  <div className="flex flex-col items-center">
+                    <div className="relative flex items-center justify-center">
+                      <svg className="w-8 h-8 transform -rotate-90">
+                        <circle cx="16" cy="16" r="13" className="stroke-slate-100 dark:stroke-white/5" strokeWidth="2" fill="transparent" />
+                        <circle cx="16" cy="16" r="13" className="stroke-cyan-500 dark:stroke-cyan-400 drop-shadow-[0_0_4px_rgba(34,211,238,0.4)]" strokeWidth="2" fill="transparent" strokeDasharray={2 * Math.PI * 13} strokeDashoffset={(2 * Math.PI * 13) * (1 - Math.min((animatedStudents || 1) / (animatedStudents + animatedRecruiters || 50), 0.85))} strokeLinecap="round" />
+                      </svg>
+                      <span className="absolute text-[7px] font-semibold text-cyan-600 dark:text-cyan-300">{animatedStudents}</span>
+                    </div>
+                    <span className="text-[6.5px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Students</span>
+                  </div>
+
+                  {/* Right Circle: Recruiters */}
+                  <div className="flex flex-col items-center">
+                    <div className="relative flex items-center justify-center">
+                      <svg className="w-8 h-8 transform -rotate-90">
+                        <circle cx="16" cy="16" r="13" className="stroke-slate-100 dark:stroke-white/5" strokeWidth="2" fill="transparent" />
+                        <circle cx="16" cy="16" r="13" className="stroke-amber-500 dark:stroke-amber-400 drop-shadow-[0_0_4px_rgba(245,158,11,0.4)]" strokeWidth="2" fill="transparent" strokeDasharray={2 * Math.PI * 13} strokeDashoffset={(2 * Math.PI * 13) * (1 - Math.min((animatedRecruiters || 1) / (animatedStudents + animatedRecruiters || 50), 0.85))} strokeLinecap="round" />
+                      </svg>
+                      <span className="absolute text-[7px] font-semibold text-amber-600 dark:text-amber-300">{animatedRecruiters}</span>
+                    </div>
+                    <span className="text-[6.5px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Hires</span>
+                  </div>
                 </div>
-              </motion.div>
-            </div>
+
+                <div className="text-[7.5px] text-slate-400 dark:text-slate-500 border-t border-slate-100 dark:border-white/5 pt-1.5 font-medium uppercase tracking-wider z-10 relative text-center">
+                  Active Growth
+                </div>
+              </div>
+              <GlowingEffect
+                disabled={false}
+                proximity={48}
+                inactiveZone={0.01}
+                borderWidth={1.2}
+                spread={30}
+                glow={false}
+              />
+            </motion.div>
+
+            {/* FLOATING SUPPORTING BADGE 3: Top Left - Live Recruiter Activity */}
+            <motion.div
+              whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+              className="absolute -top-8 left-0 sm:-left-4 lg:-left-12 z-30 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 px-2.5 py-1.5 rounded-xl flex items-center gap-2 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_15px_45px_rgba(6,182,212,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300 cursor-pointer overflow-hidden"
+            >
+              {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-xl z-0" />
+              <div className="h-5.5 w-5.5 rounded-lg bg-cyan-500/10 dark:bg-cyan-500/20 flex items-center justify-center text-cyan-600 dark:text-cyan-400 shrink-0">
+                <Sparkles className="h-3 w-3 animate-pulse" />
+              </div>
+              <div className="text-left">
+                <p className="text-[8px] font-semibold text-slate-800 dark:text-white uppercase tracking-wider leading-none">Recruiter Active</p>
+                <p className="text-[7.5px] text-slate-500 dark:text-slate-400 mt-0.5 truncate max-w-[70px]">{floatingJobs[0]?.company?.name || "ApexHQ"} hired</p>
+              </div>
+            </motion.div>
+
+            {/* FLOATING SUPPORTING BADGE 4: Bottom Left - New Job Posted */}
+            <motion.div
+              whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+              className="absolute -bottom-4 left-0 sm:-left-4 lg:-left-10 z-30 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 dark:bg-gradient-to-br dark:from-[#0B1220] dark:via-[#101827] dark:to-[#111827] border border-sky-200/70 dark:border-white/10 px-2.5 py-1.5 rounded-xl flex items-center gap-2 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_90px_rgba(56,189,248,0.22)] dark:hover:shadow-[0_15px_45px_rgba(245,158,11,0.2)] hover:border-sky-300/80 dark:hover:border-white/20 transition-all duration-300 cursor-pointer overflow-hidden"
+            >
+              {/* Subtle top-left sky glow + bottom-right amber glow for inner glow */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(250,204,21,0.14),transparent_35%)] dark:hidden pointer-events-none rounded-xl z-0" />
+              <div className="h-5.5 w-5.5 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400 shrink-0">
+                <Briefcase className="h-3 w-3" />
+              </div>
+              <div className="text-left">
+                <p className="text-[8px] font-semibold text-slate-800 dark:text-white uppercase tracking-wider leading-none">New Posting</p>
+                <p className="text-[7.5px] text-slate-400 mt-0.5 truncate max-w-[80px]">{floatingJobs[1]?.title || "NodeJS Dev"} live</p>
+              </div>
+            </motion.div>
           </div>
 
         </div>
