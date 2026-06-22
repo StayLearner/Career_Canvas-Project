@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from "./components/Home"
 import Signup from "./components/auth/Signup"
 import Login from "./components/auth/Login"
+import AuthContainer from "./components/auth/AuthContainer"
 import Jobs from "./components/Jobs"
 import Browse from "./components/Browse"
 import JobDescription from "./components/JobDescription"
@@ -27,11 +28,11 @@ const appRouter = createBrowserRouter([
   },
   {
     path:'/login',
-    element:<Login/>
+    element:<AuthContainer defaultMode="login"/>
   },
   {
     path:'/signup',
-    element:<Signup/>
+    element:<AuthContainer defaultMode="signup"/>
   },
   {
     path:'/jobs',
