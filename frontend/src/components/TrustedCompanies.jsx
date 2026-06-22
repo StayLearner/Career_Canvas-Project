@@ -123,7 +123,7 @@ const TrustedCompanies = () => {
                   <IconComponent className="h-4.5 w-4.5" />
                 </div>
                 <div className="text-left min-w-0 flex-1 z-10">
-                  <span className="font-bold text-sm text-slate-950 dark:text-slate-300 group-hover:text-slate-950 dark:group-hover:text-white transition-colors block truncate">
+                  <span className="font-semibold text-sm text-slate-950 dark:text-slate-300 group-hover:text-slate-950 dark:group-hover:text-white transition-colors block truncate font-heading">
                     {companyName}
                   </span>
                   {companyLocation && (

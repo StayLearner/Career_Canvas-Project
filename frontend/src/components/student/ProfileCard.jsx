@@ -188,7 +188,7 @@ const ProfileCard = () => {
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
               <div>
                 <div className="flex items-center gap-3 flex-wrap">
-                  <h1 className="text-2xl sm:text-3xl font-bold text-slate-950 dark:text-white">
+                  <h1 className="text-2xl sm:text-3xl font-semibold text-slate-950 dark:text-white font-heading">
                     {user?.fullname}
                   </h1>
 
@@ -203,7 +203,7 @@ const ProfileCard = () => {
                   )}
                 </div>
 
-                <p className="mt-2 text-sm sm:text-base text-slate-700 dark:text-slate-400">
+                <p className="mt-2 text-sm sm:text-base text-slate-700 dark:text-slate-400 font-sans">
                   {user?.profile?.bio || "No bio added yet"}
                 </p>
               </div>
@@ -254,7 +254,7 @@ const ProfileCard = () => {
                       skills.map((item, index) => (
                         <Badge
                           key={index}
-                          className="bg-cyan-500/10 text-cyan-600 dark:text-green-500 border border-cyan-500/20 text-sm font-bold px-3 py-1 rounded-full"
+                          className="bg-cyan-500/10 text-cyan-600 dark:text-green-500 border border-cyan-500/20 text-sm font-semibold px-3 py-1 rounded-full"
                         >
                           <CheckCircle2 className="h-3 w-3 mr-1" />
                           {item}
@@ -301,7 +301,7 @@ const ProfileCard = () => {
 const SummaryBox = ({ title, value }) => {
   return (
     <div className="rounded-2xl bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/5 p-4 shadow-[0_14px_40px_rgba(15,23,42,0.06)] dark:shadow-none">
-      <p className="text-xl font-bold text-slate-950 dark:text-white">
+      <p className="text-xl font-semibold text-slate-950 dark:text-white font-heading">
         {value}
       </p>
       <p className="text-xs text-slate-500 dark:text-slate-450 font-semibold">{title}</p>
@@ -326,7 +326,7 @@ const Section = ({ title, icon, children }) => {
     <div className="mt-8 border-t border-slate-100 dark:border-white/5 pt-6">
       <div className="flex items-center gap-2 mb-3">
         {icon}
-        <Label className="font-semibold text-slate-900 dark:text-white">
+        <Label className="font-semibold text-slate-900 dark:text-white font-heading">
           {title}
         </Label>
       </div>

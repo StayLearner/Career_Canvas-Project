@@ -242,7 +242,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10 tracking-wide"
             >
               <Sparkles className="h-3 w-3 text-[#00b4d8]" />
               <span className="tracking-wide">Next-Generation Career Canvas</span>
@@ -253,7 +253,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-[11px] font-semibold tracking-[0.18em] uppercase text-slate-400 dark:text-slate-500"
+              className="text-[11px] font-semibold tracking-[0.18em] uppercase text-slate-400 dark:text-slate-500 font-sans"
             >
               Career Canvas
             </motion.p>
@@ -278,7 +278,7 @@ const HeroSection = () => {
                 cursorCharacter="|"
                 cursorClassName="text-[#00b4d8]"
                 startOnVisible={true}
-                className="text-4xl sm:text-5xl lg:text-[3rem] xl:text-[3.25rem] font-bold tracking-tight text-slate-950 dark:text-white leading-[1.1] min-h-[4rem] sm:min-h-[5rem] lg:min-h-[4rem]"
+                className="text-4xl sm:text-5xl lg:text-[3rem] xl:text-[3.25rem] font-bold tracking-tight text-slate-950 dark:text-white leading-tight min-h-[4rem] sm:min-h-[5rem] lg:min-h-[4rem] font-heading"
               />
             </motion.div>
 
@@ -287,7 +287,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-slate-500 dark:text-slate-400 text-base sm:text-lg leading-relaxed max-w-[420px]"
+              className="text-slate-500 dark:text-slate-400 text-base sm:text-lg leading-relaxed max-w-[420px] font-sans"
             >
               A modern career platform for students and recruiters to discover jobs, manage applications, and build hiring workflows with clarity.
             </motion.p>

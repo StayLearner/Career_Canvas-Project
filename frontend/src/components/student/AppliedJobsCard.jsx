@@ -40,7 +40,7 @@ const AppliedJobsCard = () => {
             Student Dashboard
           </p>
 
-          <h1 className="mt-2 text-2xl sm:text-3xl font-bold text-slate-950 dark:text-white">
+          <h1 className="mt-2 text-2xl sm:text-3xl font-semibold text-slate-950 dark:text-white font-heading">
             Applied Jobs
           </h1>
 
@@ -55,7 +55,7 @@ const AppliedJobsCard = () => {
 
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 px-5 sm:px-7 py-6 border-b border-slate-200 dark:border-white/10">
             <div>
-              <h2 className="font-bold text-xl text-slate-950 dark:text-white">
+              <h2 className="font-semibold text-xl text-slate-950 dark:text-white font-heading">
                 Application History
               </h2>
               <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
@@ -104,7 +104,7 @@ const AppliedJobsCard = () => {
                           </div>
 
                           <div className="min-w-0">
-                            <h3 className="font-bold text-sm sm:text-base text-slate-950 dark:text-white truncate">
+                            <h3 className="font-semibold text-sm sm:text-base text-slate-950 dark:text-white truncate font-heading">
                               {jobTitle}
                             </h3>
 

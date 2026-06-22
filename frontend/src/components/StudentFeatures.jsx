@@ -131,10 +131,10 @@ const StudentFeatures = () => {
               <span className="px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
                 For Aspiring Candidates
               </span>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white leading-tight font-heading">
                 Search active job openings, manage applications, and submit your resume.
               </h2>
-              <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
+              <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed font-sans">
                 Career Canvas equips you with features designed to take the stress out of job hunting. Streamline your processes and get hired in modern startup environments.
               </p>
             </div>
@@ -152,7 +152,7 @@ const StudentFeatures = () => {
                         <div className={`h-9 w-9 rounded-xl bg-gradient-to-tr ${feat.color} flex items-center justify-center text-white transform group-hover/card:scale-110 group-hover/card:rotate-6 transition-transform duration-300 shadow-md shrink-0`}>
                           <IconComponent className="h-5 w-5" />
                         </div>
-                        <h4 className="font-semibold text-sm text-slate-950 dark:text-white group-hover/card:text-cyan-500 dark:group-hover/card:text-cyan-400 transition-colors">
+                        <h4 className="font-semibold text-sm text-slate-950 dark:text-white group-hover/card:text-cyan-500 dark:group-hover/card:text-cyan-400 transition-colors font-heading">
                           {feat.title}
                         </h4>
                         <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed flex-1">

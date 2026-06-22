@@ -6,8 +6,9 @@ export default {
   theme: {
   	extend: {
   		fontFamily: {
-  			sans: ['"Titillium Web"', 'sans-serif'],
-  		},
+			sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+			heading: ['Space Grotesk', 'ui-sans-serif', 'sans-serif'],
+		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

@@ -93,7 +93,7 @@ const Job = ({ job }) => {
             </div>
           )}
           <div className='min-w-0 flex-1 space-y-0.5'>
-            <h2 className='font-semibold text-xs sm:text-sm text-slate-900 dark:text-slate-200 truncate'>{companyName}</h2>
+            <h2 className='font-semibold text-xs sm:text-sm text-slate-900 dark:text-slate-200 truncate font-heading'>{companyName}</h2>
             <div className="flex items-center gap-1 text-slate-500 dark:text-slate-500">
               <MapPin className="h-3 w-3 shrink-0" />
               <span className="text-[10px] truncate">{job?.location || "India"}</span>
@@ -103,7 +103,7 @@ const Job = ({ job }) => {
 
         {/* Job Title and Description Hierarchy */}
         <div className="space-y-1.5 pt-1 flex-1 flex flex-col justify-center">
-          <h1 className='font-semibold text-sm sm:text-base text-slate-955 dark:text-white line-clamp-1 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors duration-300 cursor-pointer' onClick={() => navigate(`/description/${job?._id}`)}>
+          <h1 className='font-semibold text-sm sm:text-base text-slate-955 dark:text-white line-clamp-1 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors duration-300 cursor-pointer font-heading' onClick={() => navigate(`/description/${job?._id}`)}>
             {job?.title}
           </h1>
           <p className='text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed h-[3.375rem] sm:h-[3.75rem] overflow-hidden'>

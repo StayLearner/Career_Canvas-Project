@@ -136,7 +136,7 @@ const Navbar = () => {
                 variants={{
                   hover: { scale: 1.02 }
                 }}
-                className="text-xl sm:text-2xl font-bold tracking-tight select-none flex items-center"
+                className="text-xl sm:text-2xl font-semibold tracking-tight select-none flex items-center font-heading"
               >
                 <span className="text-amber-400 drop-shadow-[0_2px_8px_rgba(250,204,21,0.2)]">Career</span>
                 <span className="text-cyan-400 font-semibold ml-0.5 drop-shadow-[0_2px_8px_rgba(56,189,248,0.2)]">Canvas</span>

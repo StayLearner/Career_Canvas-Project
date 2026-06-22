@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,10 +11,15 @@
   html,
   body,
   #root {
-    font-family: "Titillium Web", sans-serif;
+    font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   body {
     @apply bg-[#FAFBFC] text-slate-800 transition-colors duration-300;
+  }
+  h1, h2, h3 {
+    font-family: "Space Grotesk", sans-serif;
   }
   .dark body {
     @apply bg-[#020817] text-slate-100;
