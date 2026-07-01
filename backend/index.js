@@ -82,6 +82,18 @@ app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", applicationRoute);
 
 
+//For Health CheckUp 
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    service: "career-canvas-backend",
+    uptime: process.uptime(),
+    memory: process.memoryUsage(),
+    timestamp: new Date().toISOString(),
+  });
+});
+
+
 app.use(express.static(path.join(_dirname, "/frontend/dist")));
 app.get( '*', (_,res) => {
     res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
@@ -96,3 +108,4 @@ connectDB()
   .catch((error) => {
     console.log("MongoDB connection failed:", error);
   });
+

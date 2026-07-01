@@ -3,9 +3,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from "./components/Home"
 import Signup from "./components/auth/Signup"
 import Login from "./components/auth/Login"
+import AuthContainer from "./components/auth/AuthContainer"
 import Jobs from "./components/Jobs"
 import Browse from "./components/Browse"
-import Profile from "./components/Profile"
 import JobDescription from "./components/JobDescription"
 import Companies from "./components/admin/Companies"
 import CompanyCreate from './components/admin/CompanyCreate'
@@ -14,6 +14,8 @@ import AdminJobs from "./components/admin/AdminJobs";
 import PostJob from './components/admin/PostJob'
 import Applicants from './components/admin/Applicants'
 import ProtectedRoute from './components/admin/ProtectedRoute'
+import ProfileCard from "./components/student/ProfileCard"
+import AppliedJobsCard from "./components/student/AppliedJobsCard"
 
 
 
@@ -26,11 +28,11 @@ const appRouter = createBrowserRouter([
   },
   {
     path:'/login',
-    element:<Login/>
+    element:<AuthContainer defaultMode="login"/>
   },
   {
     path:'/signup',
-    element:<Signup/>
+    element:<AuthContainer defaultMode="signup"/>
   },
   {
     path:'/jobs',
@@ -46,7 +48,11 @@ const appRouter = createBrowserRouter([
   },
   {
     path:'/profile',
-    element:<Profile/>
+    element:<ProfileCard/>
+  },
+  {
+    path:'/applied-jobs',
+    element:<AppliedJobsCard/>
   },
   {
     path:"/admin/companies",
@@ -73,7 +79,12 @@ const appRouter = createBrowserRouter([
     path:"/admin/jobs/:id/applicants",
     element:<ProtectedRoute><Applicants/></ProtectedRoute> 
   },
-])
+], {
+  future: {
+    v7_relativeSplatPath: true,
+    v7_startTransition: true,
+  }
+})
 
 
 

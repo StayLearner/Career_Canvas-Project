@@ -31,7 +31,11 @@ const userSchema = new mongoose.Schema({
         profilePhoto:{
          type:String,
          default:""
-        }
+        },
+        education:{type:String, default: ""},
+        experience:[{type:String, default: ""},],
+        githubLink:{type:String, default: ""},
+        linkedinLink:{type:String, default: ""}
     },
 },{timestamps:true});
 

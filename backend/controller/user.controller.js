@@ -135,25 +135,23 @@ export const logout = async (req, res) => {
         });
     }
 }
+
 export const updateProfile = async (req, res) => {
     try {
-        const { fullname, email, phoneNumber, bio, skills } = req.body;
-        
-        const file = req.file;
+        const { fullname, email, phoneNumber, bio, skills, education, experience, github, linkedin } = req.body;
+        const resumeFile= req.files?.resume?.[0];
+        const profilePhoto= req.files?.profilePhoto?.[0];
         let cloudResponse;
-        // cloudinary ayega idhar
-        if(file){
-            const fileUri = getDataUri(file);
-            cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-        }
+        let skillsArray = [];
+        let experienceArray = [];
 
-
-
-        let skillsArray;
-        if(skills){
+        if(skills !== undefined){
             skillsArray = skills.split(",");
         }
-        const userId = req.id; // middleware authentication
+        if(experience){
+            experienceArray = experience.split(",");
+        }
+        const userId = req.id;
         let user = await User.findById(userId);
 
         if (!user) {
@@ -162,19 +160,46 @@ export const updateProfile = async (req, res) => {
                 message: "User not found."
             })
         }
+
         // updating data
-        if(fullname) user.fullname = fullname
-        if(email) user.email = email
-        if(phoneNumber)  user.phoneNumber = phoneNumber
-        if(bio) user.profile.bio = bio
-        if(skills) user.profile.skills = skillsArray
-      
-        // resume comes later here...
-        if(cloudResponse){
-            user.profile.resume = cloudResponse.secure_url // save the cloudinary url
-            user.profile.resumeOriginalName = file.originalname // Save the original file name
+        if(fullname) user.fullname = fullname;
+        if(email) user.email = email;
+        if(phoneNumber)  user.phoneNumber = phoneNumber;
+        if (bio !== undefined) user.profile.bio = bio;
+        if (skills !== undefined) {
+            user.profile.skills = skills
+                ? skills.split(",").map(item => item.trim()).filter(Boolean)
+                : [];
+
+        }
+        if (resumeFile) {
+            cloudResponse = await cloudinary.uploader.upload(resumeFile.path, {
+                resource_type: "auto",
+                folder: "resumes",
+                public_id: `${Date.now()}-${resumeFile.originalname.replace(/\.[^/.]+$/, "")}`
+            });
+            user.profile.resume = cloudResponse.secure_url;
+            user.profile.resumeOriginalName = resumeFile.originalname;
         }
 
+        if (profilePhoto) {
+            cloudResponse = await cloudinary.uploader.upload(profilePhoto.path, {
+                resource_type: "image",
+                folder: "profilePhotos",
+            });
+            user.profile.profilePhoto = cloudResponse.secure_url;
+        }
+
+        if(education) user.profile.education = education;
+        if (experience !== undefined) {
+            experienceArray = experience
+                ? experience.split(",").map(item => item.trim()).filter(Boolean)
+                : [];
+
+            user.profile.experience = experienceArray;
+        }
+        if (github !== undefined) user.profile.githubLink = github;
+        if (linkedin !== undefined) user.profile.linkedinLink = linkedin;
 
         await user.save();
 
@@ -184,7 +209,7 @@ export const updateProfile = async (req, res) => {
             email: user.email,
             phoneNumber: user.phoneNumber,
             role: user.role,
-            profile: user.profile
+            profile: user.profile,
         }
 
         return res.status(200).json({
@@ -194,6 +219,24 @@ export const updateProfile = async (req, res) => {
         })
     } catch (error) {
         console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error."
+        });
+    }
+}
+
+export const getCommunityStats = async (req, res) => {
+    try {
+        const studentsCount = await User.countDocuments({ role: 'student' });
+        const recruitersCount = await User.countDocuments({ role: 'recruiter' });
+        return res.status(200).json({
+            success: true,
+            studentsCount,
+            recruitersCount
+        });
+    } catch (error) {
+        console.error("Failed to fetch community stats:", error);
         return res.status(500).json({
             success: false,
             message: "Internal server error."

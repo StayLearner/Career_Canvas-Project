@@ -1,7 +1,7 @@
 import express from "express";
-import { login, logout, register, updateProfile } from "../controller/user.controller.js";
+import { login, logout, register, updateProfile, getCommunityStats } from "../controller/user.controller.js";
 import isAuthenticated from "../middlewares/isAuthenticated.js";
-import { singleUpload } from "../middlewares/multer.js";
+import { profileUpload, singleUpload } from "../middlewares/multer.js";
 
 
 const router = express.Router();
@@ -100,6 +100,7 @@ router.route("/login").post(login);
  *         description: User logged out successfully
  */
 router.route("/logout").get(logout);
+router.route("/stats").get(getCommunityStats);
 /**
  * @swagger
  * /api/v1/user/profile/update:
@@ -144,8 +145,6 @@ router.route("/logout").get(logout);
  *       400:
  *         description: User not found or invalid request
  */
-router.route("/profile/update").post(isAuthenticated,singleUpload,updateProfile);
-
-
+router.route("/profile/update").post(isAuthenticated,profileUpload,updateProfile);
 
 export default router;
