@@ -173,20 +173,26 @@ export const updateProfile = async (req, res) => {
 
         }
         if (resumeFile) {
-            cloudResponse = await cloudinary.uploader.upload(resumeFile.path, {
+            const fileUri = getDataUri(resumeFile);
+
+            cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
                 resource_type: "auto",
                 folder: "resumes",
                 public_id: `${Date.now()}-${resumeFile.originalname.replace(/\.[^/.]+$/, "")}`
             });
+
             user.profile.resume = cloudResponse.secure_url;
             user.profile.resumeOriginalName = resumeFile.originalname;
         }
 
         if (profilePhoto) {
-            cloudResponse = await cloudinary.uploader.upload(profilePhoto.path, {
+            const fileUri = getDataUri(profilePhoto);
+
+            cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
                 resource_type: "image",
                 folder: "profilePhotos",
             });
+
             user.profile.profilePhoto = cloudResponse.secure_url;
         }
 
